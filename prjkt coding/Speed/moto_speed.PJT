@@ -1,0 +1,39 @@
+[PROJECT]
+Target=moto_speed.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\Prog Samples\Speed\moto_speed.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[moto_speed.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\PROGSA~1\Speed\MOTO_S~1.C
+
+[Windows]
+0=0000 \\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\PROGSA~1\Speed\MOTO_S~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Speed\moto_speed.c
+2=
+3=
+[Units]
+Count=1
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\Prog Samples\Speed\moto_speed.c (main)

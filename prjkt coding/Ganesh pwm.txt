@@ -1,0 +1,1 @@
+A micro controller based speed control of dc motor using PWM technique is implemented successfully. As per the results the speed control of dc motor using pwm is considered as very effective in controlling speed in shorter duration of time. This paper we presented detail account of the design, analysis, computing of the proposed pulse width modulation technology.

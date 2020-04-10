@@ -1,0 +1,41 @@
+[PROJECT]
+Target=rfid and gsm.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\phase-II\rfid and gsm.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[rfid and gsm.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ENGINE~1\PPG_RF~1\phase-II\RFIDAN~1.C
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ENGINE~1\PPG_RF~1\phase-II\RFIDAN~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c
+2=E:\Ganesh Potti\Ganesh Projects\Diploma Projects\Cardiac arrest\cardiac.c
+3=E:\Ganesh Potti\Ganesh Projects\Diploma Projects\DTMF based load control system\Dtmf based load control\dtmf based laod control.c
+4=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\phase-II\rfid and gsm.c
+5=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\phase-II\rfid and gsm.c (main)

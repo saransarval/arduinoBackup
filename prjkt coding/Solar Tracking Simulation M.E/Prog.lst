@@ -1,0 +1,426 @@
+CCS PCM C Compiler, Version 3.249, 33340               04-Feb-14 15:52
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Prog.lst
+
+               ROM used: 414 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 13 (7%) at main() level
+                         13 (7%) worst case
+               Stack:    2 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0C0
+0003:  NOP
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=11059200) 
+0099:  MOVLW  26
+009A:  MOVWF  04
+009B:  MOVF   00,W
+009C:  BTFSC  03.2
+009D:  GOTO   0AB
+009E:  MOVLW  03
+009F:  MOVWF  78
+00A0:  CLRF   77
+00A1:  DECFSZ 77,F
+00A2:  GOTO   0A1
+00A3:  DECFSZ 78,F
+00A4:  GOTO   0A0
+00A5:  MOVLW  95
+00A6:  MOVWF  77
+00A7:  DECFSZ 77,F
+00A8:  GOTO   0A7
+00A9:  DECFSZ 00,F
+00AA:  GOTO   09E
+00AB:  RETLW  00
+....................  
+.................... #byte portd=0x08 
+.................... #byte porte=0x09 
+.................... #byte porta=0x05 
+.................... #byte portc=0x07 
+....................  
+.................... #byte trisd=0x88 
+.................... #byte trise=0x89 
+.................... #byte trisa=0x85 
+.................... #byte trisc=0x87 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+.................... #bit driver1=portc.0 
+.................... #bit driver2=portc.1 
+.................... #bit driver3=portc.2 
+.................... #bit driver4=portc.3 
+....................  
+.................... #bit LDR1=porta.0 
+.................... #bit LDR2=porta.1 
+.................... #bit LDR3=porta.2 
+.................... #bit LDR4=porta.3 
+....................  
+.................... #bit SOLAR=portc.4 
+....................  
+.................... unsigned int flag1, flag2, flag3, flag4; 
+....................  
+.................... void command(unsigned char com) 
+.................... { 
+.................... portd=com; 
+00AC:  MOVF   24,W
+00AD:  MOVWF  08
+.................... reg=0; 
+00AE:  BCF    09.0
+.................... rw=0; 
+00AF:  BCF    09.1
+.................... en=1; 
+00B0:  BSF    09.2
+.................... delay_ms(1); 
+00B1:  MOVLW  01
+00B2:  MOVWF  26
+00B3:  CALL   099
+.................... en=0; 
+00B4:  BCF    09.2
+.................... } 
+00B5:  RETLW  00
+....................  
+.................... void data(unsigned char da) 
+.................... { 
+.................... portd=da; 
+00B6:  MOVF   25,W
+00B7:  MOVWF  08
+.................... reg=1; 
+00B8:  BSF    09.0
+.................... rw=0; 
+00B9:  BCF    09.1
+.................... en=1; 
+00BA:  BSF    09.2
+.................... delay_ms(1); 
+00BB:  MOVLW  01
+00BC:  MOVWF  26
+00BD:  CALL   099
+.................... en=0; 
+00BE:  BCF    09.2
+.................... } 
+00BF:  RETLW  00
+....................  
+.................... void main() 
+.................... { 
+00C0:  CLRF   04
+00C1:  MOVLW  1F
+00C2:  ANDWF  03,F
+00C3:  BSF    03.5
+00C4:  BSF    1F.0
+00C5:  BSF    1F.1
+00C6:  BSF    1F.2
+00C7:  BCF    1F.3
+00C8:  MOVLW  07
+00C9:  MOVWF  1C
+.................... portd=0x00; 
+00CA:  BCF    03.5
+00CB:  CLRF   08
+.................... porte=0x00; 
+00CC:  CLRF   09
+.................... porta=0x00; 
+00CD:  CLRF   05
+.................... portc=0x00; 
+00CE:  CLRF   07
+....................  
+.................... trisd=0x00; 
+00CF:  BSF    03.5
+00D0:  CLRF   08
+.................... trise=0x00; 
+00D1:  CLRF   09
+.................... trisa=0x0f; 
+00D2:  MOVLW  0F
+00D3:  MOVWF  05
+.................... trisc=0x00; 
+00D4:  CLRF   07
+....................  
+....................  
+.................... command(0x38); 
+00D5:  MOVLW  38
+00D6:  BCF    03.5
+00D7:  MOVWF  24
+00D8:  CALL   0AC
+.................... command(0x06); 
+00D9:  MOVLW  06
+00DA:  MOVWF  24
+00DB:  CALL   0AC
+.................... command(0x0c); 
+00DC:  MOVLW  0C
+00DD:  MOVWF  24
+00DE:  CALL   0AC
+.................... command(0x01); 
+00DF:  MOVLW  01
+00E0:  MOVWF  24
+00E1:  CALL   0AC
+....................  
+.................... while(1) 
+.................... { 
+....................  
+.................... command(0x80); 
+00E2:  MOVLW  80
+00E3:  MOVWF  24
+00E4:  CALL   0AC
+.................... data("SOLAR TRACKING"); 
+00E5:  CLRF   24
+00E6:  MOVF   24,W
+00E7:  CALL   004
+00E8:  IORLW  00
+00E9:  BTFSC  03.2
+00EA:  GOTO   0EF
+00EB:  INCF   24,F
+00EC:  MOVWF  25
+00ED:  CALL   0B6
+00EE:  GOTO   0E6
+....................  
+.................... if(LDR1==1 && LDR2==0 && flag1==0) 
+00EF:  BTFSS  05.0
+00F0:  GOTO   110
+00F1:  BTFSC  05.1
+00F2:  GOTO   110
+00F3:  MOVF   20,F
+00F4:  BTFSS  03.2
+00F5:  GOTO   110
+.................... { 
+.................... command(0xc0); 
+00F6:  MOVLW  C0
+00F7:  MOVWF  24
+00F8:  CALL   0AC
+.................... data("X-AXIS A-CLOCKWISE"); 
+00F9:  CLRF   24
+00FA:  MOVF   24,W
+00FB:  CALL   017
+00FC:  IORLW  00
+00FD:  BTFSC  03.2
+00FE:  GOTO   103
+00FF:  INCF   24,F
+0100:  MOVWF  25
+0101:  CALL   0B6
+0102:  GOTO   0FA
+.................... driver1=1; 
+0103:  BSF    07.0
+.................... delay_ms(1000); 
+0104:  MOVLW  04
+0105:  MOVWF  24
+0106:  MOVLW  FA
+0107:  MOVWF  26
+0108:  CALL   099
+0109:  DECFSZ 24,F
+010A:  GOTO   106
+.................... driver1=0; 
+010B:  BCF    07.0
+.................... flag1=1; 
+010C:  MOVLW  01
+010D:  MOVWF  20
+.................... flag2=0; 
+010E:  CLRF   21
+....................  
+.................... } 
+.................... else 
+010F:  GOTO   111
+.................... driver1=0; 
+0110:  BCF    07.0
+....................  
+....................  
+.................... if(LDR2==1 && LDR1==0 && flag2==0) 
+0111:  BTFSS  05.1
+0112:  GOTO   132
+0113:  BTFSC  05.0
+0114:  GOTO   132
+0115:  MOVF   21,F
+0116:  BTFSS  03.2
+0117:  GOTO   132
+.................... { 
+.................... command(0xc0); 
+0118:  MOVLW  C0
+0119:  MOVWF  24
+011A:  CALL   0AC
+.................... data("X-AXIS CLOCKWISE"); 
+011B:  CLRF   24
+011C:  MOVF   24,W
+011D:  CALL   02E
+011E:  IORLW  00
+011F:  BTFSC  03.2
+0120:  GOTO   125
+0121:  INCF   24,F
+0122:  MOVWF  25
+0123:  CALL   0B6
+0124:  GOTO   11C
+.................... driver2=1; 
+0125:  BSF    07.1
+.................... delay_ms(1000); 
+0126:  MOVLW  04
+0127:  MOVWF  24
+0128:  MOVLW  FA
+0129:  MOVWF  26
+012A:  CALL   099
+012B:  DECFSZ 24,F
+012C:  GOTO   128
+.................... driver2=0; 
+012D:  BCF    07.1
+.................... flag2=1; 
+012E:  MOVLW  01
+012F:  MOVWF  21
+.................... flag1=0; 
+0130:  CLRF   20
+.................... } 
+.................... else 
+0131:  GOTO   133
+.................... driver2=0; 
+0132:  BCF    07.1
+....................  
+.................... if(LDR3==1 && LDR4==0 && flag3==0) 
+0133:  BTFSS  05.2
+0134:  GOTO   154
+0135:  BTFSC  05.3
+0136:  GOTO   154
+0137:  MOVF   22,F
+0138:  BTFSS  03.2
+0139:  GOTO   154
+.................... { 
+.................... command(0xc0); 
+013A:  MOVLW  C0
+013B:  MOVWF  24
+013C:  CALL   0AC
+.................... data("Y-AXIS CLOCKWISE"); 
+013D:  CLRF   24
+013E:  MOVF   24,W
+013F:  CALL   043
+0140:  IORLW  00
+0141:  BTFSC  03.2
+0142:  GOTO   147
+0143:  INCF   24,F
+0144:  MOVWF  25
+0145:  CALL   0B6
+0146:  GOTO   13E
+.................... driver3=1; 
+0147:  BSF    07.2
+.................... delay_ms(1000); 
+0148:  MOVLW  04
+0149:  MOVWF  24
+014A:  MOVLW  FA
+014B:  MOVWF  26
+014C:  CALL   099
+014D:  DECFSZ 24,F
+014E:  GOTO   14A
+.................... driver3=0; 
+014F:  BCF    07.2
+.................... flag3=1; 
+0150:  MOVLW  01
+0151:  MOVWF  22
+.................... flag4=0; 
+0152:  CLRF   23
+.................... } 
+.................... else 
+0153:  GOTO   155
+.................... driver3=0; 
+0154:  BCF    07.2
+....................  
+....................  
+.................... if(LDR4==1 && LDR3==0 && flag4==0) 
+0155:  BTFSS  05.3
+0156:  GOTO   176
+0157:  BTFSC  05.2
+0158:  GOTO   176
+0159:  MOVF   23,F
+015A:  BTFSS  03.2
+015B:  GOTO   176
+.................... { 
+.................... command(0xc0); 
+015C:  MOVLW  C0
+015D:  MOVWF  24
+015E:  CALL   0AC
+.................... data("Y-AXIS A-CLOCKWISE"); 
+015F:  CLRF   24
+0160:  MOVF   24,W
+0161:  CALL   058
+0162:  IORLW  00
+0163:  BTFSC  03.2
+0164:  GOTO   169
+0165:  INCF   24,F
+0166:  MOVWF  25
+0167:  CALL   0B6
+0168:  GOTO   160
+.................... driver4=1; 
+0169:  BSF    07.3
+.................... delay_ms(1000); 
+016A:  MOVLW  04
+016B:  MOVWF  24
+016C:  MOVLW  FA
+016D:  MOVWF  26
+016E:  CALL   099
+016F:  DECFSZ 24,F
+0170:  GOTO   16C
+.................... driver4=0; 
+0171:  BCF    07.3
+.................... flag4=1; 
+0172:  MOVLW  01
+0173:  MOVWF  23
+.................... flag3=0; 
+0174:  CLRF   22
+.................... } 
+.................... else 
+0175:  GOTO   177
+.................... driver4=0; 
+0176:  BCF    07.3
+....................  
+.................... if(LDR1==1 || LDR2==1 || LDR3==1 || LDR4==1) 
+0177:  BTFSC  05.0
+0178:  GOTO   17F
+0179:  BTFSC  05.1
+017A:  GOTO   17F
+017B:  BTFSC  05.2
+017C:  GOTO   17F
+017D:  BTFSS  05.3
+017E:  GOTO   18E
+.................... { 
+.................... SOLAR=1; 
+017F:  BSF    07.4
+.................... command(0xc0); 
+0180:  MOVLW  C0
+0181:  MOVWF  24
+0182:  CALL   0AC
+.................... data("SOLAR>> MODE>>>>"); 
+0183:  CLRF   24
+0184:  MOVF   24,W
+0185:  CALL   06F
+0186:  IORLW  00
+0187:  BTFSC  03.2
+0188:  GOTO   18D
+0189:  INCF   24,F
+018A:  MOVWF  25
+018B:  CALL   0B6
+018C:  GOTO   184
+.................... } 
+....................  
+.................... else 
+018D:  GOTO   19C
+.................... { 
+.................... SOLAR=0; 
+018E:  BCF    07.4
+.................... command(0xc0); 
+018F:  MOVLW  C0
+0190:  MOVWF  24
+0191:  CALL   0AC
+.................... data("BATTERY MODE>>>>"); 
+0192:  CLRF   24
+0193:  MOVF   24,W
+0194:  CALL   084
+0195:  IORLW  00
+0196:  BTFSC  03.2
+0197:  GOTO   19C
+0198:  INCF   24,F
+0199:  MOVWF  25
+019A:  CALL   0B6
+019B:  GOTO   193
+.................... } 
+....................  
+.................... } 
+019C:  GOTO   0E2
+.................... } 
+019D:  SLEEP

@@ -1,0 +1,39 @@
+[PROJECT]
+Target=pro.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[pro.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=D:\KARTHI~1\FINALS~1\pro.c
+
+[Windows]
+0=0000 D:\KARTHI~1\FINALS~1\pro.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.c
+2=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final(23-03-14)\solar_final.c
+3=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.c (main)

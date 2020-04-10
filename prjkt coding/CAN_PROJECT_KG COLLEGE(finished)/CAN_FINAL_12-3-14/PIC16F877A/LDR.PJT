@@ -1,0 +1,38 @@
+[PROJECT]
+Target=LDR.HEX
+Development_Mode=
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=C:\Program Files\PICC\devices\;C:\Program Files\PICC\dr
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=C:\Users\GRT EMBEDDED\Desktop\universal atm\PIC16F877A\LDR.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[LDR.]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=LDR.
+
+[Windows]
+0=0000 LDR. 0 0 796 451 3 0
+
+[Opened Files]
+1=C:\Users\GRT EMBEDDED\Desktop\universal atm\PIC16F877A\LDR.C
+2=
+[Units]
+Count=1
+1=C:\Users\GRT EMBEDDED\Desktop\universal atm\PIC16F877A\LDR.c (main)

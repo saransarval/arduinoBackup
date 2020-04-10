@@ -1,0 +1,41 @@
+[PROJECT]
+Target=final_2(18-03-14).HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\universal_final_2(18-03-14)_final_code\final_2(18-03-14).c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[final_2(18-03-14).c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ENGINE~1\UNIVER~1\UNIVER~4\FINAL_~1.C
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ENGINE~1\UNIVER~1\UNIVER~4\FINAL_~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\universal_final_2(18-03-14)_final_code\final_2(18-03-14).c
+2=
+3=
+4=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm\ppg with gsm.c
+5=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\universal_final_2(18-03-14)_final_code\final_2(18-03-14).c (main)

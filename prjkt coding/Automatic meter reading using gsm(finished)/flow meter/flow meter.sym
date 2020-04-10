@@ -1,0 +1,115 @@
+001     tmr0
+007     portc
+008     portd
+008     PSP_DATA
+009     porte
+009.0   reg
+009.1   rw
+009.2   en
+00B     intcon
+00B.5   tmr0ie
+00C     pir1
+00E     tmr1l
+00F     tmr1h
+010     t1con
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     b
+029     sec
+02A     mint
+02B-02C count
+02D.0   flag
+02E     display_sec.n
+02E-02F display.n
+02E     display_mint.q
+02E     main.@SCRATCH
+02F-030 display_sec.x
+02F-030 display_mint.v
+030-033 display.c
+031     display_sec.i
+031     display_mint.s
+032     display_mint.@SCRATCH
+032     display_sec.@SCRATCH
+033     @DIV88.P1
+034     @DIV88.P1
+034     display.k
+035     command.com
+035     @DIV88.@SCRATCH
+035     display.@SCRATCH
+036     data.da
+036-037 @DIV1616.P1
+037     @delay_ms1.P1
+038-039 @DIV1616.P1
+03A     @DIV1616.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     option_reg
+087     trisc
+088     trisd
+089     trise
+08C     pie1
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+0076  @delay_ms1
+0064  timer0_isr
+0089  command
+0093  data
+0172  main
+0033  @const10053
+0042  @const10062
+0050  @const10068
+00DB  display_mint
+009D  @DIV88
+005E  @const10100
+00B2  display_sec
+0134  display
+010E  @DIV1616
+0172  @cinit
+
+Project Files:
+    C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.c
+    C:\Program Files\PICC\devices\16f877a.h
+
+Units:
+    C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.err
+    INHX8:       C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.hex
+    Symbols:     C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.sym
+    List:        C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.lst
+    Debug/COFF:  C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.cof
+    Call Tree:   C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.tre
+    Statistics:  C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.sta

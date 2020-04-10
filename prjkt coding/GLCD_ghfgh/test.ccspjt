@@ -1,0 +1,20 @@
+[PROJECT]
+Target=test.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.008
+Compiler=PCM
+[Target Data]
+FileList=test.c
+[Directories]
+Include=C:\Program Files\PICC\Devices\;C:\Program Files\PICC\Drivers\;C:\Users\GRT-Embedded\Desktop\GLCD\
+[test.c]
+Type=4
+[mru-list]
+1=test.c
+[Opened Files]
+1=test.c
+2=Header_GLCD.h
+3=
+[Units]
+Count=1
+1=test (main)

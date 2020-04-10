@@ -1,0 +1,152 @@
+006.0   FORWARD
+006     portb
+006.1   REVERSE
+006.4   relay1
+006.5   relay2
+006.7   reg
+007     portc
+007.0   relay3
+007.1   relay4
+008     portd
+008     PSP_DATA
+009     porte
+009.1   rw
+009.2   en
+00B     intcon
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01A     rcreg
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     rs232_errors
+029-02A value1
+02B-02C value2
+02D-02E value3
+02F-030 value4
+031-032 value5
+033-034 value6
+035     sec
+036     time
+037     A
+038     GLAG
+039.0   flag
+039.1   LDR1_FLAG
+039.2   LDR2_FLAG
+039.3   LDR3_FLAG
+039.4   LDR4_FLAG
+03A     z
+03B-03E B_1
+03F-042 B_2
+043-046 L_1
+047-04A L_2
+04B-04E L_3
+04F-052 L_4
+053-054 display2.n
+053-054 display5.n
+053-054 display1.n
+053-054 display.n
+053-054 display4.n
+053-054 display3.n
+053     command.com
+053     main.@SCRATCH
+054     main.@SCRATCH
+055     display2.i
+055     display5.i
+055     display3.i
+055     display.i
+055     display4.i
+055     display1.i
+056-059 display.A
+056-059 display4.A
+056-059 display2.A
+056-059 display5.A
+056-059 display1.A
+056-059 display3.A
+05A     display.@SCRATCH
+05A     display1.@SCRATCH
+05A     display2.@SCRATCH
+05A     display3.@SCRATCH
+05A     display4.@SCRATCH
+05A     display5.@SCRATCH
+05B-05C @DIV1616.P1
+05B     data.da
+05C     @delay_ms1.P1
+05D-05E @DIV1616.P1
+05F     @DIV1616.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+00B5  @delay_ms1
+0093  @GETCH_BIU_1
+00A1  RDA_ISR
+00C8  command
+00D2  data
+00AA  TIMER0_isr
+02AF  main
+003C  @const10066
+004F  @const10132
+0057  @const10137
+005F  @const10142
+0067  @const10147
+006F  @const10157
+007E  @const10162
+0102  display
+00DC  @DIV1616
+008D  @const10377
+0151  display1
+019F  display2
+01E3  display3
+0227  display4
+026B  display5
+02AF  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.c
+    C:\Program Files\PICC\devices\16F877A.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.sta

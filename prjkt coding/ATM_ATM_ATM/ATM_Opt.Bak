@@ -1,0 +1,46 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.s*; *.src; *.a*)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt; *.h; *.inc)
+ pExt (*.plm)
+ CppX (*.cpp)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Target 1), 0x0004 // Tools: 'ARM-ADS'
+GRPOPT 1,(Source Group 1),1,0,0
+
+OPTFFF 1,1,2,0,0,0,0,0,<.\Startup.s><Startup.s> 
+OPTFFF 1,2,1,285212675,0,362,374,0,<.\ATM.c><ATM.c> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,0,0,0,0,0,0,0,0,226,3,0,0,54,1,0,0 }
+
+ExtF <C:\Users\grt embedded\Videos\ATM_ATM_ATM\bank.h> 618,618,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,75,0,0,0,75,0,0,0,98,4,0,0,132,1,0,0 }
+ExtF <G:\00000_PROJECTS\ATM\ATM_ATM_ATM\uart0.h> 18,18,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,75,0,0,0,75,0,0,0,49,4,0,0,133,1,0,0 }
+ExtF <C:\Users\grt embedded\Videos\ATM_ATM_ATM\keypad.h> 71,71,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,75,0,0,0,75,0,0,0,49,4,0,0,133,1,0,0 }
+ExtF <C:\Users\grt embedded\Videos\ATM_ATM_ATM\lcd.h> 61,74,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,100,0,0,0,100,0,0,0,74,4,0,0,158,1,0,0 }
+ExtF <C:\Users\grt embedded\Videos\ATM_ATM_ATM\uart0.h> 39,49,0,{ 44,0,0,0,0,0,0,0,1,0,0,0,255,255,255,255,255,255,255,255,248,255,255,255,226,255,255,255,125,0,0,0,125,0,0,0,99,4,0,0,183,1,0,0 }
+
+TARGOPT 1, (Target 1)
+ ADSCLK=12000000
+  OPTTT 1,1,1,0
+  OPTHX 1,65535,0,0,0
+  OPTLX 79,66,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTAX 8
+  OPTBL 0,(Data Sheet)<DATASHTS\PHILIPS\LPC2141_42_44_46_48.PDF>
+  OPTBL 1,(User Manual)<DATASHTS\PHILIPS\user_manual_LPC214x.pdf>
+  OPTDL (SARM.DLL)(-cLPC2100)(DARMP.DLL)(-pLPC2148)(SARM.DLL)()(TARMP.DLL)(-pLPC2148)
+  OPTDBG 48125,-1,()()()()()()()()()() ()()()()
+  OPTBB 0,0,638,1,0,0,0,0,0,0,<bank.h>()()
+  OPTBB 1,0,305,1,0,0,0,0,0,0,<ATM.c>()()
+  OPTBB 2,0,329,1,0,0,0,0,0,0,<bank.h>()()
+  OPTDF 0x40000002
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

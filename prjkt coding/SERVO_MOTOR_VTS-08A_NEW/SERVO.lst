@@ -1,0 +1,543 @@
+CCS PCM C Compiler, Version 3.249, 33340               28-Jan-14 20:19
+
+               Filename: H:\WELCOME BACK GK\Confidential\R & D division\SERVO_MOTOR_VTS-08A\SERVO.lst
+
+               ROM used: 390 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 28 (16%) at main() level
+                         30 (17%) worst case
+               Stack:    4 worst case (3 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0F8
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  MOVLW  8C
+001A:  MOVWF  04
+001B:  BTFSS  00.1
+001C:  GOTO   01F
+001D:  BTFSC  0C.1
+001E:  GOTO   032
+001F:  MOVF   22,W
+0020:  MOVWF  04
+0021:  MOVF   23,W
+0022:  MOVWF  77
+0023:  MOVF   24,W
+0024:  MOVWF  78
+0025:  MOVF   25,W
+0026:  MOVWF  79
+0027:  MOVF   26,W
+0028:  MOVWF  7A
+0029:  MOVF   27,W
+002A:  MOVWF  7B
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   059
+.................... #INCLUDE<16F877A.H> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #USE DELAY(CLOCK=11059200) 
+*
+008D:  MOVLW  38
+008E:  MOVWF  04
+008F:  MOVF   00,W
+0090:  BTFSC  03.2
+0091:  GOTO   09F
+0092:  MOVLW  03
+0093:  MOVWF  78
+0094:  CLRF   77
+0095:  DECFSZ 77,F
+0096:  GOTO   095
+0097:  DECFSZ 78,F
+0098:  GOTO   094
+0099:  MOVLW  95
+009A:  MOVWF  77
+009B:  DECFSZ 77,F
+009C:  GOTO   09B
+009D:  DECFSZ 00,F
+009E:  GOTO   092
+009F:  RETLW  00
+.................... #INCLUDE<LCD.H> 
+....................  
+.................... #BYTE PORTD=0X08 
+.................... #BYTE TRISD=0X88 
+.................... #BYTE TRISE=0X89 
+.................... #BYTE PORTE=0X09 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+....................  
+.................... void command(unsigned char com) 
+.................... { 
+....................  portd=com; 
+00A0:  MOVF   36,W
+00A1:  MOVWF  08
+....................  reg=0;rw=0; 
+00A2:  BCF    09.0
+00A3:  BCF    09.1
+....................  en=1;delay_ms(1);en=0; 
+00A4:  BSF    09.2
+00A5:  MOVLW  01
+00A6:  MOVWF  38
+00A7:  CALL   08D
+00A8:  BCF    09.2
+.................... } 
+00A9:  RETLW  00
+....................  
+.................... void data(unsigned char da) 
+.................... { 
+.................... portd=da; 
+*
+00C5:  MOVF   37,W
+00C6:  MOVWF  08
+.................... reg=1;rw=0; 
+00C7:  BSF    09.0
+00C8:  BCF    09.1
+.................... en=1;delay_ms(1);en=0; 
+00C9:  BSF    09.2
+00CA:  MOVLW  01
+00CB:  MOVWF  38
+00CC:  CALL   08D
+00CD:  BCF    09.2
+.................... } 
+00CE:  RETLW  00
+....................  
+.................... void lcd_int(void) 
+.................... { 
+....................    command(0x38); 
+*
+00AA:  MOVLW  38
+00AB:  MOVWF  36
+00AC:  CALL   0A0
+....................    delay_ms(10); 
+00AD:  MOVLW  0A
+00AE:  MOVWF  38
+00AF:  CALL   08D
+....................    command(0x06); 
+00B0:  MOVLW  06
+00B1:  MOVWF  36
+00B2:  CALL   0A0
+....................    delay_ms(10); 
+00B3:  MOVLW  0A
+00B4:  MOVWF  38
+00B5:  CALL   08D
+....................    command(0x0c); 
+00B6:  MOVLW  0C
+00B7:  MOVWF  36
+00B8:  CALL   0A0
+....................    delay_ms(10); 
+00B9:  MOVLW  0A
+00BA:  MOVWF  38
+00BB:  CALL   08D
+....................    command(0x01); 
+00BC:  MOVLW  01
+00BD:  MOVWF  36
+00BE:  CALL   0A0
+....................    delay_ms(10); 
+00BF:  MOVLW  0A
+00C0:  MOVWF  38
+00C1:  CALL   08D
+.................... } 
+00C2:  BCF    0A.3
+00C3:  BCF    0A.4
+00C4:  GOTO   12A (RETURN)
+....................  
+....................  
+....................  
+.................... #BYTE PORTB=0X06 
+.................... #BYTE TRISB=0X86 
+.................... #BYTE TRISC=0X87 
+.................... #BYTE PORTC=0X07 
+....................  
+.................... #BIT PULSE1=PORTB.7/// CHANNEL 1 
+.................... #BIT PULSE2=PORTB.6/// CHANNEL 2 
+.................... #BIT PULSE3=PORTB.5/// CHANNEL 3 
+.................... #BIT PULSE4=PORTB.0/// CHANNEL 4 
+.................... #BIT PULSE5=PORTC.0/// CHANNEL 5 
+....................  
+.................... #BIT KEY1=PORTB.1 
+.................... #BIT KEY2=PORTB.2 
+.................... #BIT KEY3=PORTB.3 
+.................... #BIT KEY4=PORTB.4 
+....................  
+.................... #BIT PULL_UP=0X81.7 
+....................  
+.................... #DEFINE ZER0 2 
+.................... #DEFINE HALF 7 
+.................... #DEFINE FULL 9 
+.................... #DEFINE ON 1 
+.................... #DEFINE OFF 0 
+....................  
+.................... INT I=0; 
+*
+0102:  BCF    03.5
+0103:  CLRF   28
+.................... INT1 K1=0,K2=0,K3=0,K4=0; 
+0104:  BCF    29.0
+0105:  BCF    29.1
+0106:  BCF    29.2
+0107:  BCF    29.3
+.................... INT PERIOD=0,DUTY=0; 
+0108:  CLRF   2A
+0109:  CLRF   2B
+.................... STRUCT 
+.................... { 
+....................    INT P1,P2,P3,P4,P5; 
+....................    INT S1,S2,S3,S4,S5; 
+.................... }PWM_DUTY; 
+....................  
+....................  
+.................... #INT_TIMER2 
+.................... TIMER0_ISR() 
+.................... { 
+....................    PERIOD++;DUTY++; 
+*
+0059:  INCF   2A,F
+005A:  INCF   2B,F
+....................    IF(PERIOD==10) 
+005B:  MOVF   2A,W
+005C:  SUBLW  0A
+005D:  BTFSS  03.2
+005E:  GOTO   075
+....................    { 
+....................       PERIOD=0;DUTY=0;PULSE1=PWM_DUTY.S1;PULSE2=PWM_DUTY.S2; 
+005F:  CLRF   2A
+0060:  CLRF   2B
+0061:  BTFSS  31.0
+0062:  BCF    06.7
+0063:  BTFSC  31.0
+0064:  BSF    06.7
+0065:  BTFSS  32.0
+0066:  BCF    06.6
+0067:  BTFSC  32.0
+0068:  BSF    06.6
+....................       PULSE3=PWM_DUTY.S3;PULSE4=PWM_DUTY.S4;PULSE5=PWM_DUTY.S5; 
+0069:  BTFSS  33.0
+006A:  BCF    06.5
+006B:  BTFSC  33.0
+006C:  BSF    06.5
+006D:  BTFSS  34.0
+006E:  BCF    06.0
+006F:  BTFSC  34.0
+0070:  BSF    06.0
+0071:  BTFSS  35.0
+0072:  BCF    07.0
+0073:  BTFSC  35.0
+0074:  BSF    07.0
+....................    } 
+....................    IF(PWM_DUTY.P1==DUTY){PULSE1=0;} 
+0075:  MOVF   2B,W
+0076:  SUBWF  2C,W
+0077:  BTFSC  03.2
+0078:  BCF    06.7
+....................    IF(PWM_DUTY.P2==DUTY){PULSE2=0;} 
+0079:  MOVF   2B,W
+007A:  SUBWF  2D,W
+007B:  BTFSC  03.2
+007C:  BCF    06.6
+....................    IF(PWM_DUTY.P3==DUTY){PULSE3=0;} 
+007D:  MOVF   2B,W
+007E:  SUBWF  2E,W
+007F:  BTFSC  03.2
+0080:  BCF    06.5
+....................    IF(PWM_DUTY.P4==DUTY){PULSE4=0;} 
+0081:  MOVF   2B,W
+0082:  SUBWF  2F,W
+0083:  BTFSC  03.2
+0084:  BCF    06.0
+....................    IF(PWM_DUTY.P5==DUTY){PULSE5=0;} 
+0085:  MOVF   2B,W
+0086:  SUBWF  30,W
+0087:  BTFSC  03.2
+0088:  BCF    07.0
+....................     
+.................... } 
+....................  
+0089:  BCF    0C.1
+008A:  BCF    0A.3
+008B:  BCF    0A.4
+008C:  GOTO   01F
+.................... VOID PWM(INT CHANNEL,INT ANGLE,INT COND) 
+.................... { 
+....................   
+....................    IF(CHANNEL==1){PWM_DUTY.S1=COND;PWM_DUTY.P1=ANGLE;} 
+*
+00CF:  DECFSZ 36,W
+00D0:  GOTO   0D5
+00D1:  MOVF   38,W
+00D2:  MOVWF  31
+00D3:  MOVF   37,W
+00D4:  MOVWF  2C
+....................    IF(CHANNEL==2){PWM_DUTY.S2=COND;PWM_DUTY.P2=ANGLE;} 
+00D5:  MOVF   36,W
+00D6:  SUBLW  02
+00D7:  BTFSS  03.2
+00D8:  GOTO   0DD
+00D9:  MOVF   38,W
+00DA:  MOVWF  32
+00DB:  MOVF   37,W
+00DC:  MOVWF  2D
+....................    IF(CHANNEL==3){PWM_DUTY.S3=COND;PWM_DUTY.P3=ANGLE;} 
+00DD:  MOVF   36,W
+00DE:  SUBLW  03
+00DF:  BTFSS  03.2
+00E0:  GOTO   0E5
+00E1:  MOVF   38,W
+00E2:  MOVWF  33
+00E3:  MOVF   37,W
+00E4:  MOVWF  2E
+....................    IF(CHANNEL==4){PWM_DUTY.S4=COND;PWM_DUTY.P4=ANGLE;} 
+00E5:  MOVF   36,W
+00E6:  SUBLW  04
+00E7:  BTFSS  03.2
+00E8:  GOTO   0ED
+00E9:  MOVF   38,W
+00EA:  MOVWF  34
+00EB:  MOVF   37,W
+00EC:  MOVWF  2F
+....................    IF(CHANNEL==5){PWM_DUTY.S5=COND;PWM_DUTY.P5=ANGLE;} 
+00ED:  MOVF   36,W
+00EE:  SUBLW  05
+00EF:  BTFSS  03.2
+00F0:  GOTO   0F5
+00F1:  MOVF   38,W
+00F2:  MOVWF  35
+00F3:  MOVF   37,W
+00F4:  MOVWF  30
+....................  
+.................... } 
+00F5:  BCF    0A.3
+00F6:  BCF    0A.4
+00F7:  GOTO   184 (RETURN)
+....................  
+.................... VOID MAIN() 
+.................... { 
+00F8:  CLRF   04
+00F9:  MOVLW  1F
+00FA:  ANDWF  03,F
+00FB:  BSF    03.5
+00FC:  BSF    1F.0
+00FD:  BSF    1F.1
+00FE:  BSF    1F.2
+00FF:  BCF    1F.3
+0100:  MOVLW  07
+0101:  MOVWF  1C
+....................    TRISB=0X1E; 
+*
+010A:  MOVLW  1E
+010B:  BSF    03.5
+010C:  MOVWF  06
+....................    PORTB=0X00; 
+010D:  BCF    03.5
+010E:  CLRF   06
+....................    TRISD=0X00; 
+010F:  BSF    03.5
+0110:  CLRF   08
+....................    PORTB=0X00; 
+0111:  BCF    03.5
+0112:  CLRF   06
+....................    PORTE=0X00; 
+0113:  CLRF   09
+....................    TRISE=0X00; 
+0114:  BSF    03.5
+0115:  CLRF   09
+....................    TRISC=0X00; 
+0116:  CLRF   07
+....................    PORTC=0X00; 
+0117:  BCF    03.5
+0118:  CLRF   07
+....................  
+....................    PULL_UP=0; 
+0119:  BSF    03.5
+011A:  BCF    01.7
+....................     
+....................    ENABLE_INTERRUPTS(GLOBAL); 
+011B:  MOVLW  C0
+011C:  BCF    03.5
+011D:  IORWF  0B,F
+....................    ENABLE_INTERRUPTS(INT_TIMER2); 
+011E:  BSF    03.5
+011F:  BSF    0C.1
+....................    setup_timer_2 ( T2_DIV_BY_4, 138, 1); 
+0120:  MOVLW  00
+0121:  MOVWF  78
+0122:  IORLW  05
+0123:  BCF    03.5
+0124:  MOVWF  12
+0125:  MOVLW  8A
+0126:  BSF    03.5
+0127:  MOVWF  12
+....................  
+....................   
+....................    lcd_int(); 
+0128:  BCF    03.5
+0129:  GOTO   0AA
+....................    DELAY_MS(10); 
+012A:  MOVLW  0A
+012B:  MOVWF  38
+012C:  CALL   08D
+....................    COMMAND(0X80); 
+012D:  MOVLW  80
+012E:  MOVWF  36
+012F:  CALL   0A0
+....................    DATA("SERVO MOTOR"); 
+0130:  CLRF   36
+0131:  MOVF   36,W
+0132:  CALL   035
+0133:  IORLW  00
+0134:  BTFSC  03.2
+0135:  GOTO   13A
+0136:  INCF   36,F
+0137:  MOVWF  37
+0138:  CALL   0C5
+0139:  GOTO   131
+....................    COMMAND(0XC0); 
+013A:  MOVLW  C0
+013B:  MOVWF  36
+013C:  CALL   0A0
+....................    DATA("****TEST*******"); 
+013D:  CLRF   36
+013E:  MOVF   36,W
+013F:  CALL   045
+0140:  IORLW  00
+0141:  BTFSC  03.2
+0142:  GOTO   147
+0143:  INCF   36,F
+0144:  MOVWF  37
+0145:  CALL   0C5
+0146:  GOTO   13E
+....................     
+....................    /* 
+....................    PWM(1,ZER0,ON);///(CHANNEL TO OPERATE, ANGLE , ON/OFF CONDITION) 
+....................    PWM(2,HALF,ON); 
+....................    PWM(3,FULL,ON); 
+....................    PWM(4,ZER0,ON); 
+....................    PWM(5,HALF,ON); 
+.................... */ 
+....................  
+....................    WHILE(1) 
+....................  
+....................    { 
+....................  
+.................... IF(KEY1==0) 
+0147:  BTFSC  06.1
+0148:  GOTO   154
+.................... { 
+.................... DELAY_MS(300); 
+0149:  MOVLW  02
+014A:  MOVWF  36
+014B:  MOVLW  96
+014C:  MOVWF  38
+014D:  CALL   08D
+014E:  DECFSZ 36,F
+014F:  GOTO   14B
+.................... K1=1;K2=0;K3=0;K4=0; 
+0150:  BSF    29.0
+0151:  BCF    29.1
+0152:  BCF    29.2
+0153:  BCF    29.3
+.................... } 
+.................... IF(KEY2==0) 
+0154:  BTFSC  06.2
+0155:  GOTO   161
+.................... { 
+.................... DELAY_MS(300); 
+0156:  MOVLW  02
+0157:  MOVWF  36
+0158:  MOVLW  96
+0159:  MOVWF  38
+015A:  CALL   08D
+015B:  DECFSZ 36,F
+015C:  GOTO   158
+.................... K1=0;K2=1;K3=0;K4=0; 
+015D:  BCF    29.0
+015E:  BSF    29.1
+015F:  BCF    29.2
+0160:  BCF    29.3
+.................... } 
+.................... IF(KEY3==0) 
+0161:  BTFSC  06.3
+0162:  GOTO   16E
+.................... { 
+.................... DELAY_MS(300); 
+0163:  MOVLW  02
+0164:  MOVWF  36
+0165:  MOVLW  96
+0166:  MOVWF  38
+0167:  CALL   08D
+0168:  DECFSZ 36,F
+0169:  GOTO   165
+.................... K1=0;K2=0;K3=1;K4=0; 
+016A:  BCF    29.0
+016B:  BCF    29.1
+016C:  BSF    29.2
+016D:  BCF    29.3
+.................... } 
+.................... IF(KEY4==0) 
+016E:  BTFSC  06.4
+016F:  GOTO   17B
+.................... { 
+.................... DELAY_MS(300); 
+0170:  MOVLW  02
+0171:  MOVWF  36
+0172:  MOVLW  96
+0173:  MOVWF  38
+0174:  CALL   08D
+0175:  DECFSZ 36,F
+0176:  GOTO   172
+.................... K1=0;K2=0;K3=0;K4=1; 
+0177:  BCF    29.0
+0178:  BCF    29.1
+0179:  BCF    29.2
+017A:  BSF    29.3
+.................... } 
+....................  
+.................... IF(K1==1){ PWM(1,FULL,ON);} 
+017B:  BTFSS  29.0
+017C:  GOTO   184
+017D:  MOVLW  01
+017E:  MOVWF  36
+017F:  MOVLW  09
+0180:  MOVWF  37
+0181:  MOVLW  01
+0182:  MOVWF  38
+0183:  GOTO   0CF
+....................  
+....................  
+....................    } 
+0184:  GOTO   147
+.................... } 
+0185:  SLEEP

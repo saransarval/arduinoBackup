@@ -1,0 +1,40 @@
+[PROJECT]
+Target=meter.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[meter.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ENGINE~1\AIT_EN~1\TRGANE~1\meter.c
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ENGINE~1\AIT_EN~1\TRGANE~1\meter.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm(finished)\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c
+2=
+3=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c
+4=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c (main)

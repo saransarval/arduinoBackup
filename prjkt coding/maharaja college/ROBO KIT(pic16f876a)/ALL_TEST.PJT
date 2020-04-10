@@ -1,0 +1,38 @@
+[PROJECT]
+Target=ALL_TEST.HEX
+Development_Mode=2
+Processor=0x876A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=H:\ROBO KIT(pic16f876a)\ALL_TEST.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[ALL_TEST.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=G:\WELCOM~2\CONFID~1\R&DDIV~1\ROBOKI~1\ALL_TEST.c
+
+[Windows]
+0=0000 G:\WELCOM~2\CONFID~1\R&DDIV~1\ROBOKI~1\ALL_TEST.c 0 0 796 451 3 0
+
+[Opened Files]
+1=H:\ROBO KIT(pic16f876a)\ALL_TEST.C
+2=
+[Units]
+Count=1
+1=H:\ROBO KIT(pic16f876a)\ALL_TEST.c (main)

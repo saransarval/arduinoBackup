@@ -1,0 +1,132 @@
+006     portb
+007     portc
+008     PSP_DATA
+008     portd
+009     porte
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @TRIS_C
+021-02B PAGE1_TOP
+02C-034 PAGE1_BOTTOM
+035-038 PAGE2_ECE
+039-03C PAGE2_EEE
+03D-040 PAGE2_CSC
+041-044 PAGE2_MEK
+045-048 PAGE2A_N1_ECE
+049-04C PAGE2A_N2_ECE
+04D-050 PAGE2A_N3_ECE
+051-054 PAGE2A_N4_ECE
+055-059 PAGE2B_N1_EEE
+05A-05E PAGE2B_N2_EEE
+05F-063 PAGE2B_N3_EEE
+064-068 PAGE2B_N4_EEE
+069     glcd_text57.x
+069     display_image.count
+069     glcd_init.mode
+069     main.@SCRATCH
+06A     glcd_fillScreen.color
+06A     @delay_ms1.P1
+06A     glcd_text57.y
+06A     display_image.for_var
+06B     glcd_fillScreen.i
+06B     glcd_text57.textptr
+06B     display_image.@SCRATCH
+06C     glcd_text57.size
+06C     glcd_fillScreen.j
+06D     glcd_text57.color
+06D     glcd_fillScreen.@SCRATCH
+06E     glcd_text57.i
+06F     glcd_text57.j
+070     glcd_text57.k
+071     glcd_text57.l
+072     glcd_text57.m
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+0A0-0A4 glcd_text57.pixelData
+0A5     glcd_text57.@SCRATCH
+0A6     glcd_text57.@SCRATCH
+0A7     glcd_text57.@SCRATCH
+0A8     glcd_pixel.x
+0A8     @MUL88.P1
+0A8     glcd_text57.@SCRATCH
+0A9     glcd_pixel.y
+0A9     @MUL88.P1
+0A9     glcd_text57.@SCRATCH
+0AA     glcd_pixel.color
+0AA     glcd_text57.@SCRATCH
+0AB     glcd_pixel.data
+0AC     glcd_pixel.chip
+0AD     glcd_readByte.chip
+0AD     glcd_pixel.@SCRATCH
+0AE     glcd_readByte.data
+0AE     glcd_pixel.@SCRATCH
+0AF     glcd_pixel.@SCRATCH
+0B0     glcd_writeByte.chip
+0B1     glcd_writeByte.data
+
+0732  @delay_ms1
+0004  @const45
+010A  @const48
+06CE  glcd_init
+0A59  glcd_pixel
+0642  @MUL88
+098A  glcd_text57
+0669  glcd_fillScreen
+0616  glcd_writeByte
+0A8B  glcd_readByte
+01EA  @const158
+0271  @const160
+02F5  @const162
+037C  @const164
+0400  @const166
+0484  @const168
+050B  @const170
+058F  @const172
+0B5B  main
+0745  page1
+0766  page2
+07A8  page2A
+0B19  pagE2B
+0800  display_image
+0972  @goto10408
+097E  @goto10429
+0B5B  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.c
+    C:\Program Files\PICC\devices\16F877A.h
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\Header_GLCD.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.cof
+    Project:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.PJT
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\GLCD\GLCD_pro.sta

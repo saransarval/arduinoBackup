@@ -1,0 +1,38 @@
+[PROJECT]
+Target=Smart host.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=Smart host.c;
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[Smart host.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=D:\KARTHI~1\FINALS~1\SMARTH~1.C
+
+[Windows]
+0=0000 D:\KARTHI~1\FINALS~1\SMARTH~1.C 0 0 796 451 3 0
+
+[Units]
+Count=1
+1=D:\KARTHIK_kg\final simulation\Smart host.c (main)
+[Opened Files]
+1=D:\KARTHIK_kg\final simulation\Smart host.c
+2=

@@ -1,0 +1,41 @@
+[PROJECT]
+Target=Receiver.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh\RFID Projects\Receiver.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[Receiver.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\Ganesh\RFIDPR~1\Receiver.c
+
+[Windows]
+0=0000 E:\Ganesh\RFIDPR~1\Receiver.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh\RFID Projects\Receiver.c
+2=E:\Ganesh\RFID Projects\Transmitter.c
+3=
+4=
+5=
+[Units]
+Count=1
+1=E:\Ganesh\RFID Projects\Receiver.c (main)

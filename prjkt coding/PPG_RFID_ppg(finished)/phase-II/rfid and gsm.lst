@@ -1,0 +1,1169 @@
+CCS PCM C Compiler, Version 3.249, 33340               17-Feb-14 19:05
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\phase-II\rfid and gsm.lst
+
+               ROM used: 1236 words (15%)
+                         Largest free fragment is 2048
+               RAM used: 33 (19%) at main() level
+                         36 (21%) worst case
+               Stack:    3 worst case (2 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   26B
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  MOVLW  8C
+001A:  MOVWF  04
+001B:  BTFSS  00.5
+001C:  GOTO   01F
+001D:  BTFSC  0C.5
+001E:  GOTO   032
+001F:  MOVF   22,W
+0020:  MOVWF  04
+0021:  MOVF   23,W
+0022:  MOVWF  77
+0023:  MOVF   24,W
+0024:  MOVWF  78
+0025:  MOVF   25,W
+0026:  MOVWF  79
+0027:  MOVF   26,W
+0028:  MOVWF  7A
+0029:  MOVF   27,W
+002A:  MOVWF  7B
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   1C1
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=11059200) 
+*
+01E4:  MOVLW  3D
+01E5:  MOVWF  04
+01E6:  MOVF   00,W
+01E7:  BTFSC  03.2
+01E8:  GOTO   1F6
+01E9:  MOVLW  03
+01EA:  MOVWF  78
+01EB:  CLRF   77
+01EC:  DECFSZ 77,F
+01ED:  GOTO   1EC
+01EE:  DECFSZ 78,F
+01EF:  GOTO   1EB
+01F0:  MOVLW  95
+01F1:  MOVWF  77
+01F2:  DECFSZ 77,F
+01F3:  GOTO   1F2
+01F4:  DECFSZ 00,F
+01F5:  GOTO   1E9
+01F6:  RETLW  00
+.................... #use rs232(baud=9600, xmit=PIN_c6,rcv=PIN_c7) 
+....................  
+.................... #byte porta=0x05 
+.................... #byte trisa=0x85 
+....................  
+.................... #byte portb=0x06 
+.................... #byte trisb=0x86 
+....................  
+.................... #byte portc=0x07 
+.................... #byte trisc=0x87 
+....................  
+.................... #byte portd=0x08 
+.................... #byte trisd=0x88 
+....................  
+.................... #byte porte=0x09 
+.................... #byte trise=0x89 
+....................  
+.................... #byte intcon=0x0b 
+.................... #byte pie1=0x8c 
+.................... #byte pir1=0x0c 
+.................... #byte rcsta=0x18 
+.................... #byte txsta=0x98 
+.................... #byte spbrg=0x99 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+.................... #byte rcreg=0x1a 
+.................... #byte txreg=0x19 
+....................  
+....................  
+.................... char a[12],i=0; 
+*
+027D:  BCF    03.5
+027E:  CLRF   34
+.................... int r=0, s=0, flag=0,b=0,c=0; 
+027F:  CLRF   35
+0280:  CLRF   36
+0281:  CLRF   37
+0282:  CLRF   38
+0283:  CLRF   39
+.................... int1 glag=0,glag_1=0,receiver=0; 
+0284:  BCF    3A.0
+0285:  BCF    3A.1
+0286:  BCF    3A.2
+.................... void gsm_1(unsigned char no); 
+.................... void gsm(unsigned char no); 
+....................  
+.................... #int_RDA 
+.................... RDA_isr() 
+.................... { 
+.................... if(receiver==0) 
+*
+01C1:  BTFSC  3A.2
+01C2:  GOTO   1D0
+.................... { 
+.................... a[i]=fgetc(); 
+01C3:  MOVLW  28
+01C4:  ADDWF  34,W
+01C5:  MOVWF  04
+01C6:  BTFSS  0C.5
+01C7:  GOTO   1C6
+01C8:  MOVF   1A,W
+01C9:  MOVWF  00
+.................... i++; 
+01CA:  INCF   34,F
+.................... if(i==4) 
+01CB:  MOVF   34,W
+01CC:  SUBLW  04
+01CD:  BTFSS  03.2
+01CE:  GOTO   1D0
+.................... { 
+.................... glag=1; 
+01CF:  BSF    3A.0
+.................... } 
+.................... } 
+.................... if(receiver==1) 
+01D0:  BTFSS  3A.2
+01D1:  GOTO   1DF
+.................... { 
+.................... a[i]=fgetc(); 
+01D2:  MOVLW  28
+01D3:  ADDWF  34,W
+01D4:  MOVWF  04
+01D5:  BTFSS  0C.5
+01D6:  GOTO   1D5
+01D7:  MOVF   1A,W
+01D8:  MOVWF  00
+.................... i++; 
+01D9:  INCF   34,F
+.................... if(i==12) 
+01DA:  MOVF   34,W
+01DB:  SUBLW  0C
+01DC:  BTFSS  03.2
+01DD:  GOTO   1DF
+.................... { 
+.................... glag_1=1; 
+01DE:  BSF    3A.1
+.................... } 
+.................... }i=0; 
+01DF:  CLRF   34
+.................... } 
+01E0:  BCF    0C.5
+01E1:  BCF    0A.3
+01E2:  BCF    0A.4
+01E3:  GOTO   01F
+.................... void command(unsigned char com) 
+.................... { 
+.................... portd=com; 
+*
+01F7:  MOVF   3B,W
+01F8:  MOVWF  08
+.................... reg=0; 
+01F9:  BCF    09.0
+.................... rw=0; 
+01FA:  BCF    09.1
+.................... en=1; 
+01FB:  BSF    09.2
+.................... delay_ms(10); 
+01FC:  MOVLW  0A
+01FD:  MOVWF  3D
+01FE:  CALL   1E4
+.................... en=0; 
+01FF:  BCF    09.2
+.................... } 
+0200:  RETLW  00
+....................  
+.................... void data(unsigned char da) 
+.................... { 
+.................... portd=da; 
+0201:  MOVF   3C,W
+0202:  MOVWF  08
+.................... reg=1; 
+0203:  BSF    09.0
+.................... rw=0; 
+0204:  BCF    09.1
+.................... en=1; 
+0205:  BSF    09.2
+.................... delay_ms(10); 
+0206:  MOVLW  0A
+0207:  MOVWF  3D
+0208:  CALL   1E4
+.................... en=0; 
+0209:  BCF    09.2
+.................... } 
+020A:  RETLW  00
+.................... void main() 
+.................... { 
+*
+026B:  CLRF   04
+026C:  MOVLW  1F
+026D:  ANDWF  03,F
+026E:  MOVLW  11
+026F:  BSF    03.5
+0270:  MOVWF  19
+0271:  MOVLW  22
+0272:  MOVWF  18
+0273:  MOVLW  90
+0274:  BCF    03.5
+0275:  MOVWF  18
+0276:  BSF    03.5
+0277:  BSF    1F.0
+0278:  BSF    1F.1
+0279:  BSF    1F.2
+027A:  BCF    1F.3
+027B:  MOVLW  07
+027C:  MOVWF  1C
+....................    //portb=0x00; 
+....................    //trisb=0x1e; 
+....................    //porta=0x00; 
+....................    //trisa=0x00; 
+....................    portd=0x00; 
+*
+0287:  CLRF   08
+....................    trisd=0x00; 
+0288:  BSF    03.5
+0289:  CLRF   08
+....................    trise=0x00; 
+028A:  CLRF   09
+.................... 	portc=0x00; 
+028B:  BCF    03.5
+028C:  CLRF   07
+.................... 	trisc=0x80; 
+028D:  MOVLW  80
+028E:  BSF    03.5
+028F:  MOVWF  07
+....................  
+.................... fputs("AT+CMGF=1"); 
+0290:  BCF    03.5
+0291:  CLRF   3B
+0292:  MOVF   3B,W
+0293:  CALL   035
+0294:  IORLW  00
+0295:  BTFSC  03.2
+0296:  GOTO   29C
+0297:  INCF   3B,F
+0298:  BTFSS  0C.4
+0299:  GOTO   298
+029A:  MOVWF  19
+029B:  GOTO   292
+029C:  MOVLW  0D
+029D:  BTFSS  0C.4
+029E:  GOTO   29D
+029F:  MOVWF  19
+02A0:  MOVLW  0A
+02A1:  BTFSS  0C.4
+02A2:  GOTO   2A1
+02A3:  MOVWF  19
+.................... delay_ms(1000); 
+02A4:  MOVLW  04
+02A5:  MOVWF  3B
+02A6:  MOVLW  FA
+02A7:  MOVWF  3D
+02A8:  CALL   1E4
+02A9:  DECFSZ 3B,F
+02AA:  GOTO   2A6
+....................  
+....................  
+.................... fputs("AT+CNMI=1,2,0,0,0"); 
+02AB:  CLRF   3B
+02AC:  MOVF   3B,W
+02AD:  CALL   043
+02AE:  IORLW  00
+02AF:  BTFSC  03.2
+02B0:  GOTO   2B6
+02B1:  INCF   3B,F
+02B2:  BTFSS  0C.4
+02B3:  GOTO   2B2
+02B4:  MOVWF  19
+02B5:  GOTO   2AC
+02B6:  MOVLW  0D
+02B7:  BTFSS  0C.4
+02B8:  GOTO   2B7
+02B9:  MOVWF  19
+02BA:  MOVLW  0A
+02BB:  BTFSS  0C.4
+02BC:  GOTO   2BB
+02BD:  MOVWF  19
+.................... delay_ms(1000); 
+02BE:  MOVLW  04
+02BF:  MOVWF  3B
+02C0:  MOVLW  FA
+02C1:  MOVWF  3D
+02C2:  CALL   1E4
+02C3:  DECFSZ 3B,F
+02C4:  GOTO   2C0
+....................  
+.................... fputs("AT+CMGR=1"); 
+02C5:  CLRF   3B
+02C6:  MOVF   3B,W
+02C7:  CALL   059
+02C8:  IORLW  00
+02C9:  BTFSC  03.2
+02CA:  GOTO   2D0
+02CB:  INCF   3B,F
+02CC:  BTFSS  0C.4
+02CD:  GOTO   2CC
+02CE:  MOVWF  19
+02CF:  GOTO   2C6
+02D0:  MOVLW  0D
+02D1:  BTFSS  0C.4
+02D2:  GOTO   2D1
+02D3:  MOVWF  19
+02D4:  MOVLW  0A
+02D5:  BTFSS  0C.4
+02D6:  GOTO   2D5
+02D7:  MOVWF  19
+.................... delay_ms(1000);  //intcon=0x00; 
+02D8:  MOVLW  04
+02D9:  MOVWF  3B
+02DA:  MOVLW  FA
+02DB:  MOVWF  3D
+02DC:  CALL   1E4
+02DD:  DECFSZ 3B,F
+02DE:  GOTO   2DA
+....................    //pie1=0x20; 
+....................    //rcreg=0x00; 
+....................    //setup_timer_2(T2_DIV_BY_1,255,1); 
+.................... 	//setup_ccp1(CCP_PWM); 
+....................  
+....................    enable_interrupts(global); 
+02DF:  MOVLW  C0
+02E0:  IORWF  0B,F
+....................    enable_interrupts(int_rda); 
+02E1:  BSF    03.5
+02E2:  BSF    0C.5
+....................    fputc(a[i]); 
+02E3:  MOVLW  28
+02E4:  BCF    03.5
+02E5:  ADDWF  34,W
+02E6:  MOVWF  04
+02E7:  MOVF   00,W
+02E8:  MOVWF  3B
+02E9:  MOVF   3B,W
+02EA:  BTFSS  0C.4
+02EB:  GOTO   2EA
+02EC:  MOVWF  19
+....................    command(0x01); 
+02ED:  MOVLW  01
+02EE:  MOVWF  3B
+02EF:  CALL   1F7
+....................    command(0x80); 
+02F0:  MOVLW  80
+02F1:  MOVWF  3B
+02F2:  CALL   1F7
+....................  
+....................    delay_ms(1); 
+02F3:  MOVLW  01
+02F4:  MOVWF  3D
+02F5:  CALL   1E4
+....................    i=0; 
+02F6:  CLRF   34
+....................    data("RFID TAG"); 
+02F7:  CLRF   3B
+02F8:  MOVF   3B,W
+02F9:  CALL   067
+02FA:  IORLW  00
+02FB:  BTFSC  03.2
+02FC:  GOTO   301
+02FD:  INCF   3B,F
+02FE:  MOVWF  3C
+02FF:  CALL   201
+0300:  GOTO   2F8
+....................  
+....................  
+....................  
+....................    while(1) 
+....................    { 
+....................    if(glag==1) 
+0301:  BTFSS  3A.0
+0302:  GOTO   330
+....................    { 
+....................       delay_ms(200); 
+0303:  MOVLW  C8
+0304:  MOVWF  3D
+0305:  CALL   1E4
+....................  
+....................       if(a[0]=='R' && a[1]=='I' && a[2]=='N' && a[3]=='G' ) 
+0306:  MOVF   28,W
+0307:  SUBLW  52
+0308:  BTFSS  03.2
+0309:  GOTO   32E
+030A:  MOVF   29,W
+030B:  SUBLW  49
+030C:  BTFSS  03.2
+030D:  GOTO   32E
+030E:  MOVF   2A,W
+030F:  SUBLW  4E
+0310:  BTFSS  03.2
+0311:  GOTO   32E
+0312:  MOVF   2B,W
+0313:  SUBLW  47
+0314:  BTFSS  03.2
+0315:  GOTO   32E
+....................       { 
+....................       glag=0; 
+0316:  BCF    3A.0
+....................       Fputs("ATA"); 
+0317:  CLRF   3B
+0318:  MOVF   3B,W
+0319:  CALL   074
+031A:  IORLW  00
+031B:  BTFSC  03.2
+031C:  GOTO   322
+031D:  INCF   3B,F
+031E:  BTFSS  0C.4
+031F:  GOTO   31E
+0320:  MOVWF  19
+0321:  GOTO   318
+0322:  MOVLW  0D
+0323:  BTFSS  0C.4
+0324:  GOTO   323
+0325:  MOVWF  19
+0326:  MOVLW  0A
+0327:  BTFSS  0C.4
+0328:  GOTO   327
+0329:  MOVWF  19
+....................       gsm(0); 
+032A:  CLRF   3B
+032B:  GOTO   20B
+....................       receiver=1; 
+032C:  BSF    3A.2
+....................       } 
+....................    
+....................      else  
+032D:  GOTO   330
+....................      { 
+....................      gsm_1(0); 
+032E:  CLRF   3B
+032F:  GOTO   23B
+....................      } 
+....................    } 
+....................       if(glag_1==1) 
+0330:  BTFSS  3A.1
+0331:  GOTO   4D2
+....................       {  
+....................       if(a[10]=='5' && a[11]=='D') 
+0332:  MOVF   32,W
+0333:  SUBLW  35
+0334:  BTFSS  03.2
+0335:  GOTO   401
+0336:  MOVF   33,W
+0337:  SUBLW  44
+0338:  BTFSS  03.2
+0339:  GOTO   401
+....................       { 
+....................       fputs("S1"); 
+033A:  CLRF   3B
+033B:  MOVF   3B,W
+033C:  CALL   07C
+033D:  IORLW  00
+033E:  BTFSC  03.2
+033F:  GOTO   345
+0340:  INCF   3B,F
+0341:  BTFSS  0C.4
+0342:  GOTO   341
+0343:  MOVWF  19
+0344:  GOTO   33B
+0345:  MOVLW  0D
+0346:  BTFSS  0C.4
+0347:  GOTO   346
+0348:  MOVWF  19
+0349:  MOVLW  0A
+034A:  BTFSS  0C.4
+034B:  GOTO   34A
+034C:  MOVWF  19
+....................       command(0x80); 
+034D:  MOVLW  80
+034E:  MOVWF  3B
+034F:  CALL   1F7
+....................       data("   TAG FIRST   "); 
+0350:  CLRF   3B
+0351:  MOVF   3B,W
+0352:  CALL   083
+0353:  IORLW  00
+0354:  BTFSC  03.2
+0355:  GOTO   35A
+0356:  INCF   3B,F
+0357:  MOVWF  3C
+0358:  CALL   201
+0359:  GOTO   351
+....................       command(0xc0); 
+035A:  MOVLW  C0
+035B:  MOVWF  3B
+035C:  CALL   1F7
+....................       data(" PATIENT1 RAJA "); 
+035D:  CLRF   3B
+035E:  MOVF   3B,W
+035F:  CALL   097
+0360:  IORLW  00
+0361:  BTFSC  03.2
+0362:  GOTO   367
+0363:  INCF   3B,F
+0364:  MOVWF  3C
+0365:  CALL   201
+0366:  GOTO   35E
+....................       b=1; 
+0367:  MOVLW  01
+0368:  MOVWF  38
+....................       delay_ms(250); 
+0369:  MOVLW  FA
+036A:  MOVWF  3D
+036B:  CALL   1E4
+....................       if(b==1) 
+036C:  DECFSZ 38,W
+036D:  GOTO   400
+....................         { 
+....................             command(0xc0); 
+036E:  MOVLW  C0
+036F:  MOVWF  3B
+0370:  CALL   1F7
+....................             data("  PATIENT1 RAJA "); 
+0371:  CLRF   3B
+0372:  MOVF   3B,W
+0373:  CALL   0AB
+0374:  IORLW  00
+0375:  BTFSC  03.2
+0376:  GOTO   37B
+0377:  INCF   3B,F
+0378:  MOVWF  3C
+0379:  CALL   201
+037A:  GOTO   372
+....................             delay_ms(2000); 
+037B:  MOVLW  08
+037C:  MOVWF  3B
+037D:  MOVLW  FA
+037E:  MOVWF  3D
+037F:  CALL   1E4
+0380:  DECFSZ 3B,F
+0381:  GOTO   37D
+....................             command(0x80); 
+0382:  MOVLW  80
+0383:  MOVWF  3B
+0384:  CALL   1F7
+....................             data("  PATIENT1 RAJA "); 
+0385:  CLRF   3B
+0386:  MOVF   3B,W
+0387:  CALL   0AB
+0388:  IORLW  00
+0389:  BTFSC  03.2
+038A:  GOTO   38F
+038B:  INCF   3B,F
+038C:  MOVWF  3C
+038D:  CALL   201
+038E:  GOTO   386
+....................             command(0xc0); 
+038F:  MOVLW  C0
+0390:  MOVWF  3B
+0391:  CALL   1F7
+....................             data("DOCTOR THANGAM"); 
+0392:  CLRF   3B
+0393:  MOVF   3B,W
+0394:  CALL   0C0
+0395:  IORLW  00
+0396:  BTFSC  03.2
+0397:  GOTO   39C
+0398:  INCF   3B,F
+0399:  MOVWF  3C
+039A:  CALL   201
+039B:  GOTO   393
+....................             delay_ms(2000); 
+039C:  MOVLW  08
+039D:  MOVWF  3B
+039E:  MOVLW  FA
+039F:  MOVWF  3D
+03A0:  CALL   1E4
+03A1:  DECFSZ 3B,F
+03A2:  GOTO   39E
+....................             command(0x80); 
+03A3:  MOVLW  80
+03A4:  MOVWF  3B
+03A5:  CALL   1F7
+....................             data("DOCTOR THANGAM"); 
+03A6:  CLRF   3B
+03A7:  MOVF   3B,W
+03A8:  CALL   0C0
+03A9:  IORLW  00
+03AA:  BTFSC  03.2
+03AB:  GOTO   3B0
+03AC:  INCF   3B,F
+03AD:  MOVWF  3C
+03AE:  CALL   201
+03AF:  GOTO   3A7
+....................             command(0xc0); 
+03B0:  MOVLW  C0
+03B1:  MOVWF  3B
+03B2:  CALL   1F7
+....................             data(" DISEASE  COLD  "); 
+03B3:  CLRF   3B
+03B4:  MOVF   3B,W
+03B5:  CALL   0D3
+03B6:  IORLW  00
+03B7:  BTFSC  03.2
+03B8:  GOTO   3BD
+03B9:  INCF   3B,F
+03BA:  MOVWF  3C
+03BB:  CALL   201
+03BC:  GOTO   3B4
+....................             delay_ms(2000); 
+03BD:  MOVLW  08
+03BE:  MOVWF  3B
+03BF:  MOVLW  FA
+03C0:  MOVWF  3D
+03C1:  CALL   1E4
+03C2:  DECFSZ 3B,F
+03C3:  GOTO   3BF
+....................             command(0x80); 
+03C4:  MOVLW  80
+03C5:  MOVWF  3B
+03C6:  CALL   1F7
+....................             data(" DISEASE  COLD  "); 
+03C7:  CLRF   3B
+03C8:  MOVF   3B,W
+03C9:  CALL   0D3
+03CA:  IORLW  00
+03CB:  BTFSC  03.2
+03CC:  GOTO   3D1
+03CD:  INCF   3B,F
+03CE:  MOVWF  3C
+03CF:  CALL   201
+03D0:  GOTO   3C8
+....................             command(0xc0); 
+03D1:  MOVLW  C0
+03D2:  MOVWF  3B
+03D3:  CALL   1F7
+....................             data(" PRESCRIPTION  "); 
+03D4:  CLRF   3B
+03D5:  MOVF   3B,W
+03D6:  CALL   0E8
+03D7:  IORLW  00
+03D8:  BTFSC  03.2
+03D9:  GOTO   3DE
+03DA:  INCF   3B,F
+03DB:  MOVWF  3C
+03DC:  CALL   201
+03DD:  GOTO   3D5
+....................             delay_ms(2000); 
+03DE:  MOVLW  08
+03DF:  MOVWF  3B
+03E0:  MOVLW  FA
+03E1:  MOVWF  3D
+03E2:  CALL   1E4
+03E3:  DECFSZ 3B,F
+03E4:  GOTO   3E0
+....................             command(0x80); 
+03E5:  MOVLW  80
+03E6:  MOVWF  3B
+03E7:  CALL   1F7
+....................             data(" PRESCRIPTION  "); 
+03E8:  CLRF   3B
+03E9:  MOVF   3B,W
+03EA:  CALL   0E8
+03EB:  IORLW  00
+03EC:  BTFSC  03.2
+03ED:  GOTO   3F2
+03EE:  INCF   3B,F
+03EF:  MOVWF  3C
+03F0:  CALL   201
+03F1:  GOTO   3E9
+....................             command(0xc0); 
+03F2:  MOVLW  C0
+03F3:  MOVWF  3B
+03F4:  CALL   1F7
+....................             data(" EXCEDRIN TAB "); 
+03F5:  CLRF   3B
+03F6:  MOVF   3B,W
+03F7:  CALL   0FC
+03F8:  IORLW  00
+03F9:  BTFSC  03.2
+03FA:  GOTO   3FF
+03FB:  INCF   3B,F
+03FC:  MOVWF  3C
+03FD:  CALL   201
+03FE:  GOTO   3F6
+....................             b=0; 
+03FF:  CLRF   38
+....................           } 
+....................       } 
+....................       else if(a[10]=='3' && a[11]=='E') 
+0400:  GOTO   4CF
+0401:  MOVF   32,W
+0402:  SUBLW  33
+0403:  BTFSS  03.2
+0404:  GOTO   4CF
+0405:  MOVF   33,W
+0406:  SUBLW  45
+0407:  BTFSS  03.2
+0408:  GOTO   4CF
+....................       { 
+....................       fputs("S2"); 
+0409:  CLRF   3B
+040A:  MOVF   3B,W
+040B:  CALL   10F
+040C:  IORLW  00
+040D:  BTFSC  03.2
+040E:  GOTO   414
+040F:  INCF   3B,F
+0410:  BTFSS  0C.4
+0411:  GOTO   410
+0412:  MOVWF  19
+0413:  GOTO   40A
+0414:  MOVLW  0D
+0415:  BTFSS  0C.4
+0416:  GOTO   415
+0417:  MOVWF  19
+0418:  MOVLW  0A
+0419:  BTFSS  0C.4
+041A:  GOTO   419
+041B:  MOVWF  19
+....................       command(0x80); 
+041C:  MOVLW  80
+041D:  MOVWF  3B
+041E:  CALL   1F7
+....................       data("  TAG SECOND  "); 
+041F:  CLRF   3B
+0420:  MOVF   3B,W
+0421:  CALL   116
+0422:  IORLW  00
+0423:  BTFSC  03.2
+0424:  GOTO   429
+0425:  INCF   3B,F
+0426:  MOVWF  3C
+0427:  CALL   201
+0428:  GOTO   420
+....................       command(0xc0); 
+0429:  MOVLW  C0
+042A:  MOVWF  3B
+042B:  CALL   1F7
+....................       data("PATIENT2 YUVARAJ"); 
+042C:  CLRF   3B
+042D:  MOVF   3B,W
+042E:  CALL   129
+042F:  IORLW  00
+0430:  BTFSC  03.2
+0431:  GOTO   436
+0432:  INCF   3B,F
+0433:  MOVWF  3C
+0434:  CALL   201
+0435:  GOTO   42D
+....................       c=1; 
+0436:  MOVLW  01
+0437:  MOVWF  39
+....................       delay_ms(150); 
+0438:  MOVLW  96
+0439:  MOVWF  3D
+043A:  CALL   1E4
+....................       if(c==1) 
+043B:  DECFSZ 39,W
+043C:  GOTO   440
+....................       command(0xc0); 
+043D:  MOVLW  C0
+043E:  MOVWF  3B
+043F:  CALL   1F7
+....................             data("PATIENT2 YUVARAJ"); 
+0440:  CLRF   3B
+0441:  MOVF   3B,W
+0442:  CALL   129
+0443:  IORLW  00
+0444:  BTFSC  03.2
+0445:  GOTO   44A
+0446:  INCF   3B,F
+0447:  MOVWF  3C
+0448:  CALL   201
+0449:  GOTO   441
+....................             delay_ms(2000); 
+044A:  MOVLW  08
+044B:  MOVWF  3B
+044C:  MOVLW  FA
+044D:  MOVWF  3D
+044E:  CALL   1E4
+044F:  DECFSZ 3B,F
+0450:  GOTO   44C
+....................             command(0x80); 
+0451:  MOVLW  80
+0452:  MOVWF  3B
+0453:  CALL   1F7
+....................             data("PATIENT2 YUVARAJ"); 
+0454:  CLRF   3B
+0455:  MOVF   3B,W
+0456:  CALL   129
+0457:  IORLW  00
+0458:  BTFSC  03.2
+0459:  GOTO   45E
+045A:  INCF   3B,F
+045B:  MOVWF  3C
+045C:  CALL   201
+045D:  GOTO   455
+....................             command(0xc0); 
+045E:  MOVLW  C0
+045F:  MOVWF  3B
+0460:  CALL   1F7
+....................             data("DOCTOR THANGAM"); 
+0461:  CLRF   3B
+0462:  MOVF   3B,W
+0463:  CALL   0C0
+0464:  IORLW  00
+0465:  BTFSC  03.2
+0466:  GOTO   46B
+0467:  INCF   3B,F
+0468:  MOVWF  3C
+0469:  CALL   201
+046A:  GOTO   462
+....................             delay_ms(2000); 
+046B:  MOVLW  08
+046C:  MOVWF  3B
+046D:  MOVLW  FA
+046E:  MOVWF  3D
+046F:  CALL   1E4
+0470:  DECFSZ 3B,F
+0471:  GOTO   46D
+....................             command(0x80); 
+0472:  MOVLW  80
+0473:  MOVWF  3B
+0474:  CALL   1F7
+....................             data("DOCTOR THANGAM"); 
+0475:  CLRF   3B
+0476:  MOVF   3B,W
+0477:  CALL   0C0
+0478:  IORLW  00
+0479:  BTFSC  03.2
+047A:  GOTO   47F
+047B:  INCF   3B,F
+047C:  MOVWF  3C
+047D:  CALL   201
+047E:  GOTO   476
+....................             command(0xc0); 
+047F:  MOVLW  C0
+0480:  MOVWF  3B
+0481:  CALL   1F7
+....................             data(" DISEASE FEVER "); 
+0482:  CLRF   3B
+0483:  MOVF   3B,W
+0484:  CALL   13E
+0485:  IORLW  00
+0486:  BTFSC  03.2
+0487:  GOTO   48C
+0488:  INCF   3B,F
+0489:  MOVWF  3C
+048A:  CALL   201
+048B:  GOTO   483
+....................             delay_ms(2000); 
+048C:  MOVLW  08
+048D:  MOVWF  3B
+048E:  MOVLW  FA
+048F:  MOVWF  3D
+0490:  CALL   1E4
+0491:  DECFSZ 3B,F
+0492:  GOTO   48E
+....................             command(0x80); 
+0493:  MOVLW  80
+0494:  MOVWF  3B
+0495:  CALL   1F7
+....................             data(" DISEASE FEVER"); 
+0496:  CLRF   3B
+0497:  MOVF   3B,W
+0498:  CALL   152
+0499:  IORLW  00
+049A:  BTFSC  03.2
+049B:  GOTO   4A0
+049C:  INCF   3B,F
+049D:  MOVWF  3C
+049E:  CALL   201
+049F:  GOTO   497
+....................             command(0xc0); 
+04A0:  MOVLW  C0
+04A1:  MOVWF  3B
+04A2:  CALL   1F7
+....................             data(" PRESCRIPTION  "); 
+04A3:  CLRF   3B
+04A4:  MOVF   3B,W
+04A5:  CALL   0E8
+04A6:  IORLW  00
+04A7:  BTFSC  03.2
+04A8:  GOTO   4AD
+04A9:  INCF   3B,F
+04AA:  MOVWF  3C
+04AB:  CALL   201
+04AC:  GOTO   4A4
+....................             delay_ms(2000); 
+04AD:  MOVLW  08
+04AE:  MOVWF  3B
+04AF:  MOVLW  FA
+04B0:  MOVWF  3D
+04B1:  CALL   1E4
+04B2:  DECFSZ 3B,F
+04B3:  GOTO   4AF
+....................             command(0x80); 
+04B4:  MOVLW  80
+04B5:  MOVWF  3B
+04B6:  CALL   1F7
+....................             data(" PRESCRIPTION  "); 
+04B7:  CLRF   3B
+04B8:  MOVF   3B,W
+04B9:  CALL   0E8
+04BA:  IORLW  00
+04BB:  BTFSC  03.2
+04BC:  GOTO   4C1
+04BD:  INCF   3B,F
+04BE:  MOVWF  3C
+04BF:  CALL   201
+04C0:  GOTO   4B8
+....................             command(0xc0); 
+04C1:  MOVLW  C0
+04C2:  MOVWF  3B
+04C3:  CALL   1F7
+....................             data("PREVACID SOLUT"); 
+04C4:  CLRF   3B
+04C5:  MOVF   3B,W
+04C6:  CALL   165
+04C7:  IORLW  00
+04C8:  BTFSC  03.2
+04C9:  GOTO   4CE
+04CA:  INCF   3B,F
+04CB:  MOVWF  3C
+04CC:  CALL   201
+04CD:  GOTO   4C5
+....................             c=0; 
+04CE:  CLRF   39
+....................       } 
+....................  
+....................       glag=0;i=0;receiver=0; 
+04CF:  BCF    3A.0
+04D0:  CLRF   34
+04D1:  BCF    3A.2
+....................    } 
+....................  
+....................     } 
+04D2:  GOTO   301
+.................... }   
+....................  
+....................  void gsm_1(unsigned char no) 
+.................... { 
+04D3:  SLEEP
+.................... if(no==0) 
+*
+023B:  MOVF   3B,F
+023C:  BTFSS  03.2
+023D:  GOTO   251
+.................... puts("AT+CMGS=\"8056308831\""); 
+023E:  CLRF   3C
+023F:  MOVF   3C,W
+0240:  CALL   178
+0241:  IORLW  00
+0242:  BTFSC  03.2
+0243:  GOTO   249
+0244:  INCF   3C,F
+0245:  BTFSS  0C.4
+0246:  GOTO   245
+0247:  MOVWF  19
+0248:  GOTO   23F
+0249:  MOVLW  0D
+024A:  BTFSS  0C.4
+024B:  GOTO   24A
+024C:  MOVWF  19
+024D:  MOVLW  0A
+024E:  BTFSS  0C.4
+024F:  GOTO   24E
+0250:  MOVWF  19
+....................  
+.................... puts("DOCTOR IS NOT PRESENT"); 
+0251:  CLRF   3C
+0252:  MOVF   3C,W
+0253:  CALL   191
+0254:  IORLW  00
+0255:  BTFSC  03.2
+0256:  GOTO   25C
+0257:  INCF   3C,F
+0258:  BTFSS  0C.4
+0259:  GOTO   258
+025A:  MOVWF  19
+025B:  GOTO   252
+025C:  MOVLW  0D
+025D:  BTFSS  0C.4
+025E:  GOTO   25D
+025F:  MOVWF  19
+0260:  MOVLW  0A
+0261:  BTFSS  0C.4
+0262:  GOTO   261
+0263:  MOVWF  19
+.................... putc(0x1a); 
+0264:  MOVLW  1A
+0265:  BTFSS  0C.4
+0266:  GOTO   265
+0267:  MOVWF  19
+....................  
+.................... } 
+0268:  BCF    0A.3
+0269:  BCF    0A.4
+026A:  GOTO   330 (RETURN)
+.................... void gsm(unsigned char no) 
+.................... { 
+.................... if(no==0) 
+*
+020B:  MOVF   3B,F
+020C:  BTFSS  03.2
+020D:  GOTO   221
+.................... puts("AT+CMGS=\"8056308831\""); 
+020E:  CLRF   3C
+020F:  MOVF   3C,W
+0210:  CALL   178
+0211:  IORLW  00
+0212:  BTFSC  03.2
+0213:  GOTO   219
+0214:  INCF   3C,F
+0215:  BTFSS  0C.4
+0216:  GOTO   215
+0217:  MOVWF  19
+0218:  GOTO   20F
+0219:  MOVLW  0D
+021A:  BTFSS  0C.4
+021B:  GOTO   21A
+021C:  MOVWF  19
+021D:  MOVLW  0A
+021E:  BTFSS  0C.4
+021F:  GOTO   21E
+0220:  MOVWF  19
+....................  
+.................... puts("DOCTOR IS PRESENT"); 
+0221:  CLRF   3C
+0222:  MOVF   3C,W
+0223:  CALL   1AB
+0224:  IORLW  00
+0225:  BTFSC  03.2
+0226:  GOTO   22C
+0227:  INCF   3C,F
+0228:  BTFSS  0C.4
+0229:  GOTO   228
+022A:  MOVWF  19
+022B:  GOTO   222
+022C:  MOVLW  0D
+022D:  BTFSS  0C.4
+022E:  GOTO   22D
+022F:  MOVWF  19
+0230:  MOVLW  0A
+0231:  BTFSS  0C.4
+0232:  GOTO   231
+0233:  MOVWF  19
+.................... putc(0x1a); 
+0234:  MOVLW  1A
+0235:  BTFSS  0C.4
+0236:  GOTO   235
+0237:  MOVWF  19
+....................  
+.................... } 
+0238:  BCF    0A.3
+0239:  BCF    0A.4
+023A:  GOTO   32C (RETURN)
+.................... /*b=1; 
+....................       delay_ms(250); 
+....................       if(b==1) 
+....................         { 
+....................             command(0xc0); 
+....................             data("  PATIENT1 RAJA "); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data("  PATIENT1 RAJA "); 
+....................             command(0xc0); 
+....................             data("DOCTOR THANGAM"); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data("DOCTOR THANGAM"); 
+....................             command(0xc0); 
+....................             data(" DISEASE  COLD  "); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data(" DISEASE  COLD  "); 
+....................             command(0xc0); 
+....................             data(" PRESCRIPTION  "); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data(" PRESCRIPTION  "); 
+....................             command(0xc0); 
+....................             data(" EXCEDRIN TAB "); 
+....................             b=0; 
+....................           } 
+....................  
+....................  
+....................       } 
+....................       else if(a[10]=='3' && a[11]=='E') 
+....................       { 
+....................       fputs("S2"); 
+....................       command(0x80); 
+....................       data("  TAG SECOND  "); 
+....................       command(0xc0); 
+....................       data("PATIENT2 YUVARAJ"); 
+....................       c=1; 
+....................       delay_ms(150); 
+....................       if(c==1) 
+....................       command(0xc0); 
+....................             data("PATIENT2 YUVARAJ"); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data("PATIENT2 YUVARAJ"); 
+....................             command(0xc0); 
+....................             data("DOCTOR THANGAM"); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data("DOCTOR THANGAM"); 
+....................             command(0xc0); 
+....................             data(" DISEASE FEVER "); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data(" DISEASE FEVER"); 
+....................             command(0xc0); 
+....................             data(" PRESCRIPTION  "); 
+....................             delay_ms(2000); 
+....................             command(0x80); 
+....................             data(" PRESCRIPTION  "); 
+....................             command(0xc0); 
+....................             data("PREVACID SOLUT"); 
+....................             c=0; 
+....................       } 
+....................  
+....................       glag=0;i=0; 
+....................    } 
+....................  
+....................  } 
+.................... }*/ 

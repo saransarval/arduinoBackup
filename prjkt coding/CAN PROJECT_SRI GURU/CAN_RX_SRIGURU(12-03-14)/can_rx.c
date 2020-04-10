@@ -1,0 +1,257 @@
+#include "rx_header.h"
+
+unsigned char speed_range[10] = {10, 20, 30, 40, 50, 60, 70, 85, 100, 120 }, speed_limit = 8, speed = 0, tmr0_count = 0;
+int1 key1_flag = 0, tmr0_flag = 0;
+int16 adc_value = 0;
+void command(unsigned char com);
+void data(unsigned char da);
+void display(unsigned int16 value);
+void display_speed(int16 value);
+int1 tx_rtr=0;
+int1 tx_ext=1;
+int tx_pri=1;
+int out_data[2];
+
+#ZERO_RAM
+
+#int_CANRX0
+CANRX0_isr()
+{
+	CAN_INT_RXB0IF=0;
+
+	can_getd(rx_id,&in_data[0],rx_len,rxstat);
+	can_int_enable=1;
+}
+
+
+#int_timer0
+timer0_isr()
+{
+  tmr0_flag = 1;
+}
+
+void command(unsigned char com)
+{
+   portd=com;
+   reg=0;
+   rw=0;
+   en=1;
+   delay_ms(1);
+   en=0;
+}
+
+void data(unsigned char da)
+{
+   portd=da;
+   reg=1;
+   rw=0;
+   en=1;
+   delay_ms(1);
+   en=0;
+}
+
+void main()
+{
+//   CONFIG1H = 0x0;
+         setup_adc_ports(AN0);
+         setup_adc(ADC_CLOCK_INTERNAL);
+         setup_psp(PSP_DISABLED);
+         setup_spi(FALSE);
+         setup_wdt(WDT_OFF);
+         //setup_timer_0(RTCC_INTERNAL);
+         setup_timer_0(RTCC_INTERNAL|RTCC_DIV_256|RTCC_8_bit);
+         setup_timer_1(T1_DISABLED);
+         setup_timer_2(T2_DISABLED,124,1);
+         setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
+         setup_comparator(NC_NC_NC_NC);
+         setup_vref(FALSE);
+
+         setup_low_volt_detect(FALSE);
+         setup_oscillator(False);
+           // setup_ccp1(CCP_PWM_HALF_BRIDGE|CCP_SHUTDOWN_AC_L|CCP_SHUTDOWN_BD_L);
+         setup_ccp1(CCP_PWM);
+         delay_ms(10);
+            //setup_ccp2(CCP_PWM);
+
+            //   SET_TRIS_D( 0x00 );
+            //   SET_TRIS_E( 0x00 );
+            //   SET_TRIS_C( 0x80 );
+            //   SET_TRIS_B( 0x07 );
+         trisd = 0x00;
+         trise = 0x00;
+         trisc = 0x80;
+         trisb = 0x17;
+         portd = 0x00;
+         porte = 0x00;
+         portc = 0x00;
+         portb = 0x00;
+         porta = 0x00;
+         trisa = 0x01;
+
+         intcon2=0x00;
+
+        /* tmr3l=0x00;
+         tmr3h=0x00;
+         t3con=0x61;
+
+         eccp1con=0x0f;*/
+
+         command(0x38);
+         command(0x06);
+         command(0x0c);
+         command(0x01);
+
+         command(0x80);
+         data("CAN BASED MONI");
+         command(0xc0);
+         data("FAULT DIAGNOSTICS");
+         delay_ms(1000);
+         command(0x01);
+
+         delay_ms(1000);
+         can_init();
+         enable_interrupts(int_timer0);
+         enable_interrupts(INT_CANRX0);
+         enable_interrupts(GLOBAL);
+   while(1)
+   {
+     if(can_int_enable==1)
+        {
+         can_int_enable = 0;
+           if(in_data[0]=='6' && in_data[1]=='0')
+            {
+               //set_pwm1_duty (20);
+               speed_limit = 1;
+            }
+            if(in_data[0]=='5' && in_data[1]=='0')
+            {
+               //set_pwm1_duty (40);
+               speed_limit = 3;
+            }
+            if(in_data[0]=='4' && in_data[1]=='0')
+            {
+               //set_pwm1_duty (60);
+               speed_limit = 5;
+            }
+            if(in_data[0]=='3' && in_data[1]=='0')
+            {
+               //set_pwm1_duty (90);
+               speed_limit = 7;
+            }
+            if(in_data[0]=='2' && in_data[1]=='0')
+            {
+               //set_pwm1_duty (120);
+               speed_limit = 9;
+            }
+
+        /* else if(rx_id==0x02)
+         {
+            ldr_dummy[0]=in_data[0];
+            ldr_dummy[1]=in_data[1];
+            ldr_value=ldr_dummy[1];
+            ldr_value<<=8;
+            ldr_value+ldr_dummy[0];
+            if(ldr_value > LDR)
+               eccpr1l=0x0f;
+            else
+            {
+               delay_ms(10);
+               eccpr1l=0xff;
+            }
+         }*/
+         command(0x80);
+         data(in_data[0]);
+         data(in_data[1]);
+        }
+
+/*         set_adc_channel( 0 );
+         adc_value = read_adc();
+         display(adc_value);
+
+
+        if(adc_value > LDR)
+         set_pwm2_duty (20);
+        else
+         set_pwm2_duty (40);
+         delay_ms(10);
+         set_pwm2_duty (60);
+         delay_ms(10);
+         set_pwm2_duty (100);
+ */
+      delay_ms(10);
+      set_adc_channel( 0 );
+      adc_value = read_adc();
+      display(adc_value);
+
+     /* if(adc_value > LDR)
+         eccpr1l=0x0f;
+      else
+      {
+         delay_ms(10);
+         eccpr1l=0xff;
+      }*/
+      out_data[0]=adc_value;
+      out_data[1]=(adc_value>>8);
+      can_putd(0x02,  out_data,   2,   tx_pri,      tx_ext,    tx_rtr);
+
+      if(KEY1 == 0)
+      {
+         key1_flag = 1;
+         setup_timer_2(t2_DIV_BY_16,124,1);
+      }
+      if((KEY1 == 1) && (key1_flag == 1))
+      {
+         key1_flag = 0;
+         speed++;
+         if(speed >= speed_limit)
+            speed = speed_limit;
+      }
+      if(tmr0_flag == 1)
+      {
+         tmr0_flag = 0;
+         tmr0_count++;
+         if(tmr0_count >= 30)
+        {
+            tmr0_count = 0;
+            if(speed > speed_limit)
+               speed--;
+            //else if(speed < speed_limit)
+            //   speed++;
+            set_pwm1_duty (speed_range[speed]);
+            display_speed(speed_range[speed]);
+         }
+      }
+   }
+}
+
+void display(unsigned int16 value)
+{
+   int z[4],j=0;
+   for(j=0;j<=3;j++)
+   {
+      z[j]=value%10;
+      value=value/10;
+   }
+   command(0xc0);
+   data(z[3]|0x30);
+   data(z[2]|0x30);
+   data(z[1]|0x30);
+   data(z[0]|0x30);
+
+}
+
+void display_speed(int16 value)
+{
+   int16 y[3]={0},k=0;
+   for(k=0;k<=2;k++)
+   {
+      y[k]=value%10;
+      value=value/10;
+   }
+   command(0xca);
+   data(y[2]|0x30);
+   data(y[1]|0x30);
+   data(y[0]|0x30);
+
+}
+

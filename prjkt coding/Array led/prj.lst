@@ -1,0 +1,390 @@
+CCS PCM C Compiler, Version 3.249, 33340               29-Oct-13 11:22
+
+               Filename: \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\ARRAY_LED_DISPALY\prj.lst
+
+               ROM used: 254 words (3%)
+                         Largest free fragment is 2048
+               RAM used: 45 (26%) at main() level
+                         48 (27%) worst case
+               Stack:    4 worst case (3 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   094
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  MOVLW  8C
+001A:  MOVWF  04
+001B:  BTFSS  00.5
+001C:  GOTO   01F
+001D:  BTFSC  0C.5
+001E:  GOTO   032
+001F:  MOVF   22,W
+0020:  MOVWF  04
+0021:  MOVF   23,W
+0022:  MOVWF  77
+0023:  MOVF   24,W
+0024:  MOVWF  78
+0025:  MOVF   25,W
+0026:  MOVWF  79
+0027:  MOVF   26,W
+0028:  MOVWF  7A
+0029:  MOVF   27,W
+002A:  MOVWF  7B
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   041
+.................... #INCLUDE<16F877A.H> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #USE DELAY(CLOCK=11059200) 
+*
+0052:  MOVLW  49
+0053:  MOVWF  04
+0054:  MOVF   00,W
+0055:  BTFSC  03.2
+0056:  GOTO   064
+0057:  MOVLW  03
+0058:  MOVWF  78
+0059:  CLRF   77
+005A:  DECFSZ 77,F
+005B:  GOTO   05A
+005C:  DECFSZ 78,F
+005D:  GOTO   059
+005E:  MOVLW  95
+005F:  MOVWF  77
+0060:  DECFSZ 77,F
+0061:  GOTO   060
+0062:  DECFSZ 00,F
+0063:  GOTO   057
+0064:  RETLW  00
+.................... #use rs232(baud=9600,parity=N,xmit=pin_C6,rcv=pin_C7) 
+....................  
+.................... #BYTE TRISA=0X85 
+.................... #BYTE TRISB=0X86 
+.................... #BYTE TRISC=0X87 
+.................... #BYTE TRISD=0X88 
+.................... #BYTE TRISE=0X89 
+....................  
+.................... #BYTE PORTA=0X05 
+.................... #BYTE PORTB=0X06 
+.................... #BYTE PORTC=0X07 
+.................... #BYTE PORTD=0X08 
+.................... #BYTE PORTE=0X09 
+....................  
+....................  
+.................... /////////////////////// 
+.................... //////LCD PINS///////// 
+.................... /////////////////////// 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+....................  
+.................... /////////////////////// 
+.................... //////LCD COMMANDS///// 
+.................... /////////////////////// 
+.................... int16 READ_ADC(INT ); 
+.................... VOID DISPLAY_NUM(INT POS,INT16 NUM); 
+.................... void gsm(unsigned char no); 
+.................... VOID COMMAND(unsigned char com) 
+.................... { 
+....................  PORTD=COM; 
+0065:  MOVF   47,W
+0066:  MOVWF  08
+....................  reg=0;rw=0; 
+0067:  BCF    09.0
+0068:  BCF    09.1
+....................  en=1;delay_ms(1);en=0; 
+0069:  BSF    09.2
+006A:  MOVLW  01
+006B:  MOVWF  49
+006C:  CALL   052
+006D:  BCF    09.2
+.................... } 
+006E:  RETLW  00
+....................  
+.................... VOID DATA(unsigned char da) 
+.................... { 
+.................... portd=da; 
+*
+008A:  MOVF   48,W
+008B:  MOVWF  08
+.................... reg=1;rw=0; 
+008C:  BSF    09.0
+008D:  BCF    09.1
+.................... en=1;delay_ms(1);en=0; 
+008E:  BSF    09.2
+008F:  MOVLW  01
+0090:  MOVWF  49
+0091:  CALL   052
+0092:  BCF    09.2
+.................... } 
+0093:  RETLW  00
+....................  
+.................... void LCD_INT(void) 
+.................... { 
+....................    command(0x38); 
+*
+006F:  MOVLW  38
+0070:  MOVWF  47
+0071:  CALL   065
+....................    delay_ms(10); 
+0072:  MOVLW  0A
+0073:  MOVWF  49
+0074:  CALL   052
+....................    command(0x06); 
+0075:  MOVLW  06
+0076:  MOVWF  47
+0077:  CALL   065
+....................    delay_ms(10); 
+0078:  MOVLW  0A
+0079:  MOVWF  49
+007A:  CALL   052
+....................    command(0x0c); 
+007B:  MOVLW  0C
+007C:  MOVWF  47
+007D:  CALL   065
+....................    delay_ms(10); 
+007E:  MOVLW  0A
+007F:  MOVWF  49
+0080:  CALL   052
+....................    command(0x01); 
+0081:  MOVLW  01
+0082:  MOVWF  47
+0083:  CALL   065
+....................    delay_ms(10); 
+0084:  MOVLW  0A
+0085:  MOVWF  49
+0086:  CALL   052
+.................... } 
+0087:  BCF    0A.3
+0088:  BCF    0A.4
+0089:  GOTO   0BA (RETURN)
+....................  
+.................... INT R[26],I=0,LCD=0,J=0,CCD=0; 
+*
+00A6:  BCF    03.5
+00A7:  CLRF   42
+00A8:  CLRF   43
+00A9:  CLRF   44
+00AA:  CLRF   45
+.................... INT1 DISPLAY=0; 
+00AB:  BCF    46.0
+.................... #INT_RDA 
+.................... USART() 
+.................... { 
+....................    R[I]=FGETC(); 
+*
+0041:  MOVLW  28
+0042:  ADDWF  42,W
+0043:  MOVWF  04
+0044:  BTFSS  0C.5
+0045:  GOTO   044
+0046:  MOVF   1A,W
+0047:  MOVWF  00
+....................     
+....................    I++; 
+0048:  INCF   42,F
+....................     
+....................    IF(I==25) 
+0049:  MOVF   42,W
+004A:  SUBLW  19
+004B:  BTFSS  03.2
+004C:  GOTO   04E
+....................    { 
+....................       DISPLAY=1; 
+004D:  BSF    46.0
+....................    } 
+.................... } 
+....................    
+004E:  BCF    0C.5
+004F:  BCF    0A.3
+0050:  BCF    0A.4
+0051:  GOTO   01F
+.................... VOID MAIN() 
+.................... { 
+*
+0094:  CLRF   04
+0095:  MOVLW  1F
+0096:  ANDWF  03,F
+0097:  MOVLW  11
+0098:  BSF    03.5
+0099:  MOVWF  19
+009A:  MOVLW  22
+009B:  MOVWF  18
+009C:  MOVLW  90
+009D:  BCF    03.5
+009E:  MOVWF  18
+009F:  BSF    03.5
+00A0:  BSF    1F.0
+00A1:  BSF    1F.1
+00A2:  BSF    1F.2
+00A3:  BCF    1F.3
+00A4:  MOVLW  07
+00A5:  MOVWF  1C
+....................  
+....................    TRISA=0X00; 
+*
+00AC:  BSF    03.5
+00AD:  CLRF   05
+....................    TRISB=0X00; 
+00AE:  CLRF   06
+....................    TRISC=0X80; 
+00AF:  MOVLW  80
+00B0:  MOVWF  07
+....................    TRISD=0X00; 
+00B1:  CLRF   08
+....................    TRISE=0X00; 
+00B2:  CLRF   09
+....................  
+....................    PORTA=0X00; 
+00B3:  BCF    03.5
+00B4:  CLRF   05
+....................    PORTB=0X00; 
+00B5:  CLRF   06
+....................    PORTC=0X00; 
+00B6:  CLRF   07
+....................    PORTD=0X00; 
+00B7:  CLRF   08
+....................    PORTE=0X00; 
+00B8:  CLRF   09
+....................  
+....................  
+....................    LCD_INT(); 
+00B9:  GOTO   06F
+....................  
+....................    ENABLE_INTERRUPTS(GLOBAL); 
+00BA:  MOVLW  C0
+00BB:  IORWF  0B,F
+....................    ENABLE_INTERRUPTS(INT_RDA);         /////    INBUILT FUNCTION TO ENABLE UART RECEPTION 
+00BC:  BSF    03.5
+00BD:  BSF    0C.5
+....................  
+....................    COMMAND(0X80); 
+00BE:  MOVLW  80
+00BF:  BCF    03.5
+00C0:  MOVWF  47
+00C1:  CALL   065
+....................    DATA("DISPALY"); 
+00C2:  CLRF   47
+00C3:  MOVF   47,W
+00C4:  CALL   035
+00C5:  IORLW  00
+00C6:  BTFSC  03.2
+00C7:  GOTO   0CC
+00C8:  INCF   47,F
+00C9:  MOVWF  48
+00CA:  CALL   08A
+00CB:  GOTO   0C3
+....................    DELAY_MS(1000); 
+00CC:  MOVLW  04
+00CD:  MOVWF  47
+00CE:  MOVLW  FA
+00CF:  MOVWF  49
+00D0:  CALL   052
+00D1:  DECFSZ 47,F
+00D2:  GOTO   0CE
+....................    COMMAND(0X01); 
+00D3:  MOVLW  01
+00D4:  MOVWF  47
+00D5:  CALL   065
+....................    LCD=0X8F; 
+00D6:  MOVLW  8F
+00D7:  MOVWF  43
+....................     
+....................     
+....................    WHILE(1) 
+....................    { 
+....................       IF(DISPLAY==1) 
+00D8:  BTFSS  46.0
+00D9:  GOTO   0FC
+....................       { 
+....................          DELAY_MS(200); 
+00DA:  MOVLW  C8
+00DB:  MOVWF  49
+00DC:  CALL   052
+....................          command(0x01); 
+00DD:  MOVLW  01
+00DE:  MOVWF  47
+00DF:  CALL   065
+....................          LCD=LCD-0X01; 
+00E0:  MOVLW  01
+00E1:  SUBWF  43,F
+....................          CCD=LCD; 
+00E2:  MOVF   43,W
+00E3:  MOVWF  45
+....................  
+....................          FOR(J=0;J<26;J++) 
+00E4:  CLRF   44
+00E5:  MOVF   44,W
+00E6:  SUBLW  19
+00E7:  BTFSS  03.0
+00E8:  GOTO   0F6
+....................          { 
+....................             COMMAND(CCD); 
+00E9:  MOVF   45,W
+00EA:  MOVWF  47
+00EB:  CALL   065
+....................             DATA(R[J]); 
+00EC:  MOVLW  28
+00ED:  ADDWF  44,W
+00EE:  MOVWF  04
+00EF:  MOVF   00,W
+00F0:  MOVWF  47
+00F1:  MOVWF  48
+00F2:  CALL   08A
+....................             CCD++; 
+00F3:  INCF   45,F
+....................          } 
+00F4:  INCF   44,F
+00F5:  GOTO   0E5
+....................           
+....................          IF(LCD==0X77) 
+00F6:  MOVF   43,W
+00F7:  SUBLW  77
+00F8:  BTFSS  03.2
+00F9:  GOTO   0FC
+....................          { 
+....................             LCD=0X8F; 
+00FA:  MOVLW  8F
+00FB:  MOVWF  43
+....................          } 
+....................          
+....................       } 
+....................    } 
+00FC:  GOTO   0D8
+.................... } 
+....................  
+00FD:  SLEEP

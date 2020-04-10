@@ -1,0 +1,2074 @@
+CCS PCH C Compiler, Version 3.249, 33340               12-Mar-14 14:23
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\project1.lst
+
+               ROM used: 3028 bytes (9%)
+                         Largest free fragment is 29736
+               RAM used: 78 (5%) at main() level
+                         120 (8%) worst case
+               Stack:    5 worst case (3 in main + 2 for interrupts)
+
+*
+0000:  GOTO   099A
+*
+0008:  MOVWF  05
+000A:  MOVFF  FD8,06
+000E:  MOVFF  FE0,07
+0012:  MOVLB  0
+0014:  MOVFF  FE9,0D
+0018:  MOVFF  FEA,08
+001C:  MOVFF  FE1,09
+0020:  MOVFF  FE2,0A
+0024:  MOVFF  FD9,0B
+0028:  MOVFF  FDA,0C
+002C:  MOVFF  FF3,14
+0030:  MOVFF  FF4,15
+0034:  MOVFF  FFA,16
+0038:  MOVFF  00,0F
+003C:  MOVFF  01,10
+0040:  MOVFF  02,11
+0044:  MOVFF  03,12
+0048:  MOVFF  04,13
+004C:  BTFSS  FF2.5
+004E:  GOTO   0058
+0052:  BTFSC  FF2.2
+0054:  GOTO   00FE
+0058:  BTFSS  FF2.4
+005A:  GOTO   0064
+005E:  BTFSC  FF2.1
+0060:  GOTO   0534
+0064:  MOVFF  0F,00
+0068:  MOVFF  10,01
+006C:  MOVFF  11,02
+0070:  MOVFF  12,03
+0074:  MOVFF  13,04
+0078:  MOVFF  0D,FE9
+007C:  MOVFF  08,FEA
+0080:  MOVFF  09,FE1
+0084:  MOVFF  0A,FE2
+0088:  MOVFF  0B,FD9
+008C:  MOVFF  0C,FDA
+0090:  MOVFF  14,FF3
+0094:  MOVFF  15,FF4
+0098:  MOVFF  16,FFA
+009C:  MOVF   05,W
+009E:  MOVFF  07,FE0
+00A2:  MOVFF  06,FD8
+00A6:  RETFIE 0
+.................... #include "tx_header.h" 
+.................... #include <18F458.h> 
+.................... //////// Standard Header file for the PIC18F458 device //////////////// 
+.................... #device PIC18F458 
+.................... #list 
+....................  
+.................... #device adc=10 
+.................... #define sub_station_id 0x00 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//Resistor/Capacitor Osc 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES NOWRTD                	//Data EEPROM not write protected 
+.................... #FUSES NOWRTB                	//Boot block not write protected 
+.................... #FUSES NOCPB                 	//No Boot Block code protection 
+.................... #FUSES NOWRTC                	//configuration not registers write protected 
+.................... #FUSES NOEBTR                	//Memory not protected from table reads 
+.................... #FUSES NOEBTRB                //Boot block not protected from table reads 
+.................... //#define LDR 600 
+....................  
+....................  
+.................... #use delay(clock=11059200) 
+*
+063C:  CLRF   FEA
+063E:  MOVLW  56
+0640:  MOVWF  FE9
+0642:  MOVF   FEF,W
+0644:  BZ    0660
+0646:  MOVLW  03
+0648:  MOVWF  01
+064A:  CLRF   00
+064C:  DECFSZ 00,F
+064E:  BRA    064C
+0650:  DECFSZ 01,F
+0652:  BRA    064A
+0654:  MOVLW  95
+0656:  MOVWF  00
+0658:  DECFSZ 00,F
+065A:  BRA    0658
+065C:  DECFSZ FEF,F
+065E:  BRA    0646
+0660:  RETLW  00
+.................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8, ERRORS) 
+.................... #include "pic18_f_reg.h" 
+.................... #byte    trisa    = 0xf92 
+.................... #byte    trisb    = 0xf93 
+.................... #byte    trisc    = 0xf94 
+.................... #byte    trisd    = 0xf95 
+.................... #byte    trise    = 0xf96 
+.................... #byte    trisf    = 0xf97 
+.................... #byte    trisg    = 0xf98 
+.................... #byte    trish    = 0xf99 
+.................... #byte    trisj    = 0xf9a 
+....................  
+.................... #byte    TXSTA   = 0xFAC 
+.................... #byte    RCSTA   = 0xFAB 
+.................... #byte    RXREG   = 0xFAE  
+.................... #byte    porta   = 0xF80 
+.................... #byte    portb   = 0xF81 
+.................... #byte    portc   = 0xF82 
+.................... #byte    portd   = 0xF83 
+.................... #byte    porte   = 0xF84 
+.................... #byte    portf   = 0xF85   
+.................... #byte    portg   = 0xF86   
+.................... #byte    porth   = 0xF87   
+.................... #byte    portj   = 0xF88   
+....................  
+.................... #byte    LATA    = 0xF89   
+.................... #byte    LATB    = 0xF8A 
+.................... #byte    LATC    = 0xF8B 
+.................... #byte    LATD    = 0xF8C 
+.................... #byte    LATE    = 0xF8D 
+.................... #byte    LATF    = 0xF8E 
+.................... #byte    LATG    = 0xF8F 
+.................... #byte    LATH    = 0xF90 
+.................... #byte    LATJ    = 0xF91 
+....................  
+.................... #byte   Adcon1   = 0xfc1 
+.................... #byte   CMCON   = 0xfB4 
+.................... #byte   RCON	 = 0xfd0 
+.................... #byte   STKPTR   = 0xffc 
+.................... #byte  PIR1      = 0xf9e 
+.................... #byte  PIR3      = 0xfa4 
+.................... #byte  T3CON     = 0xfb1 
+.................... #byte  pr2       = 0xfcb 
+.................... #byte  HLVDCON   = 0xfd2 
+.................... #byte  PIE2      = 0xfa0 
+.................... #byte  T1CON     = 0xFCD 
+.................... #byte  tmr1h     = 0xfcf 
+.................... #byte  tmr1l     = 0xfce 
+.................... #bit   HLVDIE    = PIE2.2 
+.................... #bit   RCIF      = PIR1.5    
+.................... //SINGLE BIT DECLARATION 
+....................  
+.................... //PORTA BITS 
+.................... #bit    RA0		= PORTA.0 
+.................... #bit    RA1		= PORTA.1 
+.................... #bit    RA2		= PORTA.2 
+.................... #bit    RA3		= PORTA.3 
+.................... #bit    RA4		= PORTA.4 
+.................... #bit    RA5		= PORTA.5 
+....................  
+.................... //PORTB BITS 
+.................... #bit    RB0		= PORTB.0 
+.................... #bit    RB1		= PORTB.1 
+.................... #bit    RB2		= PORTB.2 
+.................... #bit    RB3		= PORTB.3 
+.................... #bit    RB4		= PORTB.4 
+.................... #bit    RB5		= PORTB.5 
+.................... #bit    RB6		= PORTB.6 
+.................... #bit    RB7		= PORTB.7 
+....................  
+.................... //PORTC BITS 
+.................... #bit    RC0		= PORTC.0 
+.................... #bit    RC1		= PORTC.1 
+.................... #bit    RC2		= PORTC.2 
+.................... #bit    RC3		= PORTC.3 
+.................... #bit    RC4		= PORTC.4 
+.................... #bit    RC5		= PORTC.5 
+.................... #bit    RC6		= PORTC.6 
+.................... #bit    RC7		= PORTC.7 
+....................  
+.................... //PORTD BITS 
+.................... #bit    RD0		= PORTD.0 
+.................... #bit    RD1		= PORTD.1 
+.................... #bit    RD2		= PORTD.2 
+.................... #bit    RD3		= PORTD.3 
+.................... #bit    RD4		= PORTD.4 
+.................... #bit    RD5		= PORTD.5 
+.................... #bit    RD6		= PORTD.6 
+.................... #bit    RD7		= PORTD.7 
+....................  
+.................... //PORTE BITS 
+.................... #bit    RE0		= PORTE.0 
+.................... #bit    RE1		= PORTE.1 
+.................... #bit    RE2		= PORTE.2 
+....................  
+.................... #include "can-18xxx8_own.h" 
+.................... ///////////////////////////////////////////////////////////////////////// 
+.................... ////                        can-18xxx8.c                             //// 
+.................... //// CAN Library routines for Microchip's PIC18Cxx8 and 18Fxx8 line  //// 
+.................... ////                                                                 //// 
+.................... //// This library provides the following functions:                  //// 
+.................... ////  (for more information on these functions see the comment       //// 
+.................... ////   header above each function)                                   //// 
+.................... ////                                                                 //// 
+.................... ////    can_init - Configures the PIC18xxx8 CAN peripheral           //// 
+.................... ////                                                                 //// 
+.................... ////    can_set_baud - Sets the baud rate control registers          //// 
+.................... ////                                                                 //// 
+.................... ////    can_set_mode - Sets the CAN module into a specific mode      //// 
+.................... ////                                                                 //// 
+.................... ////    can_set_id - Sets the standard and extended ID               //// 
+.................... ////                                                                 //// 
+.................... ////    can_get_id - Gets the standard and extended ID               //// 
+.................... ////                                                                 //// 
+.................... ////    can_putd - Sends a message/request with specified ID         //// 
+.................... ////                                                                 //// 
+.................... ////    can_getd - Returns specifid message/request and ID           //// 
+.................... ////                                                                 //// 
+.................... ////    can_kbhit - Returns true if there is data in one of the      //// 
+.................... ////                receive buffers                                  //// 
+.................... ////                                                                 //// 
+.................... ////    can_tbe - Returns true if the transmit buffer is ready to    //// 
+.................... ////              send more data                                     //// 
+.................... ////                                                                 //// 
+.................... ////    can_abort - Aborts all pending transmissions                 //// 
+.................... ////                                                                 //// 
+.................... //// PIN_B3 is CANRX, and PIN_B2 is CANTX.  You will need a CAN      //// 
+.................... //// transeiver to connect these pins to CANH and CANL bus lines.    //// 
+.................... ////                                                                 //// 
+.................... //// CCS provides an example, ex_can.c, which shows how to use this  //// 
+.................... //// library.                                                        //// 
+.................... ////                                                                 //// 
+.................... ///////////////////////////////////////////////////////////////////////// 
+.................... ////                                                                 //// 
+.................... //// Version History                                                 //// 
+.................... ////                                                                 //// 
+.................... ////  Jul 27 04 - can_init() uses CAN_USE_EXTENDED_ID instead of     //// 
+.................... ////              setting all RX filters to extended.                //// 
+.................... ////                                                                 //// 
+.................... ////  Feb 24 04 - can_get_id() fixed for EID<18:20>.                 //// 
+.................... ////                                                                 //// 
+.................... ///////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996,2003 Custom Computer Services         //// 
+.................... //// This source code may only be used by licensed users of the CCS  //// 
+.................... //// C compiler.  This source code may only be distributed to other  //// 
+.................... //// licensed users of the CCS C compiler.  No other use,            //// 
+.................... //// reproduction or distribution is permitted without written       //// 
+.................... //// permission.  Derivative programs created using this software    //// 
+.................... //// in object code form are not restricted in any way.              //// 
+.................... ///////////////////////////////////////////////////////////////////////// 
+....................  
+.................... #include <can-18xxx8.h> 
+.................... ///////////////////////////////////////////////////////////////////////// 
+.................... ////                        can-18xxx8.h                             //// 
+.................... ////                                                                 //// 
+.................... //// Prototypes, definitions, defines and macros used for and with   //// 
+.................... //// the CCS CAN library for PIC18Fxx8 and PIC18Cxx8.                //// 
+.................... ////                                                                 //// 
+.................... //// (see can-18xxx8.c)                                              //// 
+.................... ////                                                                 //// 
+.................... ///////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996,2003 Custom Computer Services         //// 
+.................... //// This source code may only be used by licensed users of the CCS  //// 
+.................... //// C compiler.  This source code may only be distributed to other  //// 
+.................... //// licensed users of the CCS C compiler.  No other use,            //// 
+.................... //// reproduction or distribution is permitted without written       //// 
+.................... //// permission.  Derivative programs created using this software    //// 
+.................... //// in object code form are not restricted in any way.              //// 
+.................... ///////////////////////////////////////////////////////////////////////// 
+....................  
+.................... #ifndef __CCS_CAN18xxx8_LIB_DEFINES__ 
+.................... #define __CCS_CAN18xxx8_LIB_DEFINES__ 
+....................  
+.................... #ifndef CAN_DO_DEBUG 
+....................  #define CAN_DO_DEBUG FALSE 
+.................... #endif 
+....................  
+.................... #IFNDEF CAN_USE_EXTENDED_ID 
+....................   #define CAN_USE_EXTENDED_ID         TRUE 
+.................... #ENDIF 
+....................  
+.................... #IFNDEF CAN_BRG_SYNCH_JUMP_WIDTH 
+....................   #define CAN_BRG_SYNCH_JUMP_WIDTH  0  //synchronized jump width (def: 1 x Tq) 
+.................... #ENDIF 
+....................  
+.................... #IFNDEF CAN_BRG_PRESCALAR 
+....................   #define CAN_BRG_PRESCALAR  4  //baud rate generator prescalar (def: 4) ( Tq = (2 x (PRE + 1))/Fosc ) 
+.................... #ENDIF 
+....................  
+.................... #ifndef CAN_BRG_SEG_2_PHASE_TS 
+....................  #define CAN_BRG_SEG_2_PHASE_TS   TRUE //phase segment 2 time select bit (def: freely programmable) 
+.................... #endif 
+....................  
+.................... #ifndef CAN_BRG_SAM 
+....................  #define CAN_BRG_SAM 0 //sample of the can bus line (def: bus line is sampled 1 times prior to sample point) 
+.................... #endif 
+....................  
+.................... #ifndef CAN_BRG_PHASE_SEGMENT_1 
+....................  #define CAN_BRG_PHASE_SEGMENT_1  5 //phase segment 1 (def: 6 x Tq) 
+.................... #endif 
+....................  
+.................... #ifndef CAN_BRG_PROPAGATION_TIME 
+....................  #define CAN_BRG_PROPAGATION_TIME 2 //propagation time select (def: 3 x Tq) 
+.................... #endif 
+....................  
+.................... #ifndef CAN_BRG_WAKE_FILTER 
+....................  #define CAN_BRG_WAKE_FILTER FALSE   //selects can bus line filter for wake up bit 
+.................... #endif 
+....................  
+.................... #ifndef CAN_BRG_PHASE_SEGMENT_2 
+....................  #define CAN_BRG_PHASE_SEGMENT_2 5 //phase segment 2 time select (def: 6 x Tq) 
+.................... #endif 
+....................  
+.................... #ifndef CAN_USE_RX_DOUBLE_BUFFER 
+....................  #define CAN_USE_RX_DOUBLE_BUFFER TRUE   //if buffer 0 overflows, do NOT use buffer 1 to put buffer 0 data 
+.................... #endif 
+....................  
+.................... #ifndef CAN_ENABLE_DRIVE_HIGH 
+....................  #define CAN_ENABLE_DRIVE_HIGH 0 
+.................... #endif 
+....................  
+.................... #ifndef CAN_ENABLE_CAN_CAPTURE 
+....................  #define CAN_ENABLE_CAN_CAPTURE 0 
+.................... #endif 
+....................  
+.................... enum CAN_OP_MODE {CAN_OP_CONFIG=4, CAN_OP_LISTEN=3, CAN_OP_LOOPBACK=2, CAN_OP_DISABLE=1, CAN_OP_NORMAL=0}; 
+.................... enum CAN_WIN_ADDRESS {CAN_WIN_RX0=0, CAN_WIN_RX1=5, CAN_WIN_TX0=4, CAN_WIN_TX1=3, CAN_WIN_TX2=2}; 
+....................  
+.................... //can control 
+.................... struct { 
+.................... 	int1 void0; //0 
+.................... 	CAN_WIN_ADDRESS win:3;	//1:3 //window address bits 
+.................... 	int1 abat;	//4 //abort all pending transmissions 
+.................... 	CAN_OP_MODE reqop:3;	//5:7	//request can operation mode bits 
+.................... } CANCON; 
+.................... #byte CANCON = 0xF6F 
+....................  
+....................  
+.................... enum CAN_INT_CODE {CAN_INT_WAKEUP=7, CAN_INT_RX0=6, CAN_INT_RX1=5, CAN_INT_TX0=4, CAN_INT_TX1=3, CAN_INT_TX2=2, CAN_INT_ERROR=1, CAN_INT_NO=0}; 
+....................  
+.................... //can status register READ-ONLY 
+.................... struct { 
+.................... 	int1 void0;	//0 
+.................... 	CAN_INT_CODE icode:3;	//1:3	//interrupt code 
+.................... 	int1 void4;	//4 
+.................... 	CAN_OP_MODE opmode:3;	//5:7	//operation mode status 
+.................... } CANSTAT; 
+.................... #byte CANSTAT = 0xF6E 
+....................  
+.................... //communication status register READ-ONLY 
+.................... struct { 
+.................... 	int1 ewarn;		//0 //error warning 
+.................... 	int1 rxwarn;		//1 //receiver warning 
+.................... 	int1 txwarn;		//2 //transmitter warning 
+.................... 	int1 rxbp;	//3 //receiver bus passive 
+.................... 	int1 txbp;	//4 //transmitter bus passive bit 
+.................... 	int1 txbo;	//5	//transmitter bus off 
+.................... 	int1 rx1ovfl;	//6	//receive buffer 1 overflow 
+.................... 	int1 rx0ovfl;	//7	//receive buffer 0 overflow 
+.................... } COMSTAT; 
+.................... #byte COMSTAT=0xF74 
+....................  
+.................... //baud rate control register 1 
+.................... struct { 
+.................... 	int brp:6;	//0:5	//baud rate prescalar 
+.................... 	int sjw:2;	//6:7	//synchronized jump width 
+.................... } BRGCON1; 
+.................... #byte BRGCON1=0xF70 
+....................  
+.................... //baud rate control register 2 
+.................... struct { 
+.................... 	int prseg:3; //0:2 //propagation time select 
+.................... 	int seg1ph:3; //3:5 //phase segment 1 
+.................... 	int1 sam; //6 //sample of the can bus line 
+.................... 	int1 seg2phts; //7 //phase segment 2 time select 
+.................... } BRGCON2; 
+.................... #byte BRGCON2=0xF71 
+....................  
+.................... //baud rate control register 3 
+.................... struct { 
+.................... 	int seg2ph:3;	//0:2	//phase segment 2 time select 
+.................... 	int void543:3;	//3:5 
+.................... 	int1 wakfil;	//6 //selects can bus line filter for wake-up 
+.................... 	int1 void7;	//7 
+.................... } BRGCON3; 
+.................... #byte BRGCON3=0xF72 
+....................  
+.................... //can i/o control register 
+.................... struct { 
+.................... 	int void3210:4;	//0:3 
+.................... 	int1 cancap;	//4 //can message receive caputre 
+.................... 	int1 endrhi;	//5 //enable drive high 
+.................... 	int void76:2;	//6:7 
+.................... } CIOCON; 
+.................... #byte CIOCON=0xF73 
+....................  
+.................... //transmit buffer n control register 
+.................... struct txbNcon_struct { 
+.................... 	int  txpri:2;	//0:1	//transmit priority bits 
+.................... 	int1 void2; //2 
+.................... 	int1 txreq;	//3	//transmit request status (clear to request message abort) 
+.................... 	int1 txerr;	//4	//transmission error detected 
+.................... 	int1 txlarb;	//5	//transmission lost arbitration status 
+.................... 	int1 txabt;	//6	//transmission aborted status 
+.................... 	int1 void7; 
+.................... }; 
+.................... struct txbNcon_struct TXB0CON; 
+.................... struct txbNcon_struct TXB1CON; 
+.................... struct txbNcon_struct TXB2CON; 
+.................... struct txbNcon_struct TXBaCON; 
+.................... #byte	TXB0CON=0xF40 
+.................... #byte	TXB1CON=0xF30 
+.................... #byte	TXB2CON=0xF20 
+.................... #byte TXBaCON=0xF60 //txbXcon when in the access bank 
+....................  
+....................  
+.................... //transmit buffer n standard identifier 
+.................... #byte TXB0SIDH=0xF41 
+.................... #byte TXB0SIDL=0xF42 
+.................... #byte TXB1SIDH=0xF31 
+.................... #byte TXB1SIDL=0xF32 
+.................... #byte TXB2SIDH=0xF21 
+.................... #byte TXB2SIDL=0xF22 
+....................  
+.................... //transmit buffer n extended identifier 
+.................... #byte TXB0EIDH=0xF43 
+.................... #byte TXB0EIDL=0xF44 
+.................... #byte TXB1EIDH=0xF33 
+.................... #byte TXB1EIDL=0xF34 
+.................... #byte TXB2EIDH=0xF23 
+.................... #byte TXB2EIDL=0xF24 
+....................  
+.................... #define RX0MASK      0xF1B    //rxm0eidl 
+.................... #define RX1MASK      0xF1F    //rxm1eidl 
+.................... #define RX0FILTER0   0xF03    //rxf0eidl 
+.................... #define RX0FILTER1   0xF07    //rxf1eidl 
+.................... #define RX1FILTER2   0xF0B    //rxf2eidl 
+.................... #define RX1FILTER3   0xF0F    //rxf3eidl 
+.................... #define RX1FILTER4   0xF13    //rxf4eidl 
+.................... #define RX1FILTER5   0xF17    //rxf5eidl 
+.................... #define RXB0ID       0xF64    //rxb0eidl 
+.................... #define RXB1ID       0xF54    //rxb1eidl 
+.................... #define TXB0ID       0xF44    //txb0eidl 
+.................... #define TXB1ID       0xF34    //txb1eidl 
+.................... #define TXB2ID       0xF24    //tsb2eidl 
+.................... #define TXRXBaID     0xF64 
+....................  
+.................... //transmit buffer n data byte m 
+.................... #byte TXB0D0=0xF46 
+.................... #byte TXB0D7=0xF4D 
+.................... #byte TXB1D0=0xF36 
+.................... #byte TXB1D7=0xF3D 
+.................... #byte TXB2D0=0xF26 
+.................... #byte TXB2D7=0xF2D 
+....................  
+.................... //transmit buffer n data length 
+.................... struct txbNdlc_struct { 
+.................... 	int dlc:4;	//0:3 
+.................... 	int void54:2; //4:5 
+.................... 	int1 rtr; //6 //transmission frame remote tranmission 
+.................... 	int1 void7; //7 
+.................... }; 
+.................... struct txbNdlc_struct TXB0DLC; 
+.................... struct txbNdlc_struct TXB1DLC; 
+.................... struct txbNdlc_struct TXB2DLC; 
+.................... struct txbNdlc_struct TXBaDLC; 
+.................... #byte TXB0DLC=0xF45 
+.................... #byte TXB1DLC=0xF35 
+.................... #byte TXB2DLC=0xF25 
+.................... #byte TXBaDLC=0xF65  //txbXdlc when in the access bank 
+....................  
+....................  
+.................... //transmit error count register 
+.................... #byte TXERRCNT=0xF76 
+....................  
+....................  
+.................... enum CAN_RX_MODE {CAN_RX_ALL=3, CAN_RX_EXT=2, CAN_RX_STD=1, CAN_RX_VALID=0}; 
+....................  
+.................... //receive buffer 0 control register 
+.................... struct { 
+.................... 	int1 filthit0;	//0 //filter hit 
+.................... 	int1 jtoff;	//1 //jump table offset 
+.................... 	int1 rxb0dben;	//2 //receive buffer 0 double buffer enable 
+.................... 	int1 rxrtrro;	//3 //receive remote transfer request 
+.................... 	int1 void4;	//4 
+.................... 	CAN_RX_MODE rxm:2;	//5:6 //receiver buffer mode 
+.................... 	int1 rxful;	//7 //receive full status 
+.................... } RXB0CON; 
+.................... #byte RXB0CON=0xF60 
+....................  
+.................... //receive buffer 1 control register 
+.................... struct { 
+.................... 	int filthit:3;	//0:2 
+.................... 	int1 rxrtrro;	//3 //receive remote transfer request 
+.................... 	int1 void4;	//4 
+.................... 	CAN_RX_MODE rxm:2;	//5:6 //receive buffer mode 
+.................... 	int1 rxful;	//7	//receive full 
+.................... } RXB1CON; 
+.................... #byte	RXB1CON=0xF50 
+....................  
+....................  
+.................... //receive buffer n standard identifier 
+.................... #byte	RXB0SIDH=0xF61 
+.................... #byte	RXB0SIDL=0xF62 
+.................... #byte	RXB1SIDH=0xF51 
+.................... #byte	RXB1SIDL=0xF52 
+....................  
+.................... //receive buffer n extended identifier 
+.................... #byte	RXB0EIDH=0xF63 
+.................... #byte	RXB0EIDL=0xF64 
+.................... #byte	RXB1EIDH=0xF53 
+.................... #byte	RXB1EIDL=0xF54 
+....................  
+.................... #byte TXRXBaEIDL=0xF64 
+....................  
+.................... struct { 
+....................    int void012:3; //0:3 
+....................    int1 ext;   //extendid id 
+....................    int1 srr;   //substitute remove request bit 
+....................    int void567:3; //5:7 
+.................... } TXRXBaSIDL; 
+.................... #byte TXRXBaSIDL=0xF62 
+....................  
+.................... //receive buffer n data length code register 
+.................... struct rxbNdlc_struct { 
+.................... 	int dlc:4;	//0:3 //data length code 
+.................... 	int1 rb0; //4 //reserved 
+.................... 	int1 rb1;	//5 //reserved 
+.................... 	int1 rtr;	//6 //receiver remote transmission request bit 
+.................... 	int1 void7;	//7 
+.................... }; 
+.................... struct rxbNdlc_struct RXB0DLC; 
+.................... struct rxbNdlc_struct RXB1DLC; 
+.................... struct rxbNdlc_struct RXBaDLC; 
+.................... #byte	RXB0DLC=0xF65 
+.................... #byte	RXB1DLC=0xF55 
+.................... #byte	RXBaDLC=0xF65 
+....................  
+.................... //receive buffer n data field byte m register 
+.................... #byte RXB0D0=0xF66 
+.................... #byte RXB0D7=0xF6D 
+.................... #byte TXRXBaD0=0xF66 
+.................... #byte TXRXBaD7=0xF6D 
+....................  
+.................... //receive error count 
+.................... #byte RXERRCNT=0xF75 
+....................  
+.................... //receive acceptance filter n standard indifier 
+.................... #byte RXF0SIDH=0xF00 
+.................... #byte RXF0SIDL=0xF01 
+.................... #byte RXF1SIDH=0xF04 
+.................... #byte RXF1SIDL=0xF05 
+.................... #byte RXF2SIDH=0xF08 
+.................... #byte RXF2SIDL=0xF09 
+.................... #byte RXF3SIDH=0xF0C 
+.................... #byte RXF3SIDL=0xF0D 
+.................... #byte RXF4SIDH=0xF10 
+.................... #byte RXF4SIDL=0xF11 
+.................... #byte RXF5SIDH=0xF14 
+.................... #byte RXF5SIDL=0xF15 
+....................  
+.................... //receive acceptance filter n extended indifier 
+.................... #byte RXF0EIDH=0xF02 
+.................... #byte RXF0EIDL=0xF03 
+.................... #byte RXF1EIDH=0xF06 
+.................... #byte RXF1EIDL=0xF07 
+.................... #byte RXF2EIDH=0xF0A 
+.................... #byte RXF2EIDL=0xF0B 
+.................... #byte RXF3EIDH=0xF0E 
+.................... #byte RXF3EIDL=0xF0F 
+.................... #byte RXF4EIDH=0xF12 
+.................... #byte RXF4EIDL=0xF13 
+.................... #byte RXF5EIDH=0xF16 
+.................... #byte RXF5EIDL=0xF17 
+....................  
+.................... //receive acceptance mask n standard identifer mask 
+.................... #byte RXM0SIDH=0xF18 
+.................... #byte RXM0SIDL=0xF19 
+.................... #byte RXM1SIDH=0xF1C 
+.................... #byte RXM1SIDL=0xF1D 
+....................  
+.................... //receive acceptance mask n extended identifer mask 
+.................... #byte RXM0EIDH=0xF1A 
+.................... #byte RXM0EIDL=0xF1B 
+.................... #byte RXM1EIDH=0xF1E 
+.................... #byte RXM1EIDL=0xF1F 
+....................  
+.................... //value to put in mask field to accept all incoming id's 
+.................... #define CAN_MASK_ACCEPT_ALL   0 
+....................  
+.................... //can interrupt flags 
+.................... #bit CAN_INT_IRXIF = 0xFA4.7 
+.................... #bit CAN_INT_WAKIF = 0xFA4.6 
+.................... #bit CAN_INT_ERRIF = 0xFA4.5 
+.................... #bit CAN_INT_TXB2IF = 0xFA4.4 
+.................... #bit CAN_INT_TXB1IF = 0xFA4.3 
+.................... #bit CAN_INT_TXB0IF = 0xFA4.2 
+.................... #bit CAN_INT_RXB1IF = 0xFA4.1 
+.................... #bit CAN_INT_RXB0IF = 0xFA4.0 
+....................  
+.................... //PROTOTYPES 
+....................  
+.................... struct rx_stat { 
+....................    int1 err_ovfl; 
+....................    int filthit:3; 
+....................    int1 buffer; 
+....................    int1 rtr; 
+....................    int1 ext; 
+....................    int1 inv; 
+.................... }; 
+....................  
+.................... void  can_init(void); 
+.................... void  can_set_baud(void); 
+.................... void  can_set_mode(CAN_OP_MODE mode); 
+.................... void  can_set_id(int* addr, int32 id, int1 ext); 
+.................... int32 can_get_id(int * addr, int1 ext); 
+.................... int   can_putd(int32 id, int * data, int len, int priority, int1 ext, int1 rtr); 
+.................... int1  can_getd(int32 & id, int * data, int & len, struct rx_stat & stat); 
+....................  
+.................... #endif 
+....................  
+....................  
+.................... #if CAN_DO_DEBUG 
+....................  #define can_debug printf 
+.................... #else 
+....................  #define can_debug 
+.................... #endif 
+....................  
+....................  
+.................... //macros 
+.................... #define can_kbhit()                 (RXB0CON.rxful || RXB1CON.rxful) 
+.................... #define can_tbe()                   (!TXB0CON.txreq || !TXB1CON.txreq || !TXB2CON.txreq) 
+.................... #define can_abort()                 (CANCON.abat=1) 
+....................  
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_init() 
+.................... // 
+.................... // Initializes PIC18xxx8 CAN peripheral.  Sets the RX filter and masks so the 
+.................... // CAN peripheral will receive all incoming IDs.  Configures both RX buffers 
+.................... // to only accept valid valid messages (as opposed to all messages, or all 
+.................... // extended message, or all standard messages).  Also sets the tri-state 
+.................... // setting of B2 to output, and B3 to input (apparently the CAN peripheral 
+.................... // doesn't keep track of this) 
+.................... // 
+.................... // The constants (CAN_USE_RX_DOUBLE_BUFFER, CAN_ENABLE_DRIVE_HIGH, 
+.................... // CAN_ENABLE_CAN_CAPTURE) are given a default define in the can-18xxx8.h file. 
+.................... // These default values can be overwritten in the main code, but most 
+.................... // applications will be fine with these defaults. 
+.................... // 
+.................... ////////////////////////////////////////////////////////////////////////////// 
+.................... void can_init(void) { 
+....................    can_set_mode(CAN_OP_CONFIG);   //must be in config mode before params can be set 
+*
+0804:  MOVLW  04
+0806:  MOVWF  4D
+0808:  RCALL  068A
+....................    can_set_baud(); 
+080A:  BRA    06A4
+....................  
+....................    RXB0CON=0; 
+080C:  CLRF   F60
+....................    RXB0CON.rxm=CAN_RX_VALID; 
+080E:  MOVLW  9F
+0810:  ANDWF  F60,W
+0812:  MOVWF  F60
+....................    RXB0CON.rxb0dben=CAN_USE_RX_DOUBLE_BUFFER; 
+0814:  BSF    F60.2
+....................    RXB1CON=RXB0CON; 
+0816:  MOVFF  F60,F50
+....................  
+....................    CIOCON.endrhi=CAN_ENABLE_DRIVE_HIGH; 
+081A:  BCF    F73.5
+....................    CIOCON.cancap=CAN_ENABLE_CAN_CAPTURE; 
+081C:  BCF    F73.4
+....................  
+....................    can_set_id(RX0MASK,sub_station_id,CAN_USE_EXTENDED_ID); //set mask 0 
+081E:  MOVLW  0F
+0820:  MOVWF  4E
+0822:  MOVLW  1B
+0824:  MOVWF  4D
+0826:  CLRF   52
+0828:  CLRF   51
+082A:  CLRF   50
+082C:  CLRF   4F
+082E:  MOVLW  01
+0830:  MOVWF  53
+0832:  RCALL  06D4
+....................    can_set_id(RX0FILTER0,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 0 of mask 0 
+0834:  MOVLW  0F
+0836:  MOVWF  4E
+0838:  MOVLW  03
+083A:  MOVWF  4D
+083C:  CLRF   52
+083E:  CLRF   51
+0840:  CLRF   50
+0842:  CLRF   4F
+0844:  MOVLW  01
+0846:  MOVWF  53
+0848:  RCALL  06D4
+....................    can_set_id(RX0FILTER1,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 1 of mask 0 
+084A:  MOVLW  0F
+084C:  MOVWF  4E
+084E:  MOVLW  07
+0850:  MOVWF  4D
+0852:  CLRF   52
+0854:  CLRF   51
+0856:  CLRF   50
+0858:  CLRF   4F
+085A:  MOVLW  01
+085C:  MOVWF  53
+085E:  RCALL  06D4
+....................  
+....................    can_set_id(RX1MASK,sub_station_id,CAN_USE_EXTENDED_ID);//set mask 1 
+0860:  MOVLW  0F
+0862:  MOVWF  4E
+0864:  MOVLW  1F
+0866:  MOVWF  4D
+0868:  CLRF   52
+086A:  CLRF   51
+086C:  CLRF   50
+086E:  CLRF   4F
+0870:  MOVLW  01
+0872:  MOVWF  53
+0874:  RCALL  06D4
+....................    can_set_id(RX1FILTER2,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 0 of mask 1 
+0876:  MOVLW  0F
+0878:  MOVWF  4E
+087A:  MOVLW  0B
+087C:  MOVWF  4D
+087E:  CLRF   52
+0880:  CLRF   51
+0882:  CLRF   50
+0884:  CLRF   4F
+0886:  MOVLW  01
+0888:  MOVWF  53
+088A:  RCALL  06D4
+....................    can_set_id(RX1FILTER3,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 1 of mask 1 
+088C:  MOVLW  0F
+088E:  MOVWF  4E
+0890:  MOVWF  4D
+0892:  CLRF   52
+0894:  CLRF   51
+0896:  CLRF   50
+0898:  CLRF   4F
+089A:  MOVLW  01
+089C:  MOVWF  53
+089E:  RCALL  06D4
+....................    can_set_id(RX1FILTER4,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 2 of mask 1 
+08A0:  MOVLW  0F
+08A2:  MOVWF  4E
+08A4:  MOVLW  13
+08A6:  MOVWF  4D
+08A8:  CLRF   52
+08AA:  CLRF   51
+08AC:  CLRF   50
+08AE:  CLRF   4F
+08B0:  MOVLW  01
+08B2:  MOVWF  53
+08B4:  RCALL  06D4
+....................    can_set_id(RX1FILTER5,sub_station_id,CAN_USE_EXTENDED_ID);//set filter 3 of mask 1 
+08B6:  MOVLW  0F
+08B8:  MOVWF  4E
+08BA:  MOVLW  17
+08BC:  MOVWF  4D
+08BE:  CLRF   52
+08C0:  CLRF   51
+08C2:  CLRF   50
+08C4:  CLRF   4F
+08C6:  MOVLW  01
+08C8:  MOVWF  53
+08CA:  RCALL  06D4
+....................  
+....................    set_tris_b((*0xF93 & 0xFB ) | 0x08);   //b3 is out, b2 is in 
+08CC:  MOVF   F93,W
+08CE:  ANDLW  FB
+08D0:  IORLW  08
+08D2:  MOVWF  F93
+....................  
+....................    can_set_mode(CAN_OP_NORMAL); 
+08D4:  CLRF   4D
+08D6:  RCALL  068A
+.................... } 
+08D8:  GOTO   0AF4 (RETURN)
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_set_baud() 
+.................... // 
+.................... // Configures the baud rate control registers.  All the defines here 
+.................... // are defaulted in the can-18xxx8.h file.  These defaults can, and 
+.................... // probably should, be overwritten in the main code. 
+.................... // 
+.................... // Current defaults are set to work with Microchip's MCP250xxx CAN 
+.................... // Developers Kit if this PIC is running at 20Mhz. 
+.................... // 
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... void can_set_baud(void) { 
+....................    BRGCON1.brp=CAN_BRG_PRESCALAR; 
+*
+06A4:  MOVLW  C0
+06A6:  ANDWF  F70,W
+06A8:  IORLW  04
+06AA:  MOVWF  F70
+....................    BRGCON1.sjw=CAN_BRG_SYNCH_JUMP_WIDTH; 
+06AC:  MOVLW  3F
+06AE:  ANDWF  F70,W
+06B0:  MOVWF  F70
+....................  
+....................    BRGCON2.prseg=CAN_BRG_PROPAGATION_TIME; 
+06B2:  MOVLW  F8
+06B4:  ANDWF  F71,W
+06B6:  IORLW  02
+06B8:  MOVWF  F71
+....................    BRGCON2.seg1ph=CAN_BRG_PHASE_SEGMENT_1; 
+06BA:  MOVLW  C7
+06BC:  ANDWF  F71,W
+06BE:  IORLW  28
+06C0:  MOVWF  F71
+....................    BRGCON2.sam=CAN_BRG_SAM; 
+06C2:  BCF    F71.6
+....................    BRGCON2.seg2phts=CAN_BRG_SEG_2_PHASE_TS; 
+06C4:  BSF    F71.7
+....................  
+....................    BRGCON3.seg2ph=CAN_BRG_PHASE_SEGMENT_2; 
+06C6:  MOVLW  F8
+06C8:  ANDWF  F72,W
+06CA:  IORLW  05
+06CC:  MOVWF  F72
+....................    BRGCON3.wakfil=CAN_BRG_WAKE_FILTER; 
+06CE:  BCF    F72.6
+.................... } 
+06D0:  GOTO   080C (RETURN)
+....................  
+.................... void can_set_mode(CAN_OP_MODE mode) { 
+....................    CANCON.reqop=mode; 
+*
+068A:  SWAPF  4D,W
+068C:  ANDLW  70
+068E:  MOVWF  00
+0690:  BCF    FD8.0
+0692:  RLCF   00,F
+0694:  MOVLW  1F
+0696:  ANDWF  F6F,W
+0698:  IORWF  00,W
+069A:  MOVWF  F6F
+....................   // while( (CANSTAT.opmode) != mode ); 
+....................   delay_ms(100); 
+069C:  MOVLW  64
+069E:  MOVWF  56
+06A0:  RCALL  063C
+.................... } 
+06A2:  RETLW  00
+....................  
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_set_id() 
+.................... // 
+.................... // Configures the xxxxEIDL, xxxxEIDH, xxxxSIDL and xxxxSIDH registers to 
+.................... // configure the defined buffer to use the specified ID 
+.................... // 
+.................... //   Paramaters: 
+.................... //     addr - pointer to first byte of ID register, starting with xxxxEIDL. 
+.................... //            For example, a pointer to RXM1EIDL 
+.................... //     id - ID to set buffer to 
+.................... //     ext - Set to TRUE if this buffer uses an extended ID, FALSE if not 
+.................... // 
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... void can_set_id(int* addr, int32 id, int1 ext) { 
+....................    int *ptr; 
+....................  
+....................    ptr=addr; 
+*
+06D4:  MOVFF  4E,55
+06D8:  MOVFF  4D,54
+....................  
+....................    if (ext) {  //extended 
+06DC:  MOVF   53,F
+06DE:  BZ    0784
+....................       //eidl 
+....................       *ptr=make8(id,0); //0:7 
+06E0:  MOVFF  54,FE9
+06E4:  MOVFF  55,FEA
+06E8:  MOVFF  4F,FEF
+....................  
+....................       //eidh 
+....................       ptr--; 
+06EC:  MOVF   54,W
+06EE:  BTFSC  FD8.2
+06F0:  DECF   55,F
+06F2:  DECF   54,F
+....................       *ptr=make8(id,1); //8:15 
+06F4:  MOVFF  54,FE9
+06F8:  MOVFF  55,FEA
+06FC:  MOVFF  50,FEF
+....................  
+....................       //sidl 
+....................       ptr--; 
+0700:  MOVF   54,W
+0702:  BTFSC  FD8.2
+0704:  DECF   55,F
+0706:  DECF   54,F
+....................       *ptr=make8(id,2) & 0x03;   //16:17 
+0708:  MOVFF  54,FE9
+070C:  MOVFF  55,FEA
+0710:  MOVF   51,W
+0712:  ANDLW  03
+0714:  MOVWF  FEF
+....................       *ptr|=(make8(id,2) << 3) & 0xE0; //18:20 
+0716:  MOVFF  54,FE9
+071A:  MOVFF  55,FEA
+071E:  MOVFF  51,00
+0722:  RLCF   00,F
+0724:  RLCF   00,F
+0726:  RLCF   00,F
+0728:  MOVLW  F8
+072A:  ANDWF  00,F
+072C:  MOVF   00,W
+072E:  ANDLW  E0
+0730:  IORWF  FEF,W
+0732:  MOVWF  FEF
+....................       *ptr|=0x08; 
+0734:  MOVFF  54,FE9
+0738:  MOVFF  55,FEA
+073C:  MOVF   FEF,W
+073E:  IORLW  08
+0740:  MOVWF  FEF
+....................  
+....................  
+....................       //sidh 
+....................       ptr--; 
+0742:  MOVF   54,W
+0744:  BTFSC  FD8.2
+0746:  DECF   55,F
+0748:  DECF   54,F
+....................       *ptr=((make8(id,2) >> 5) & 0x07 ); //21:23 
+074A:  MOVFF  54,FE9
+074E:  MOVFF  55,FEA
+0752:  MOVFF  51,00
+0756:  SWAPF  00,F
+0758:  RRCF   00,F
+075A:  MOVLW  07
+075C:  ANDWF  00,F
+075E:  MOVF   00,W
+0760:  ANDLW  07
+0762:  MOVWF  FEF
+....................       *ptr|=((make8(id,3) << 3) & 0xF8);//24:28 
+0764:  MOVFF  54,FE9
+0768:  MOVFF  55,FEA
+076C:  MOVFF  52,00
+0770:  RLCF   00,F
+0772:  RLCF   00,F
+0774:  RLCF   00,F
+0776:  MOVLW  F8
+0778:  ANDWF  00,F
+077A:  MOVF   00,W
+077C:  ANDLW  F8
+077E:  IORWF  FEF,W
+0780:  MOVWF  FEF
+....................    } 
+....................    else {   //standard 
+0782:  BRA    0802
+....................       //eidl 
+....................       *ptr=0; 
+0784:  MOVFF  54,FE9
+0788:  MOVFF  55,FEA
+078C:  CLRF   FEF
+....................  
+....................       //eidh 
+....................       ptr--; 
+078E:  MOVF   54,W
+0790:  BTFSC  FD8.2
+0792:  DECF   55,F
+0794:  DECF   54,F
+....................       *ptr=0; 
+0796:  MOVFF  54,FE9
+079A:  MOVFF  55,FEA
+079E:  CLRF   FEF
+....................  
+....................       //sidl 
+....................       ptr--; 
+07A0:  MOVF   54,W
+07A2:  BTFSC  FD8.2
+07A4:  DECF   55,F
+07A6:  DECF   54,F
+....................       *ptr=(make8(id,0) << 5) & 0xE0; 
+07A8:  MOVFF  54,FE9
+07AC:  MOVFF  55,FEA
+07B0:  MOVFF  4F,00
+07B4:  SWAPF  00,F
+07B6:  RLCF   00,F
+07B8:  MOVLW  E0
+07BA:  ANDWF  00,F
+07BC:  MOVF   00,W
+07BE:  ANDLW  E0
+07C0:  MOVWF  FEF
+....................  
+....................       //sidh 
+....................       ptr--; 
+07C2:  MOVF   54,W
+07C4:  BTFSC  FD8.2
+07C6:  DECF   55,F
+07C8:  DECF   54,F
+....................       *ptr=(make8(id,0) >> 3) & 0x1F; 
+07CA:  MOVFF  54,FE9
+07CE:  MOVFF  55,FEA
+07D2:  MOVFF  4F,00
+07D6:  RRCF   00,F
+07D8:  RRCF   00,F
+07DA:  RRCF   00,F
+07DC:  MOVLW  1F
+07DE:  ANDWF  00,F
+07E0:  MOVF   00,W
+07E2:  ANDLW  1F
+07E4:  MOVWF  FEF
+....................       *ptr|=(make8(id,1) << 5) & 0xE0; 
+07E6:  MOVFF  54,FE9
+07EA:  MOVFF  55,FEA
+07EE:  MOVFF  50,00
+07F2:  SWAPF  00,F
+07F4:  RLCF   00,F
+07F6:  MOVLW  E0
+07F8:  ANDWF  00,F
+07FA:  MOVF   00,W
+07FC:  ANDLW  E0
+07FE:  IORWF  FEF,W
+0800:  MOVWF  FEF
+....................    } 
+.................... } 
+0802:  RETLW  00
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_get_id() 
+.................... // 
+.................... // Returns the ID of the specified buffer.  (The opposite of can_set_id()) 
+.................... // This is used after receiving a message, to see which ID sent the message. 
+.................... // 
+.................... //   Paramaters: 
+.................... //     addr - pointer to first byte of ID register, starting with xxxxEIDL. 
+.................... //            For example, a pointer to RXM1EIDL 
+.................... //     ext - Set to TRUE if this buffer uses an extended ID, FALSE if not 
+.................... // 
+.................... //   Returns: 
+.................... //     The ID of the buffer 
+.................... // 
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... int32 can_get_id(int * addr, int1 ext) { 
+....................    int32 ret; 
+....................    int * ptr; 
+....................  
+....................    ret=0; 
+....................    ptr=addr; 
+....................  
+....................    if (ext) { 
+....................       ret=*ptr;  //eidl 
+....................  
+....................       ptr--;     //eidh 
+....................       ret|=((int32)*ptr << 8); 
+....................  
+....................       ptr--;     //sidl 
+....................       ret|=((int32)*ptr & 0x03) << 16; 
+....................       ret|=((int32)*ptr & 0xE0) << 13; 
+....................  
+....................       ptr--;     //sidh 
+....................       ret|=((int32)*ptr << 21); 
+....................  
+....................    } 
+....................    else { 
+....................       ptr-=2;    //sidl 
+....................       ret=((int32)*ptr & 0xE0) >> 5; 
+....................  
+....................       ptr--;     //sidh 
+....................       ret|=((int32)*ptr << 3); 
+....................    } 
+....................  
+....................    //return(ret); 
+.................... } 
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_putd() 
+.................... // 
+.................... // Puts data on a transmit buffer, at which time the CAN peripheral will 
+.................... // send when the CAN bus becomes available. 
+.................... // 
+.................... //    Paramaters: 
+.................... //       id - ID to transmit data as 
+.................... //       data - pointer to data to send 
+.................... //       len - length of data to send 
+.................... //       priority - priority of message.  The higher the number, the 
+.................... //                  sooner the CAN peripheral will send the message. 
+.................... //                  Numbers 0 through 3 are valid. 
+.................... //       ext - TRUE to use an extended ID, FALSE if not 
+.................... //       rtr - TRUE to set the RTR (request) bit in the ID, false if NOT 
+.................... // 
+.................... //    Returns: 
+.................... //       If successful, it will return TRUE 
+.................... //       If un-successful, will return FALSE 
+.................... // 
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... int1 can_putd(int32 id, int * data, int len, int priority, int1 ext, int1 rtr) { 
+....................    int i; 
+....................    int * txd0; 
+....................    int port; 
+....................  
+....................    txd0=&TXRXBaD0; 
+....................  
+....................     // find emtpy transmitter 
+....................     //map access bank addresses to empty transmitter 
+....................    if (!TXB0CON.txreq) { 
+....................       CANCON.win=CAN_WIN_TX0; 
+....................       port=0; 
+....................    } 
+....................    else if (!TXB1CON.txreq) { 
+....................       CANCON.win=CAN_WIN_TX1; 
+....................       port=1; 
+....................    } 
+....................    else if (!TXB2CON.txreq) { 
+....................       CANCON.win=CAN_WIN_TX2; 
+....................       port=2; 
+....................    } 
+....................    else { 
+....................       #if CAN_DO_DEBUG 
+....................          can_debug("\r\nCAN_PUTD() FAIL: NO OPEN TX BUFFERS\r\n"); 
+....................       #endif 
+....................      // return(0); 
+....................    } 
+....................  
+....................    //set priority. 
+....................    TXBaCON.txpri=priority; 
+....................  
+....................    //set tx mask 
+....................    can_set_id(TXRXBaID, id, ext); 
+....................  
+....................    //set tx data count 
+....................    TXBaDLC=len; 
+....................    TXBaDLC.rtr=rtr; 
+....................  
+....................     for (i=0; i<len; i++) { 
+....................       *txd0=*data; 
+....................       txd0++; 
+....................       data++; 
+....................     } 
+....................  
+....................    //enable transmission 
+....................    TXBaCON.txreq=1; 
+....................  
+....................    CANCON.win=CAN_WIN_RX0; 
+....................  
+....................    #if CAN_DO_DEBUG 
+....................             can_debug("\r\nCAN_PUTD(): BUFF=%U ID=%LX LEN=%U PRI=%U EXT=%U RTR=%U\r\n", port, id, len, priority, ext, rtr); 
+....................             if ((len)&&(!rtr)) { 
+....................                data-=len; 
+....................                can_debug("  DATA = "); 
+....................                for (i=0;i<len;i++) { 
+....................                   can_debug("%X ",*data); 
+....................                   data++; 
+....................                } 
+....................                can_debug("\r\n"); 
+....................             } 
+....................    #endif 
+....................  
+....................   // return(1); 
+.................... } 
+....................  
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... // 
+.................... // can_getd() 
+.................... // 
+.................... // Gets data from a receive buffer, if the data exists 
+.................... // 
+.................... //    Returns: 
+.................... //      id - ID who sent message 
+.................... //      data - pointer to array of data 
+.................... //      len - length of received data 
+.................... //      stat - structure holding some information (such as which buffer 
+.................... //             recieved it, ext or standard, etc) 
+.................... // 
+.................... //    Returns: 
+.................... //      Function call returns a TRUE if there was data in a RX buffer, FALSE 
+.................... //      if there was none. 
+.................... // 
+.................... //////////////////////////////////////////////////////////////////////// 
+.................... int1 can_getd(int32 & id, int * data, int & len, struct rx_stat & stat) 
+.................... { 
+....................     int i; 
+....................     int * ptr; 
+....................  
+....................     if (RXB0CON.rxful) { 
+....................         CANCON.win=CAN_WIN_RX0; 
+....................         stat.buffer=0; 
+....................  
+....................         CAN_INT_RXB0IF=0; 
+....................  
+....................         stat.err_ovfl=COMSTAT.rx0ovfl; 
+....................         COMSTAT.rx0ovfl=0; 
+....................  
+....................         if (RXB0CON.rxb0dben) { 
+....................          stat.filthit=RXB0CON.filthit0; 
+....................         } 
+....................     } 
+....................     else if ( RXB1CON.rxful ) 
+....................     { 
+....................         CANCON.win=CAN_WIN_RX1; 
+....................         stat.buffer=1; 
+....................  
+....................         CAN_INT_RXB1IF=0; 
+....................  
+....................         stat.err_ovfl=COMSTAT.rx1ovfl; 
+....................         COMSTAT.rx1ovfl=0; 
+....................  
+....................         stat.filthit=RXB1CON.filthit; 
+....................     } 
+....................     else { 
+....................       #if CAN_DO_DEBUG 
+....................          can_debug("\r\nFAIL ON CAN_GETD(): NO MESSAGE IN BUFFER\r\n"); 
+....................       #endif 
+....................       //return (0); 
+....................     } 
+....................  
+....................     len = RXBaDLC.dlc; 
+....................     stat.rtr=RXBaDLC.rtr; 
+....................  
+....................     stat.ext=TXRXBaSIDL.ext; 
+....................     id=can_get_id(TXRXBaID,stat.ext); 
+....................  
+....................     ptr = &TXRXBaD0; 
+....................     for ( i = 0; i < len; i++ ) { 
+....................         *data = *ptr; 
+....................         data++; 
+....................         ptr++; 
+....................     } 
+....................  
+....................     // return to default addressing 
+....................     CANCON.win=CAN_WIN_RX0; 
+....................  
+....................     stat.inv=CAN_INT_IRXIF; 
+....................     CAN_INT_IRXIF = 0; 
+....................  
+....................     if (stat.buffer) { 
+....................       RXB1CON.rxful=0; 
+....................     } 
+....................     else { 
+....................       RXB0CON.rxful=0; 
+....................     } 
+....................  
+....................     #if CAN_DO_DEBUG 
+....................        can_debug("\r\nCAN_GETD(): BUFF=%U ID=%LX LEN=%U OVF=%U ", stat.buffer, id, len, stat.err_ovfl); 
+....................        can_debug("FILT=%U RTR=%U EXT=%U INV=%U", stat.filthit, stat.rtr, stat.ext, stat.inv); 
+....................        if ((len)&&(!stat.rtr)) { 
+....................           data-=len; 
+....................           can_debug("\r\n    DATA = "); 
+....................           for (i=0;i<len;i++) { 
+....................             can_debug("%X ",*data); 
+....................             data++; 
+....................           } 
+....................        } 
+....................        can_debug("\r\n"); 
+....................     #endif 
+....................  
+....................     //return(1); 
+.................... } 
+....................  
+....................  
+....................  
+....................  
+.................... #include "reg.h" 
+....................  
+....................  
+.................... ////////////CAN REGISTERS////// 
+....................  
+.................... int32 rx_id; 
+.................... int in_data[8]; 
+.................... int rx_len; 
+.................... //send a request (tx_rtr=1) for 8 bytes of data (tx_len=8) from id 24 (tx_id=24) 
+.................... int rxstat; 
+.................... int can_int_enable; 
+.................... int Usart_buffer[9]; 
+.................... int usart_data_rx,  usart_cnt_data; 
+.................... ////////////////////// 
+....................  
+....................  
+.................... void pic18f458_iniz() 
+....................  { 
+....................  portb=0;    
+....................  trisb=0x08;   
+....................  setup_adc_ports(NO_ANALOGS); 
+....................  ADCON1=0X07;//ADC OFF  
+....................  CMCON=0X07;//COMPARATOR OFF 
+....................  enable_interrupts(INT_CANRX0);//enable interrupt,if CAN buffer full 
+....................  enable_interrupts(INT_RDA);  //usart interrupts 
+....................  enable_interrupts(global); 
+....................  } 
+....................  
+....................  
+.................... #byte porta=0xf80 
+.................... #byte trisa=0xf92 
+....................  
+.................... #byte portb=0Xf81 
+.................... #byte trisb= 0Xf93 
+....................  
+.................... #byte portc=0Xf82 
+.................... #byte trisc= 0Xf94 
+....................  
+.................... #byte portd=0Xf83 
+.................... #byte trisd= 0Xf95 
+....................  
+.................... #byte porte=0Xf84 
+.................... #byte trise= 0Xf96 
+....................   
+.................... #byte intcon=0xff2  
+....................  
+.................... #byte intcon2=0xff1 
+....................  
+.................... #byte tmr0l=0xfd6 
+.................... #byte tmr0h=0xfd7 
+.................... #byte t1con=0xfcd 
+.................... #byte CONFIG1H = 0x300001 
+....................  
+.................... #bit TRIG=portb.1 
+.................... #bit buzzer=portb.7 
+....................  
+.................... #bit reg=porte.0 
+.................... #bit rw=porte.1 
+.................... #bit en=porte.2 
+....................  
+.................... //#bit KEY1 = portb.2 
+.................... //#bit LED  = portb.6 
+....................  
+....................  
+....................  
+....................  
+.................... unsigned int A[4] = {0}, dummy = 0; 
+.................... unsigned char ldr_dummy[2] = {0}; 
+.................... unsigned int16 adc_value = 0; 
+.................... int32 total_distance1=0,time1=0; 
+.................... INT I=0,b=0,c=0,t=0, receive = 0; 
+.................... INT1 FLAG=0, flag1 = 0; 
+.................... void display(int16 value); 
+.................... //void function1(int16 an_value); 
+.................... int1 tx_rtr=0; 
+.................... int1 tx_ext=1; 
+.................... int tx_pri=1; 
+.................... int out_data[2]; 
+.................... void command(unsigned char com); 
+.................... void data(unsigned char da); 
+....................  
+.................... #ZERO_RAM 
+....................  
+.................... /*#int_CANRX0 
+.................... CANRX0_isr() 
+.................... { 
+.................... 	CAN_INT_RXB0IF=0; 
+....................  
+.................... 	can_getd(rx_id,&in_data[0],rx_len,rxstat); 
+.................... 	can_int_enable=1; 
+.................... } 
+....................  
+.................... #int_RDA 
+....................  
+.................... RDA_isr() 
+.................... { 
+....................    A[3] = A[2]; 
+....................    A[2] = A[1]; 
+....................    A[1] = A[0]; 
+....................    A[0] = getc(); 
+....................    FLAG1 = 1; 
+.................... }*/ 
+....................  
+....................  
+.................... #int_timer0 
+.................... timer0_isr() 
+.................... { 
+....................    c++; 
+*
+00FE:  INCF   46,F
+....................    b++; 
+0100:  INCF   45,F
+.................... } 
+....................  
+....................  
+0102:  BCF    FF2.2
+0104:  GOTO   0064
+.................... #int_ext 
+.................... ext_isr() 
+....................  { 
+....................       disable_interrupts(int_timer0); 
+*
+0534:  BCF    FF2.5
+....................       //time1=(a*0.023+tmr0*92.60)-410;  //time1 in micro sec..... 
+....................       time1=(0.5*344)*(((int32)c*43)+((int32)tmr0l*0.36)); 
+0536:  CLRF   5E
+0538:  CLRF   5D
+053A:  CLRF   5C
+053C:  MOVFF  46,5B
+0540:  MOVFF  5E,62
+0544:  MOVFF  5D,61
+0548:  MOVFF  5C,60
+054C:  MOVFF  46,5F
+0550:  CLRF   x66
+0552:  CLRF   x65
+0554:  CLRF   x64
+0556:  MOVLW  2B
+0558:  MOVWF  x63
+055A:  BRA    0108
+055C:  MOVFF  03,5F
+0560:  MOVFF  02,5E
+0564:  MOVFF  01,5D
+0568:  MOVFF  00,5C
+056C:  CLRF   x63
+056E:  CLRF   x62
+0570:  CLRF   x61
+0572:  MOVFF  FD6,60
+0576:  MOVFF  63,6B
+057A:  MOVFF  62,6A
+057E:  MOVFF  61,69
+0582:  MOVFF  FD6,68
+0586:  RCALL  015E
+0588:  MOVFF  03,6B
+058C:  MOVFF  02,6A
+0590:  MOVFF  01,69
+0594:  MOVFF  00,68
+0598:  MOVLW  EC
+059A:  MOVWF  x6F
+059C:  MOVLW  51
+059E:  MOVWF  x6E
+05A0:  MOVLW  38
+05A2:  MOVWF  x6D
+05A4:  MOVLW  7D
+05A6:  MOVWF  x6C
+05A8:  RCALL  0192
+05AA:  MOVFF  00,64
+05AE:  MOVFF  01,65
+05B2:  MOVFF  02,66
+05B6:  MOVFF  03,67
+05BA:  MOVFF  5F,6B
+05BE:  MOVFF  5E,6A
+05C2:  MOVFF  5D,69
+05C6:  MOVFF  5C,68
+05CA:  RCALL  015E
+05CC:  BCF    FD8.1
+05CE:  MOVFF  03,6B
+05D2:  MOVFF  02,6A
+05D6:  MOVFF  01,69
+05DA:  MOVFF  00,68
+05DE:  MOVFF  67,6F
+05E2:  MOVFF  66,6E
+05E6:  MOVFF  65,6D
+05EA:  MOVFF  64,6C
+05EE:  BRA    0286
+05F0:  CLRF   x6B
+05F2:  CLRF   x6A
+05F4:  MOVLW  2C
+05F6:  MOVWF  x69
+05F8:  MOVLW  86
+05FA:  MOVWF  x68
+05FC:  MOVFF  03,6F
+0600:  MOVFF  02,6E
+0604:  MOVFF  01,6D
+0608:  MOVFF  00,6C
+060C:  RCALL  0192
+060E:  MOVFF  03,6B
+0612:  MOVFF  02,6A
+0616:  MOVFF  01,69
+061A:  MOVFF  00,68
+061E:  BRA    04F4
+0620:  MOVFF  03,43
+0624:  MOVFF  02,42
+0628:  MOVFF  01,41
+062C:  MOVFF  00,40
+....................      //time1=((a*0.023)+tmr0*92.16)-410; 
+....................       flag=1; 
+0630:  BSF    49.0
+....................       disable_interrupts(int_ext); 
+0632:  BCF    FF2.4
+....................       c=0; 
+0634:  CLRF   46
+....................  
+.................... } 
+....................   
+0636:  BCF    FF2.1
+0638:  GOTO   0064
+.................... void command(unsigned char com) 
+.................... { 
+....................    portd=com; 
+*
+0662:  MOVFF  54,F83
+....................    reg=0; 
+0666:  BCF    F84.0
+....................    rw=0; 
+0668:  BCF    F84.1
+....................    en=1; 
+066A:  BSF    F84.2
+....................    delay_ms(1); 
+066C:  MOVLW  01
+066E:  MOVWF  56
+0670:  RCALL  063C
+....................    en=0; 
+0672:  BCF    F84.2
+.................... } 
+0674:  RETLW  00
+....................  
+.................... void data(unsigned char da) 
+.................... { 
+....................    portd=da; 
+0676:  MOVFF  55,F83
+....................    reg=1; 
+067A:  BSF    F84.0
+....................    rw=0; 
+067C:  BCF    F84.1
+....................    en=1; 
+067E:  BSF    F84.2
+....................    delay_ms(1); 
+0680:  MOVLW  01
+0682:  MOVWF  56
+0684:  RCALL  063C
+....................    en=0; 
+0686:  BCF    F84.2
+.................... } 
+0688:  RETLW  00
+....................  
+.................... void main() 
+.................... { 
+*
+099A:  CLRF   FF8
+099C:  BCF    FD0.7
+099E:  BSF    0D.7
+09A0:  MOVLW  FE
+09A2:  MOVWF  00
+09A4:  MOVLW  06
+09A6:  MOVWF  01
+09A8:  MOVLW  02
+09AA:  MOVWF  FE9
+09AC:  MOVLW  00
+09AE:  MOVWF  FEA
+09B0:  CLRF   FEF
+09B2:  INCF   FE9,F
+09B4:  BTFSC  FD8.2
+09B6:  INCF   FEA,F
+09B8:  DECFSZ 00,F
+09BA:  BRA    09B0
+09BC:  DECFSZ 01,F
+09BE:  BRA    09B0
+09C0:  CLRF   FEA
+09C2:  CLRF   FE9
+09C4:  MOVLW  11
+09C6:  MOVWF  FAF
+09C8:  MOVLW  22
+09CA:  MOVWF  FAC
+09CC:  MOVLW  90
+09CE:  MOVWF  FAB
+09D0:  BSF    FC1.0
+09D2:  BSF    FC1.1
+09D4:  BSF    FC1.2
+09D6:  BCF    FC1.3
+09D8:  MOVLW  07
+09DA:  MOVWF  FB4
+09DC:  CLRF   18
+09DE:  CLRF   33
+09E0:  CLRF   34
+09E2:  CLRF   35
+09E4:  CLRF   36
+09E6:  CLRF   37
+09E8:  CLRF   38
+09EA:  CLRF   39
+09EC:  CLRF   3A
+09EE:  CLRF   3B
+09F0:  CLRF   3C
+09F2:  CLRF   3D
+09F4:  CLRF   3E
+09F6:  CLRF   3F
+09F8:  CLRF   40
+09FA:  CLRF   41
+09FC:  CLRF   42
+09FE:  CLRF   43
+0A00:  CLRF   44
+0A02:  CLRF   45
+0A04:  CLRF   46
+0A06:  CLRF   47
+0A08:  CLRF   48
+0A0A:  BCF    49.0
+0A0C:  BCF    49.1
+0A0E:  BCF    49.2
+0A10:  BSF    49.3
+0A12:  MOVLW  01
+0A14:  MOVWF  4A
+....................    /*setup_wdt(WDT_OFF); 
+....................    //setup_timer_0(RTCC_INTERNAL); 
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_256|RTCC_8_bit); 
+....................    setup_timer_1(T1_DISABLED); 
+....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
+....................    setup_comparator(NC_NC_NC_NC); 
+....................    setup_vref(FALSE); 
+....................    setup_low_volt_detect(FALSE); 
+....................    setup_oscillator(False); 
+....................    setup_ccp1(CCP_PWM); 
+....................    setup_timer_2(t2_DIV_BY_16,124,1);*/ 
+....................    setup_wdt(WDT_OFF); 
+0A16:  BCF    FD1.0
+....................    setup_adc_ports(AN0); 
+0A18:  BCF    FC1.0
+0A1A:  BSF    FC1.1
+0A1C:  BSF    FC1.2
+0A1E:  BSF    FC1.3
+....................    setup_adc(ADC_CLOCK_INTERNAL); 
+0A20:  BCF    FC1.6
+0A22:  BSF    FC2.6
+0A24:  BSF    FC2.7
+0A26:  BSF    FC1.7
+0A28:  BSF    FC2.0
+....................    setup_psp(PSP_DISABLED); 
+0A2A:  BCF    F96.4
+....................    setup_spi(FALSE); 
+0A2C:  BCF    FC6.5
+0A2E:  BCF    F94.5
+0A30:  BSF    F94.4
+0A32:  BCF    F94.3
+0A34:  MOVLW  00
+0A36:  MOVWF  FC6
+0A38:  MOVWF  FC7
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_256|RTCC_8_bit); 
+0A3A:  MOVLW  C7
+0A3C:  MOVWF  FD5
+....................    setup_timer_1 ( T1_INTERNAL | T1_DIV_BY_4 ); 
+0A3E:  MOVLW  A5
+0A40:  MOVWF  FCD
+....................    setup_timer_3(T3_DISABLED|T3_DIV_BY_1); 
+0A42:  MOVF   FB1,W
+0A44:  ANDLW  48
+0A46:  MOVWF  FB1
+....................    setup_timer_2(T2_DISABLED,1,2); 
+0A48:  MOVLW  08
+0A4A:  MOVWF  FCA
+0A4C:  MOVLW  01
+0A4E:  MOVWF  FCB
+....................    setup_comparator(NC_NC_NC_NC); 
+0A50:  MOVLW  07
+0A52:  MOVWF  FB4
+0A54:  MOVF   F96,W
+0A56:  MOVLW  08
+0A58:  MOVWF  00
+0A5A:  DECFSZ 00,F
+0A5C:  BRA    0A5A
+0A5E:  NOP   
+0A60:  NOP   
+0A62:  MOVF   FB4,W
+0A64:  BCF    FA1.6
+....................    setup_low_volt_detect(FALSE); 
+0A66:  CLRF   FD2
+....................    setup_oscillator(False); 
+0A68:  CLRF   FD3
+....................     
+....................    porta = 0x00; 
+0A6A:  CLRF   F80
+....................    trisa = 0x01; 
+0A6C:  MOVLW  01
+0A6E:  MOVWF  F92
+....................     
+....................    portb = 0x00; 
+0A70:  CLRF   F81
+....................    trisb = 0x00; 
+0A72:  CLRF   F93
+....................     
+....................    portc = 0x00; 
+0A74:  CLRF   F82
+....................    trisc = 0x01; 
+0A76:  MOVWF  F94
+....................     
+....................    portd = 0x00; 
+0A78:  CLRF   F83
+....................    trisd = 0x00; 
+0A7A:  CLRF   F95
+....................     
+....................    porte = 0x00; 
+0A7C:  CLRF   F84
+....................    trise = 0x00; 
+0A7E:  CLRF   F96
+....................     
+....................    intcon = 0xc0; 
+0A80:  MOVLW  C0
+0A82:  MOVWF  FF2
+....................    t1con = 0x06; 
+0A84:  MOVLW  06
+0A86:  MOVWF  FCD
+....................    tmr1l = 0x00; 
+0A88:  CLRF   FCE
+....................    tmr1h = 0x00; 
+0A8A:  CLRF   FCF
+....................     
+....................    command(0x38); 
+0A8C:  MOVLW  38
+0A8E:  MOVWF  54
+0A90:  RCALL  0662
+....................    command(0x06); 
+0A92:  MOVLW  06
+0A94:  MOVWF  54
+0A96:  RCALL  0662
+....................    command(0x0c); 
+0A98:  MOVLW  0C
+0A9A:  MOVWF  54
+0A9C:  RCALL  0662
+....................    command(0x01); 
+0A9E:  MOVLW  01
+0AA0:  MOVWF  54
+0AA2:  RCALL  0662
+....................    delay_ms(100); 
+0AA4:  MOVLW  64
+0AA6:  MOVWF  56
+0AA8:  RCALL  063C
+....................  
+....................    //intcon2=0x00; 
+....................    /*fputs("AT+CMGF=1"); 
+....................    delay_ms(1000); 
+....................  
+....................  
+....................    fputs("AT+CNMI=1,2,0,0,0"); 
+....................    delay_ms(1000);*/ 
+....................     
+....................    command(0x80); 
+0AAA:  MOVLW  80
+0AAC:  MOVWF  54
+0AAE:  RCALL  0662
+....................    data("CAN BASED MONIT"); 
+0AB0:  CLRF   4D
+0AB2:  MOVF   4D,W
+0AB4:  CALL   00A8
+0AB8:  IORLW  00
+0ABA:  BZ    0AC4
+0ABC:  INCF   4D,F
+0ABE:  MOVWF  55
+0AC0:  RCALL  0676
+0AC2:  BRA    0AB2
+....................    command(0xc0); 
+0AC4:  MOVLW  C0
+0AC6:  MOVWF  54
+0AC8:  RCALL  0662
+....................    data("FAULT DIAGONSTICS"); 
+0ACA:  CLRF   4D
+0ACC:  MOVF   4D,W
+0ACE:  CALL   00D2
+0AD2:  IORLW  00
+0AD4:  BZ    0ADE
+0AD6:  INCF   4D,F
+0AD8:  MOVWF  55
+0ADA:  RCALL  0676
+0ADC:  BRA    0ACC
+....................    delay_ms(2000); 
+0ADE:  MOVLW  08
+0AE0:  MOVWF  4D
+0AE2:  MOVLW  FA
+0AE4:  MOVWF  56
+0AE6:  RCALL  063C
+0AE8:  DECFSZ 4D,F
+0AEA:  BRA    0AE2
+....................    command(0x01); 
+0AEC:  MOVLW  01
+0AEE:  MOVWF  54
+0AF0:  RCALL  0662
+....................     
+....................    can_init(); 
+0AF2:  BRA    0804
+....................    delay_ms(5000); 
+0AF4:  MOVLW  14
+0AF6:  MOVWF  4D
+0AF8:  MOVLW  FA
+0AFA:  MOVWF  56
+0AFC:  RCALL  063C
+0AFE:  DECFSZ 4D,F
+0B00:  BRA    0AF8
+....................     
+....................    TRIG=0; 
+0B02:  BCF    F81.1
+....................    delay_us(10); 
+0B04:  MOVLW  08
+0B06:  MOVWF  00
+0B08:  DECFSZ 00,F
+0B0A:  BRA    0B08
+0B0C:  NOP   
+0B0E:  NOP   
+....................    TRIG=1; 
+0B10:  BSF    F81.1
+....................    delay_us(10); 
+0B12:  MOVLW  08
+0B14:  MOVWF  00
+0B16:  DECFSZ 00,F
+0B18:  BRA    0B16
+0B1A:  NOP   
+0B1C:  NOP   
+....................    TRIG=0; 
+0B1E:  BCF    F81.1
+....................    delay_us(10); 
+0B20:  MOVLW  08
+0B22:  MOVWF  00
+0B24:  DECFSZ 00,F
+0B26:  BRA    0B24
+0B28:  NOP   
+0B2A:  NOP   
+....................    enable_interrupts(int_timer0); 
+0B2C:  BSF    FF2.5
+....................    //enable_interrupts(INT_CANRX0); 
+....................    enable_interrupts(INT_EXT); 
+0B2E:  BSF    FF2.4
+....................    //enable_interrupts(INT_RDA); 
+....................    enable_interrupts(GLOBAL); 
+0B30:  MOVLW  C0
+0B32:  IORWF  FF2,F
+....................  
+....................    while(1) 
+....................    { 
+....................      
+....................       delay_ms(10); 
+0B34:  MOVLW  0A
+0B36:  MOVWF  56
+0B38:  RCALL  063C
+....................       set_adc_channel( 0 ); 
+0B3A:  MOVLW  00
+0B3C:  MOVWF  01
+0B3E:  MOVF   FC2,W
+0B40:  ANDLW  C7
+0B42:  IORWF  01,W
+0B44:  MOVWF  FC2
+....................       adc_value = read_adc(); 
+0B46:  BSF    FC2.2
+0B48:  BTFSC  FC2.2
+0B4A:  BRA    0B48
+0B4C:  MOVFF  FC3,3A
+0B50:  MOVFF  FC4,3B
+....................       display(adc_value); 
+0B54:  MOVFF  3B,4E
+0B58:  MOVFF  3A,4D
+0B5C:  BRA    0920
+....................     
+....................     /*if(can_int_enable==1) 
+....................     { 
+....................       can_int_enable=0; 
+....................  
+....................       ldr_dummy[0]=in_data[0]; 
+....................       ldr_dummy[1]=in_data[1]; 
+....................       ldr_value=ldr_dummy[1]; 
+....................       ldr_value<<=8; 
+....................       ldr_value+ldr_dummy[0]; 
+....................             if(ldr_value > LDR) 
+....................             { 
+....................                set_pwm1_duty (60); 
+....................             } 
+....................             else 
+....................             { 
+....................                //delay_ms(10); 
+....................                set_pwm1_duty (120); 
+....................             } 
+....................      } 
+....................  
+....................  
+....................       if(FLAG1==1) 
+....................       { 
+....................          FLAG1=0; 
+....................          if(A[2] == '@') 
+....................          { 
+....................             if(((A[1]=='6') && (A[0]=='0'))|| 
+....................             ((A[1]=='5') && (A[0]=='0'))|| 
+....................             ((A[1]=='4') && (A[0]=='0'))|| 
+....................             ((A[1]=='3') && (A[0]=='0'))|| 
+....................             ((A[1]=='2') && (A[0]=='0'))) 
+....................             { 
+....................                out_data[0] = a[1]; 
+....................                out_data[1] = a[0]; 
+....................                can_putd(0x01,     out_data,   2,   tx_pri,      tx_ext,    tx_rtr); 
+....................                putc(a[1]); 
+....................                putc(a[0]); 
+....................                putc(' '); 
+....................                putc(' '); 
+....................             } 
+....................          } 
+....................       }*/ 
+....................  
+....................       if(b>=3) 
+0B5E:  MOVF   45,W
+0B60:  SUBLW  02
+0B62:  BC    0B98
+....................       { 
+....................          b=0; 
+0B64:  CLRF   45
+....................          time1=0; 
+0B66:  CLRF   43
+0B68:  CLRF   42
+0B6A:  CLRF   41
+0B6C:  CLRF   40
+....................          TRIG=0; 
+0B6E:  BCF    F81.1
+....................          delay_us(10); 
+0B70:  MOVLW  08
+0B72:  MOVWF  00
+0B74:  DECFSZ 00,F
+0B76:  BRA    0B74
+0B78:  NOP   
+0B7A:  NOP   
+....................          TRIG=1; 
+0B7C:  BSF    F81.1
+....................          delay_us(10); 
+0B7E:  MOVLW  08
+0B80:  MOVWF  00
+0B82:  DECFSZ 00,F
+0B84:  BRA    0B82
+0B86:  NOP   
+0B88:  NOP   
+....................          TRIG=0; 
+0B8A:  BCF    F81.1
+....................          delay_us(10); 
+0B8C:  MOVLW  08
+0B8E:  MOVWF  00
+0B90:  DECFSZ 00,F
+0B92:  BRA    0B90
+0B94:  NOP   
+0B96:  NOP   
+....................       } 
+....................  
+....................       if(flag==1) 
+0B98:  BTFSS  49.0
+0B9A:  BRA    0BD4
+....................       { 
+....................          disable_interrupts(int_ext); 
+0B9C:  BCF    FF2.4
+....................          disable_interrupts(int_timer0); 
+0B9E:  BCF    FF2.5
+....................          flag=0; 
+0BA0:  BCF    49.0
+....................          total_distance1=(time1);      // velocity of sound 350 m/sec   =  0.35mm /usec) 
+0BA2:  MOVFF  43,3F
+0BA6:  MOVFF  42,3E
+0BAA:  MOVFF  41,3D
+0BAE:  MOVFF  40,3C
+....................          //total_distance1=(time1*3.5)/2; 
+....................  
+....................          //function1(total_distance1); 
+....................          enable_interrupts(int_ext); 
+0BB2:  BSF    FF2.4
+....................          enable_interrupts(int_timer0); 
+0BB4:  BSF    FF2.5
+....................  
+....................          if(total_distance1>=23000) 
+0BB6:  MOVF   3F,F
+0BB8:  BNZ   0BCE
+0BBA:  MOVF   3E,F
+0BBC:  BNZ   0BCE
+0BBE:  MOVF   3D,W
+0BC0:  SUBLW  58
+0BC2:  BC    0BD2
+0BC4:  XORLW  FF
+0BC6:  BNZ   0BCE
+0BC8:  MOVF   3C,W
+0BCA:  SUBLW  D7
+0BCC:  BC    0BD2
+....................          { 
+....................          buzzer=0; 
+0BCE:  BCF    F81.7
+....................          //puts("AAA"); 
+....................          } 
+....................          else 
+0BD0:  BRA    0BD4
+....................          { 
+....................          buzzer=1; 
+0BD2:  BSF    F81.7
+....................          } 
+....................         } 
+....................       } 
+0BD4:  BRA    0B34
+....................    } 
+....................     
+.................... void display(unsigned int16 value) 
+.................... { 
+0BD6:  SLEEP 
+....................    int z[4],j=0; 
+*
+0920:  CLRF   53
+....................    for(j=0;j<=3;j++) 
+0922:  CLRF   53
+0924:  MOVF   53,W
+0926:  SUBLW  03
+0928:  BNC   0968
+....................    { 
+....................       z[j]=value%10; 
+092A:  CLRF   03
+092C:  MOVF   53,W
+092E:  ADDLW  4F
+0930:  MOVWF  FE9
+0932:  MOVLW  00
+0934:  ADDWFC 03,W
+0936:  MOVWF  FEA
+0938:  MOVFF  4E,57
+093C:  MOVFF  4D,56
+0940:  CLRF   59
+0942:  MOVLW  0A
+0944:  MOVWF  58
+0946:  RCALL  08DC
+0948:  MOVFF  00,FEF
+....................       value=value/10; 
+094C:  MOVFF  4E,57
+0950:  MOVFF  4D,56
+0954:  CLRF   59
+0956:  MOVLW  0A
+0958:  MOVWF  58
+095A:  RCALL  08DC
+095C:  MOVFF  02,4E
+0960:  MOVFF  01,4D
+....................    } 
+0964:  INCF   53,F
+0966:  BRA    0924
+....................    command(0xc0); 
+0968:  MOVLW  C0
+096A:  MOVWF  54
+096C:  RCALL  0662
+....................    data(z[3]|0x30); 
+096E:  MOVF   52,W
+0970:  IORLW  30
+0972:  MOVWF  54
+0974:  MOVWF  55
+0976:  RCALL  0676
+....................    data(z[2]|0x30); 
+0978:  MOVF   51,W
+097A:  IORLW  30
+097C:  MOVWF  54
+097E:  MOVWF  55
+0980:  RCALL  0676
+....................    data(z[1]|0x30); 
+0982:  MOVF   50,W
+0984:  IORLW  30
+0986:  MOVWF  54
+0988:  MOVWF  55
+098A:  RCALL  0676
+....................    data(z[0]|0x30); 
+098C:  MOVF   4F,W
+098E:  IORLW  30
+0990:  MOVWF  54
+0992:  MOVWF  55
+0994:  RCALL  0676
+....................  
+.................... }    
+0996:  GOTO   0B5E (RETURN)
+....................  
+.................... /*void function1(int16 an_value) 
+....................    { 
+....................       int8 a1[7]={0},i4=0; 
+....................  
+....................       for(i4=0;i4<6;i4++) 
+....................          { 
+....................             a1[i4]=an_value%10; 
+....................             an_value=an_value/10; 
+....................          } 
+....................       fputc(a1[5]|0x30); 
+....................       fputc(a1[4]|0x30); 
+....................       fputc(a1[3]|0x30); 
+....................       putc('.'); 
+....................       fputc(a1[2]|0x30); 
+....................       fputc(a1[1]|0x30); 
+....................       fputc(a1[0]|0x30); 
+....................       fputs("CM"); 
+....................       putc(' '); 
+....................       putc(' '); 
+....................   }*/ 
+
+Configuration Fuses:
+   Word  1: 2200   HS NOOSCSEN
+   Word  2: 0E0F   BROWNOUT WDT128 NOWDT BORV20 NOPUT
+   Word  3: 0000  
+   Word  4: 0081   STVREN NODEBUG NOLVP
+   Word  5: C00F   NOPROTECT NOCPD NOCPB
+   Word  6: E00F   NOWRT NOWRTD NOWRTB NOWRTC
+   Word  7: 400F   NOEBTR NOEBTRB

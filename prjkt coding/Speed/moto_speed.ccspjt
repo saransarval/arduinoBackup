@@ -1,0 +1,19 @@
+[PROJECT]
+Target=moto_speed.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.008
+Compiler=PCM
+[Target Data]
+FileList=moto_speed.c
+[Directories]
+Include=C:\Program Files\PICC\Devices\;C:\Program Files\PICC\Drivers\;D:\Roops\2013\Speed\
+[moto_speed.c]
+Type=4
+[mru-list]
+1=moto_speed.c
+[Opened Files]
+1=moto_speed.c
+2=
+[Units]
+Count=1
+1=moto_speed (main)

@@ -1,0 +1,184 @@
+001     tmr0
+005     porta
+006     portb
+006.0   key
+006.1   buzzer
+006.2   relay
+006.7   flow_meter
+007     portc
+008     portd
+008     PSP_DATA
+009     porte
+009.0   reg
+009.1   rw
+009.2   en
+00B     intcon
+00C     pir1
+00E     tmr1l
+00F     tmr1h
+010.0   tmr1on
+010     t1con
+011     tmr2
+012     t2con
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     value
+029-02A count
+02B-02C value_1
+02D-02E count_1
+02F     b
+030     sec
+031     mint
+032     hours
+033-037 D
+038-03C v
+03D-040 c
+041     delay_count
+042-045 k
+046.0   glag
+046.1   flag
+046.2   flag_1
+046.3   key_flag
+046.4   paid
+047     gsm2.no
+047     gsm3.no
+047     DISPLAY_MINT.n
+047-048 display.p
+047-048 send.o
+047-048 display1.t
+047     DISPLAY_HOURS.p
+047-048 send1.y
+047     DISPLAY_SEC.m
+047     gsm.no
+047     gsm1.no
+047     main.@SCRATCH
+048-049 DISPLAY_MINT.y
+048-049 DISPLAY_HOURS.Z
+048-049 DISPLAY_SEC.X
+048     main.@SCRATCH
+048     gsm.@SCRATCH
+048     gsm1.@SCRATCH
+048     gsm2.@SCRATCH
+048     gsm3.@SCRATCH
+049     display1.m
+049-04A @MUL1616.P1
+049     display.L
+049     send.g
+049     send1.g
+04A-04D display1.q
+04A     DISPLAY_HOURS.k
+04A     DISPLAY_MINT.J
+04A-04D display.W
+04A     DISPLAY_SEC.I
+04A     send.@SCRATCH
+04A     send1.@SCRATCH
+04B-04C @MUL1616.P1
+04B     DISPLAY_SEC.@SCRATCH
+04B     DISPLAY_MINT.@SCRATCH
+04B     DISPLAY_HOURS.@SCRATCH
+04C     @DIV88.P1
+04D     @DIV88.P1
+04D     @MUL1616.@SCRATCH
+04E     command.com
+04E     display1.@SCRATCH
+04E     display.@SCRATCH
+04E     @DIV88.@SCRATCH
+04F     data.da
+04F-050 @DIV1616.P1
+050     @delay_ms1.P1
+051-052 @DIV1616.P1
+053     @DIV1616.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     option_reg
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+08C     pie1
+092     pr2
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+013C  @delay_ms1
+011D  TIMER2_ISR
+014F  command
+0159  data
+049E  main
+0035  @const10073
+0043  @const10082
+0059  @const10091
+006E  @const10096
+0082  @const10119
+008F  @const10124
+0099  @const10133
+02C3  @MUL1616
+0233  display1
+020D  @DIV1616
+027B  display
+0178  DISPLAY_SEC
+0163  @DIV88
+01A1  DISPLAY_MINT
+00A1  @const10257
+01D7  DISPLAY_HOURS
+02DA  send
+02FE  send1
+0322  gsm
+00A7  @const10305
+00C3  @const10314
+00DF  @const10326
+0380  gsm1
+00E9  @const10361
+03DE  gsm2
+00F1  @const10396
+043E  gsm3
+0107  @const10431
+049E  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c
+    C:\Program Files\PICC\devices\16f877a.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.sta

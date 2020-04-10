@@ -1,0 +1,122 @@
+005.0   relay1
+005     porta
+005.1   relay2
+005.2   relay3
+005.3   relay4
+006     portb
+006.1   key1
+006.2   key2
+006.3   key3
+006.4   key4
+007     portc
+008     PSP_DATA
+008     portd
+009.0   reg
+009     porte
+009.1   rw
+009.2   en
+00B     intcon
+00C     pir1
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+018     rcsta
+019     txreg
+01A     rcreg
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028-033 a
+034     i
+035     r
+036     s
+037     flag
+038     b
+039     c
+03A.0   glag
+03B     command.com
+03B     main.@SCRATCH
+03C     main.@SCRATCH
+03D     data.da
+03E     @delay_ms2.P1
+03F     RDA_isr.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+08C     pie1
+098     txsta
+099     spbrg
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+0153  @delay_ms2
+0166  command
+0182  data
+0170  lcd_init
+0141  RDA_isr
+018C  main
+0035  @const10060
+0042  @const10086
+0049  @const10094
+005D  @const10099
+0071  @const10107
+0086  @const10118
+0099  @const10129
+00AE  @const10140
+00C2  @const10151
+00D5  @const10164
+00DC  @const10172
+00EF  @const10177
+0107  @const10206
+011B  @const10212
+012E  @const10228
+018C  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c
+    C:\Program Files\PICC\devices\16F877A.h
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\lcd.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.cof
+    Project:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.PJT
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.sta

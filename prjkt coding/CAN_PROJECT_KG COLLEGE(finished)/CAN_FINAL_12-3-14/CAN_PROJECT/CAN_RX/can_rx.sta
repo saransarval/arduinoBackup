@@ -1,0 +1,54 @@
+
+ROM used: 4146 (13%)
+          4146 (13%) including unused fragments
+
+          2 Average locations per line
+          9 Average locations per statement
+
+RAM used: 72 (5%) at main() level
+          130 (8%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  494   296  67  C:\Users\GRT EMBEDDED\Desktop\universal atm\CAN_PROJECT\CAN_RX\can_rx.c
+   65     0   0  C:\Users\GRT EMBEDDED\Desktop\universal atm\CAN_PROJECT\CAN_RX\rx_header.h
+  388     0   0  C:\Program Files\PICC\devices\18F458.h
+   93     0   0  C:\Users\GRT EMBEDDED\Desktop\universal atm\CAN_PROJECT\CAN_RX\pic18_f_reg.h
+  439   135  18  C:\Users\GRT EMBEDDED\Desktop\universal atm\CAN_PROJECT\CAN_RX\can-18xxx8_own.h
+  369     0   0  C:\Program Files\PICC\drivers\can-18xxx8.h
+   27     8   1  C:\Users\GRT EMBEDDED\Desktop\universal atm\CAN_PROJECT\CAN_RX\reg.h
+----- -----
+ 3750   878 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0    216   3   2  can_init
+0     48   1   0  can_set_baud
+0     34   0   2  can_set_mode
+0    304   4  14  can_set_id
+0    478   6  18  can_get_id
+0    192   2  17  can_putd
+0     38   0   1  @delay_ms1
+0    268   3   0  CANRX0_isr
+0      8   0   0  timer0_isr
+0     20   0   1  command
+0     20   0   1  data
+0    752   9   2  main
+0     44   1   0  @const10176
+0     44   1   0  @const10181
+0    122   1   9  display
+0     68   1   5  @DIV1616
+0    160   2  12  display_speed
+0    282   3   0  custom
+0    752   9   4  speed_display
+0     44   1   0  @const10301
+0     42   1   3  @DIV88
+0     46   1   0  @goto10407
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-000A6   160  0  
+000A8-07FFE  3982  28618  
+

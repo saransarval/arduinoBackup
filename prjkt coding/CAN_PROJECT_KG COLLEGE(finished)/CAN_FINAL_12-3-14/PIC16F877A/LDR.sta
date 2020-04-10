@@ -1,0 +1,30 @@
+
+ROM used: 160 (2%)
+          160 (2%) including unused fragments
+
+          0 Average locations per line
+          6 Average locations per statement
+
+RAM used: 8 (5%) at main() level
+          9 (5%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   50    25 100  C:\Users\GRT EMBEDDED\Desktop\universal atm\PIC16F877A\LDR.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.H
+----- -----
+  712    50 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     21  13   1  @delay_ms1
+0    135  84   0  main
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-007FF   156  1888  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

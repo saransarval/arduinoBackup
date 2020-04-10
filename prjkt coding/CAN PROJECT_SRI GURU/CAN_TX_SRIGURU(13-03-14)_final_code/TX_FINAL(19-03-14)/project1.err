@@ -1,0 +1,5 @@
+Error[18]   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\TX_FINAL(19-03-14)\project1.c 1 : File can not be opened
+    Not in local "E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\TX_FINAL(19-03-14)\tx_header.h"
+    Not in "C:\Program Files\PICC\devices\tx_header.h"
+    Not in "C:\Program Files\PICC\drivers\tx_header.h"
+      1 Errors,  0 Warnings.

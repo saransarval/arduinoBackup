@@ -1,0 +1,109 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+005.0   TOUCH_X1
+005     porta
+005.1   TOUCH_Y1
+005.2   TOUCH_X2
+005.5   TOUCH_Y2
+008     portd
+008     PSP_DATA
+009     porte
+009.0   reg
+009.1   rw
+009.2   en
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+01E     adresh
+01F     adcon0
+01F.2   GO
+020     resolution
+021     command.com
+021-02F read_touch.array
+021     MAIN.@SCRATCH1
+021     @PSTRINGC7_639.@SCRATCH1
+022     @PSTRINGC7_639.@SCRATCH2
+023     @PSTRINGC7_639.@SCRATCH3
+024     @PSTRINGC7_639.@SCRATCH4
+025     data.dat
+030     read_touch.pre_count
+031     read_touch.pre_value
+032     read_touch.count
+033     read_touch.i
+034     read_touch.j
+035     read_touch.x_value
+036     read_touch.y_value
+037     @DIV88.P1
+037     @delay_ms1.P2
+037     @MUL88.P3
+037     read_touch.@SCRATCH1
+038     @MUL88.P1
+038     @DIV88.P2
+038     read_touch.@SCRATCH2
+039     @DIV88.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+085     trisa
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+09E     adresl
+09F     adcon1
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const664.call
+00000D  @const666.call
+000016  @const672.call
+000018  @const675.call
+00001A  @delay_ms1
+00002E  command
+000038  data
+000042  @PSTRINGC7_639
+00008D  @DIV88
+0000A2  read_touch
+00019B  @MUL88
+0001C5  @cinit1
+0001C5  MAIN
+0001CF  @cinit2
+
+Project Directory:
+    C:\Users\GRT-Embedded\Desktop\GLCD\Touch\
+
+Project Files:
+    touch_GLCD.c                                            [17-Feb-14 21:26  CRC=1C59A308]
+    ..\..\..\..\..\Program Files\PICC\Devices\16F877A.h     [03-Jul-13 14:28  CRC=4E65664C]
+    Header_Touch.h                                          [17-Feb-14 22:05  CRC=7EE212B2]
+
+Source signature=68832EB8
+
+Units:
+    touch_GLCD (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   touch_GLCD.xsym
+    Errors:      touch_GLCD.err
+    Ext Symbols: touch_GLCD.esym
+    INHX8:       touch_GLCD.hex
+    Symbols:     touch_GLCD.sym
+    List:        touch_GLCD.lst
+    Debug/COFF:  touch_GLCD.cof
+    Project:     touch_GLCD.ccspjt
+    Call Tree:   touch_GLCD.tre
+    Statistics:  touch_GLCD.STA

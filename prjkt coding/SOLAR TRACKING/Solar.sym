@@ -1,0 +1,143 @@
+001     tmr0
+005     porta
+006     portb
+006.0   LEFT
+006.1   RIGHT
+006.4   relay1
+006.5   relay2
+007     portc
+008     PSP_DATA
+008     portd
+009     porte
+009.0   reg
+009.1   rw
+009.2   en
+00B     intcon
+00C     pir1
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+01E     adresh
+01F     adcon0
+01F.2   go
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029-02A LDR1
+02B-02C LDR2
+02D-02E LDR3
+02F-030 LDR4
+031-032 battery_1
+033-034 battery_2
+035-036 lock
+037-038 lock1
+039-03A lock2
+03B-03C lock3
+03D-03E lock4
+03F     b
+040.0   flag
+040.1   flag_1
+040.2   flag_2
+040.3   flag_3
+040.4   flag_4
+040.5   d
+040.6   a
+040.7   c
+041-042 display1.n
+041-042 display4.n
+041-042 display3.n
+041-042 display2.n
+041     main.@SCRATCH
+043     display4.i
+043     display1.i
+043     display3.i
+043     display2.i
+044-047 display4.a
+044-047 display3.a
+044-047 display2.a
+044-047 display1.a
+048     display1.@SCRATCH
+048     display2.@SCRATCH
+048     display3.@SCRATCH
+048     display4.@SCRATCH
+049-04A @DIV1616.P1
+04B-04C @DIV1616.P1
+04D     @DIV1616.@SCRATCH
+04E     command.com
+04E     timer0_isr.@SCRATCH
+04F     data.da
+050     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     option_reg
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+09E     adresl
+09F     adcon1
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+006D  @delay_ms1
+0094  timer0_isr
+0033  @const10038
+0080  command
+008A  data
+0276  main
+003B  @const10058
+00D2  display1
+00AC  @DIV1616
+004E  @const10192
+013B  display2
+0056  @const10208
+01A4  display3
+005D  @const10224
+020D  display4
+0065  @const10240
+0276  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.c
+    C:\Program Files\PICC\devices\16F877A.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\SOLAR TRACKING\Solar.sta

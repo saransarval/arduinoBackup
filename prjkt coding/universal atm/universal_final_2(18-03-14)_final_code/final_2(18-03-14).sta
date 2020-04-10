@@ -1,0 +1,81 @@
+
+ROM used: 3492 (43%)
+          4017 (49%) including unused fragments
+
+          4 Average locations per line
+          7 Average locations per statement
+
+RAM used: 66 (38%) at main() level
+          78 (45%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  575   518 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\universal_final_2(18-03-14)_final_code\final_2(18-03-14).c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1762  1036 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     12   0   0  @GETCH_BIU_1
+0     86   2   1  rb_isr
+0     40   1   2  rda_isr
+0     16   0   1  command
+0     16   0   1  data
+1   1969  56   5  main
+0     22   1   0  @const10172
+0     24   1   0  @const10177
+0     21   1   5  @MUL1616
+0     37   1   2  @MUL88
+0      9   0   0  @const10212
+0     15   0   0  @const10217
+0      9   0   0  @const10222
+0     12   0   0  @const10227
+0      9   0   0  @const10232
+0     12   0   0  @const10237
+0      9   0   0  @const10242
+0     11   0   0  @const10247
+0      9   0   0  @const10252
+0     10   0   0  @const10257
+0     16   0   0  @const10271
+0     21   1   0  @const10292
+0     27   1   0  @const10304
+0     13   0   0  @const10315
+0     16   0   0  @const10336
+0     16   0   0  @const10341
+0     16   0   0  @const10353
+0     16   0   0  @const10358
+0     13   0   0  @const10369
+0     13   0   0  @const10397
+0     13   0   0  @const10416
+0     12   0   0  @const10427
+0     11   0   0  @const10481
+0      9   0   0  @const10486
+0      8   0   0  @const10491
+0      7   0   0  @const10496
+0     26   1   0  @const10510
+0     22   1   0  @const10515
+0     25   1   0  @const10531
+0     24   1   0  @const10552
+0     21   1   0  @const10577
+0     19   1   0  @const10582
+0     22   1   0  @const10614
+0     18   1   0  @const10619
+0     20   1   0  @const10633
+0    248   7   5  withdrawal_amount
+0     20   1   0  @const10707
+0     19   1   0  @const10721
+0    231   7   5  deposite_amount
+0     85   2   5  display
+0     38   1   5  @DIV1616
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-0003B    56  0  
+0003C-007FF  1463  525  
+00800-00FFF  1969  79  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

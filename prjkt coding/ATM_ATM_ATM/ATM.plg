@@ -1,0 +1,46 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+C:\Users\grt embedded\Videos\ATM_ATM_ATM\ATM.uv2
+Project File Date:  03/22/2013
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling ATM.c...
+delay.h(7): warning:  #1-D: last line of file ends without a newline
+lcd.h(95): warning:  #1-D: last line of file ends without a newline
+uart0.h(61): warning:  #1-D: last line of file ends without a newline
+keypad.h(117): warning:  #1-D: last line of file ends without a newline
+bank.h(26): warning:  #1295-D: Deprecated declaration mode_new_sec - give arg types
+bank.h(694): warning:  #1-D: last line of file ends without a newline
+ATM.c(19): warning:  #951-D: return type of function "main" must be "int"
+ATM.c(29): warning:  #61-D: integer operation result is out of range
+ATM.c(302): warning:  #61-D: integer operation result is out of range
+ATM.c(302): warning:  #68-D: integer conversion resulted in a change of sign
+ATM.c(308): warning:  #61-D: integer operation result is out of range
+ATM.c(308): warning:  #68-D: integer conversion resulted in a change of sign
+linking...
+Program Size: Code=15996 RO-data=32 RW-data=76 ZI-data=1284  
+FromELF: creating hex file...
+"ATM.axf" - 0 Error(s), 12 Warning(s).
+Build target 'Target 1'
+assembling Startup.s...
+compiling ATM.c...
+delay.h(7): warning:  #1-D: last line of file ends without a newline
+lcd.h(95): warning:  #1-D: last line of file ends without a newline
+uart0.h(61): warning:  #1-D: last line of file ends without a newline
+keypad.h(117): warning:  #1-D: last line of file ends without a newline
+bank.h(26): warning:  #1295-D: Deprecated declaration mode_new_sec - give arg types
+bank.h(694): warning:  #1-D: last line of file ends without a newline
+ATM.c(19): warning:  #951-D: return type of function "main" must be "int"
+ATM.c(29): warning:  #61-D: integer operation result is out of range
+ATM.c(302): warning:  #61-D: integer operation result is out of range
+ATM.c(302): warning:  #68-D: integer conversion resulted in a change of sign
+ATM.c(308): warning:  #61-D: integer operation result is out of range
+ATM.c(308): warning:  #68-D: integer conversion resulted in a change of sign
+linking...
+Program Size: Code=15996 RO-data=32 RW-data=76 ZI-data=1284  
+FromELF: creating hex file...
+"ATM.axf" - 0 Error(s), 12 Warning(s).

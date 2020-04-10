@@ -1,0 +1,38 @@
+[PROJECT]
+Target=Transmitter.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=Transmitter.c;
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[Transmitter.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ENGINE~1\PPG_RF~1\RFIDFO~1\TRANSM~1.C
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ENGINE~1\PPG_RF~1\RFIDFO~1\TRANSM~1.C 0 0 796 451 3 0
+
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c (main)
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c
+2=

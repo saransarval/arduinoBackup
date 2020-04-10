@@ -1,0 +1,189 @@
+CCS PCM C Compiler, Version 3.249, 33340               29-Oct-13 11:50
+
+               Filename: \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon.lst
+
+               ROM used: 126 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 16 (9%) at main() level
+                         17 (10%) worst case
+               Stack:    2 worst case (1 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   055
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  BTFSS  0B.5
+001A:  GOTO   01D
+001B:  BTFSC  0B.2
+001C:  GOTO   030
+001D:  MOVF   22,W
+001E:  MOVWF  04
+001F:  MOVF   23,W
+0020:  MOVWF  77
+0021:  MOVF   24,W
+0022:  MOVWF  78
+0023:  MOVF   25,W
+0024:  MOVWF  79
+0025:  MOVF   26,W
+0026:  MOVWF  7A
+0027:  MOVF   27,W
+0028:  MOVWF  7B
+0029:  MOVF   20,W
+002A:  MOVWF  0A
+002B:  SWAPF  21,W
+002C:  MOVWF  03
+002D:  SWAPF  7F,F
+002E:  SWAPF  7F,W
+002F:  RETFIE
+0030:  BCF    0A.3
+0031:  BCF    0A.4
+0032:  GOTO   033
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=110592000 
+*
+003F:  MOVLW  2B
+0040:  MOVWF  04
+0041:  MOVF   00,W
+0042:  BTFSC  03.2
+0043:  GOTO   052
+0044:  MOVLW  23
+0045:  MOVWF  78
+0046:  CLRF   77
+0047:  DECFSZ 77,F
+0048:  GOTO   047
+0049:  DECFSZ 78,F
+004A:  GOTO   046
+004B:  MOVLW  DB
+004C:  MOVWF  77
+004D:  DECFSZ 77,F
+004E:  GOTO   04D
+004F:  NOP
+0050:  DECFSZ 00,F
+0051:  GOTO   044
+0052:  BCF    0A.3
+0053:  BCF    0A.4
+0054:  GOTO   079 (RETURN)
+....................  
+.................... #byte portd=0x08 
+.................... #byte trisd=0x88 
+....................  
+.................... #byte portb=0x06 
+.................... #byte trisb=0x86 
+....................  
+.................... #byte tmr0=0x01 
+.................... #byte option_reg=0x81 
+.................... #byte intcon=0x0b 
+....................  
+.................... int lat=0,lon=0,a=0; 
+*
+005F:  BCF    03.5
+0060:  CLRF   28
+0061:  CLRF   29
+0062:  CLRF   2A
+....................  
+.................... #int_timer0 
+.................... timer0_isr() 
+.................... { 
+.................... a++; 
+*
+0033:  INCF   2A,F
+.................... if(a<=43) 
+0034:  MOVF   2A,W
+0035:  SUBLW  2B
+0036:  BTFSS  03.0
+0037:  GOTO   03B
+.................... { 
+.................... a=0; 
+0038:  CLRF   2A
+.................... lat++; 
+0039:  INCF   28,F
+.................... lon++; 
+003A:  INCF   29,F
+.................... } 
+.................... } 
+003B:  BCF    0B.2
+003C:  BCF    0A.3
+003D:  BCF    0A.4
+003E:  GOTO   01D
+.................... void main() 
+.................... { 
+*
+0055:  CLRF   04
+0056:  MOVLW  1F
+0057:  ANDWF  03,F
+0058:  BSF    03.5
+0059:  BSF    1F.0
+005A:  BSF    1F.1
+005B:  BSF    1F.2
+005C:  BCF    1F.3
+005D:  MOVLW  07
+005E:  MOVWF  1C
+.................... portd=0x00; 
+*
+0063:  CLRF   08
+.................... trisd=0x00; 
+0064:  BSF    03.5
+0065:  CLRF   08
+.................... intcon=0xe0; 
+0066:  MOVLW  E0
+0067:  BCF    03.5
+0068:  MOVWF  0B
+.................... tmr0=0x00; 
+0069:  CLRF   01
+.................... option_reg=0x07; 
+006A:  MOVLW  07
+006B:  BSF    03.5
+006C:  MOVWF  01
+....................  
+.................... while(1) 
+.................... { 
+.................... if(lat==10 && lon==10) 
+006D:  BCF    03.5
+006E:  MOVF   28,W
+006F:  SUBLW  0A
+0070:  BTFSS  03.2
+0071:  GOTO   07B
+0072:  MOVF   29,W
+0073:  SUBLW  0A
+0074:  BTFSS  03.2
+0075:  GOTO   07B
+.................... { 
+.................... delay_ms(250); 
+0076:  MOVLW  FA
+0077:  MOVWF  2B
+0078:  GOTO   03F
+.................... portd=0x01; 
+0079:  MOVLW  01
+007A:  MOVWF  08
+.................... } 
+.................... } 
+007B:  BSF    03.5
+007C:  GOTO   06D
+.................... } 
+007D:  SLEEP

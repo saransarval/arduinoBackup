@@ -1,0 +1,83 @@
+
+ROM used: 3107 (38%)
+          4095 (50%) including unused fragments
+
+          4 Average locations per line
+          7 Average locations per statement
+
+RAM used: 52 (30%) at main() level
+          66 (38%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  495   461 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\smart_card(27-03-14)\25-03-14\smart.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1602   922 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     12   0   0  @GETCH_BIU_1
+0     86   3   1  rb_isr
+0     40   1   2  rda_isr
+0     13   0   1  command
+0     13   0   1  data
+1   2047  66   5  main
+0     22   1   0  @const10173
+0     24   1   0  @const10178
+0      8   0   0  @const10184
+0     21   1   5  @MUL1616
+0     37   1   2  @MUL88
+0      9   0   0  @const10218
+0     15   0   0  @const10223
+0      9   0   0  @const10228
+0     12   0   0  @const10233
+0      9   0   0  @const10238
+0     12   0   0  @const10243
+0      9   0   0  @const10248
+0     11   0   0  @const10253
+0      9   0   0  @const10258
+0     10   0   0  @const10263
+0     16   1   0  @const10277
+0     21   1   0  @const10299
+0     21   1   0  @const10312
+0     13   0   0  @const10323
+0     16   1   0  @const10345
+0     16   1   0  @const10350
+0     16   1   0  @const10363
+0     16   1   0  @const10368
+0     13   0   0  @const10379
+0     13   0   0  @const10406
+0     13   0   0  @const10424
+0     12   0   0  @const10435
+0     11   0   0  @const10491
+0     12   0   0  @const10496
+0     13   0   0  @const10501
+0     11   0   0  @const10506
+0      7   0   0  @const10519
+0     25   1   0  @const10527
+0     22   1   0  @const10532
+0     11   0   0  @const10546
+0     24   1   0  @const10554
+0      7   0   0  @const10573
+0     24   1   0  @const10581
+0     23   1   0  @const10606
+0     23   1   0  @const10611
+0     24   1   0  @const10625
+0     22   1   0  @const10643
+0     20   1   0  @const10648
+0     21   1   0  @const10661
+0     18   1   0  @const10666
+0     58   2   9  display
+0     38   1   5  @DIV1616
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-0003B    56  0  
+0003C-007FF  1000  988  
+00800-00FFF  2047  1  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

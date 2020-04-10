@@ -1,0 +1,48 @@
+ÀÄtest
+   ÀÄMAIN  0/74  Ram=1
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄglcd_init  0/80  Ram=1
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ÀÄglcd_fillScreen  0/73  Ram=4
+      ³     ÃÄglcd_writeByte  0/42  Ram=2
+      ³     ÃÄglcd_writeByte  0/42  Ram=2
+      ³     ÃÄglcd_writeByte  0/42  Ram=2
+      ³     ÃÄglcd_writeByte  0/42  Ram=2
+      ³     ÃÄ@MUL88  0/37  Ram=2
+      ³     ÃÄglcd_writeByte  0/42  Ram=2
+      ³     ÃÄ@MUL88  0/37  Ram=2
+      ³     ÀÄglcd_writeByte  0/42  Ram=2
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄglcd_line  0/208  Ram=15
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄglcd_pixel  0/157  Ram=6
+      ³  ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ³  ÃÄglcd_readByte  (Inline)  Ram=2
+      ³  ³  ÃÄglcd_writeByte  0/42  Ram=2
+      ³  ³  ÀÄglcd_writeByte  0/42  Ram=2
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄglcd_pixel  0/157  Ram=6
+      ³  ³  ÀÄ*
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÃÄ@MUL88  0/37  Ram=2
+      ³  ÀÄ@MUL88  0/37  Ram=2
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄglcd_pixel  0/157  Ram=6
+      ³  ÀÄ*
+      ÃÄglcd_fillScreen  0/73  Ram=4
+      ³  ÀÄ*
+      ÀÄ@delay_ms1  0/20  Ram=1

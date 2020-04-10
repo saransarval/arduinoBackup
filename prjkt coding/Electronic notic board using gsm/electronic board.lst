@@ -1,0 +1,339 @@
+CCS PCM C Compiler, Version 3.249, 33340               14-Feb-14 19:28
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Electronic notic board using gsm\electronic board.lst
+
+               ROM used: 299 words (4%)
+                         Largest free fragment is 2048
+               RAM used: 56 (32%) at main() level
+                         61 (35%) worst case
+               Stack:    4 worst case (2 in main + 2 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0CB
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  MOVLW  8C
+001A:  MOVWF  04
+001B:  BTFSS  00.5
+001C:  GOTO   01F
+001D:  BTFSC  0C.5
+001E:  GOTO   032
+001F:  MOVF   22,W
+0020:  MOVWF  04
+0021:  MOVF   23,W
+0022:  MOVWF  77
+0023:  MOVF   24,W
+0024:  MOVWF  78
+0025:  MOVF   25,W
+0026:  MOVWF  79
+0027:  MOVF   26,W
+0028:  MOVWF  7A
+0029:  MOVF   27,W
+002A:  MOVWF  7B
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   07B
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=11059200) 
+*
+00A4:  MOVLW  54
+00A5:  MOVWF  04
+00A6:  MOVF   00,W
+00A7:  BTFSC  03.2
+00A8:  GOTO   0B6
+00A9:  MOVLW  03
+00AA:  MOVWF  78
+00AB:  CLRF   77
+00AC:  DECFSZ 77,F
+00AD:  GOTO   0AC
+00AE:  DECFSZ 78,F
+00AF:  GOTO   0AB
+00B0:  MOVLW  95
+00B1:  MOVWF  77
+00B2:  DECFSZ 77,F
+00B3:  GOTO   0B2
+00B4:  DECFSZ 00,F
+00B5:  GOTO   0A9
+00B6:  RETLW  00
+.................... #use rs232(baud=9600, xmit=PIN_c6,rcv=PIN_c7) 
+....................  
+.................... #byte trisc=0x87 
+.................... #byte portc=0x07 
+....................  
+.................... #byte portd=0x08 
+.................... #byte trisd=0x88 
+....................  
+.................... #byte porte=0x09 
+.................... #byte trise=0x89 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+.................... #byte intcon=0x0b 
+.................... #byte option_reg=0x81 
+.................... #byte rcreg=0x1a 
+....................  
+.................... struct bit 
+.................... { 
+.................... unsigned char : 1 ; 
+.................... unsigned int : 1; 
+.................... }s1; 
+....................  
+.................... unsigned char a,b[5],arr_data[5],arr_add[5][5],var=0; 
+*
+00DD:  BCF    03.5
+00DE:  CLRF   4D
+.................... int i=0,j=0,k=0; 
+00DF:  CLRF   4E
+00E0:  CLRF   4F
+00E1:  CLRF   50
+.................... int1 flag=0,glag=0; 
+00E2:  BCF    51.0
+00E3:  BCF    51.1
+.................... void command(unsigned char com); 
+.................... void data(unsigned char da); 
+....................  
+.................... #int_rda 
+.................... rda_isr() 
+.................... { 
+.................... a=fgetc(); 
+*
+007B:  BTFSS  0C.5
+007C:  GOTO   07B
+007D:  MOVF   1A,W
+007E:  MOVWF  29
+.................... var=a; 
+007F:  MOVF   29,W
+0080:  MOVWF  4D
+.................... arr_data[k]=var-0x20; 
+0081:  MOVLW  2F
+0082:  ADDWF  50,W
+0083:  MOVWF  04
+0084:  MOVLW  20
+0085:  SUBWF  4D,W
+0086:  MOVWF  00
+.................... for(i=0;i<5;i++) 
+0087:  CLRF   4E
+0088:  MOVF   4E,W
+0089:  SUBLW  04
+008A:  BTFSS  03.0
+008B:  GOTO   0A0
+.................... { 
+.................... b[j]=arr_add[arr_data][i]; 
+008C:  MOVLW  2A
+008D:  ADDWF  4F,W
+008E:  MOVWF  55
+008F:  MOVLW  2F
+0090:  MOVWF  56
+0091:  MOVLW  05
+0092:  MOVWF  57
+0093:  GOTO   054
+0094:  MOVF   78,W
+0095:  ADDWF  4E,W
+0096:  ADDLW  34
+0097:  MOVWF  04
+0098:  MOVF   00,W
+0099:  MOVWF  57
+009A:  MOVF   55,W
+009B:  MOVWF  04
+009C:  MOVF   57,W
+009D:  MOVWF  00
+.................... } 
+009E:  INCF   4E,F
+009F:  GOTO   088
+.................... } 
+....................  
+00A0:  BCF    0C.5
+00A1:  BCF    0A.3
+00A2:  BCF    0A.4
+00A3:  GOTO   01F
+.................... void command(unsigned int com) 
+.................... { 
+.................... portd=com; 
+*
+00B7:  MOVF   52,W
+00B8:  MOVWF  08
+.................... reg=0; 
+00B9:  BCF    09.0
+.................... rw=0; 
+00BA:  BCF    09.1
+.................... en=1; 
+00BB:  BSF    09.2
+.................... delay_ms(10); 
+00BC:  MOVLW  0A
+00BD:  MOVWF  54
+00BE:  CALL   0A4
+.................... en=0; 
+00BF:  BCF    09.2
+.................... } 
+00C0:  RETLW  00
+....................  
+.................... void data(unsigned int da) 
+.................... { 
+.................... portd=da; 
+00C1:  MOVF   53,W
+00C2:  MOVWF  08
+.................... reg=1; 
+00C3:  BSF    09.0
+.................... rw=0; 
+00C4:  BCF    09.1
+.................... en=1; 
+00C5:  BSF    09.2
+.................... delay_ms(10); 
+00C6:  MOVLW  0A
+00C7:  MOVWF  54
+00C8:  CALL   0A4
+.................... en=0; 
+00C9:  BCF    09.2
+.................... } 
+00CA:  RETLW  00
+.................... void main() 
+.................... { 
+00CB:  CLRF   04
+00CC:  MOVLW  1F
+00CD:  ANDWF  03,F
+00CE:  MOVLW  11
+00CF:  BSF    03.5
+00D0:  MOVWF  19
+00D1:  MOVLW  22
+00D2:  MOVWF  18
+00D3:  MOVLW  90
+00D4:  BCF    03.5
+00D5:  MOVWF  18
+00D6:  BSF    03.5
+00D7:  BSF    1F.0
+00D8:  BSF    1F.1
+00D9:  BSF    1F.2
+00DA:  BCF    1F.3
+00DB:  MOVLW  07
+00DC:  MOVWF  1C
+....................  portd=0x00;porte=0x00;portc=0x00; 
+*
+00E4:  CLRF   08
+00E5:  CLRF   09
+00E6:  CLRF   07
+....................  trisd=0x00;trise=0x00;trisc=0x80; 
+00E7:  BSF    03.5
+00E8:  CLRF   08
+00E9:  CLRF   09
+00EA:  MOVLW  80
+00EB:  MOVWF  07
+....................  
+....................  command(0x38); 
+00EC:  MOVLW  38
+00ED:  BCF    03.5
+00EE:  MOVWF  52
+00EF:  CALL   0B7
+....................  command(0x06); 
+00F0:  MOVLW  06
+00F1:  MOVWF  52
+00F2:  CALL   0B7
+....................  command(0x0c); 
+00F3:  MOVLW  0C
+00F4:  MOVWF  52
+00F5:  CALL   0B7
+....................  command(0x01); 
+00F6:  MOVLW  01
+00F7:  MOVWF  52
+00F8:  CALL   0B7
+....................  
+....................  enable_interrupts(global); 
+00F9:  MOVLW  C0
+00FA:  IORWF  0B,F
+....................  enable_interrupts(int_rda); 
+00FB:  BSF    03.5
+00FC:  BSF    0C.5
+....................  
+....................  delay_ms(300); 
+00FD:  MOVLW  02
+00FE:  BCF    03.5
+00FF:  MOVWF  52
+0100:  MOVLW  96
+0101:  MOVWF  54
+0102:  CALL   0A4
+0103:  DECFSZ 52,F
+0104:  GOTO   100
+....................  command(0x80); 
+0105:  MOVLW  80
+0106:  MOVWF  52
+0107:  CALL   0B7
+....................  data("GRT EMBEDDED"); 
+0108:  CLRF   52
+0109:  MOVF   52,W
+010A:  CALL   035
+010B:  IORLW  00
+010C:  BTFSC  03.2
+010D:  GOTO   112
+010E:  INCF   52,F
+010F:  MOVWF  53
+0110:  CALL   0C1
+0111:  GOTO   109
+....................  command(0xc0); 
+0112:  MOVLW  C0
+0113:  MOVWF  52
+0114:  CALL   0B7
+....................  data("SOLUTIONS"); 
+0115:  CLRF   52
+0116:  MOVF   52,W
+0117:  CALL   046
+0118:  IORLW  00
+0119:  BTFSC  03.2
+011A:  GOTO   11F
+011B:  INCF   52,F
+011C:  MOVWF  53
+011D:  CALL   0C1
+011E:  GOTO   116
+....................  delay_ms(1500); 
+011F:  MOVLW  06
+0120:  MOVWF  52
+0121:  MOVLW  FA
+0122:  MOVWF  54
+0123:  CALL   0A4
+0124:  DECFSZ 52,F
+0125:  GOTO   121
+....................  command(0x01); 
+0126:  MOVLW  01
+0127:  MOVWF  52
+0128:  CALL   0B7
+....................  
+....................  while(1) 
+....................  { 
+....................  
+.................... } 
+0129:  GOTO   129
+.................... } 
+012A:  SLEEP

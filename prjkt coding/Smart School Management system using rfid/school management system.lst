@@ -1,0 +1,699 @@
+CCS PCM C Compiler, Version 3.249, 33340               04-Apr-14 13:59
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart School Management system using rfid\school management system.lst
+
+               ROM used: 709 words (9%)
+                         Largest free fragment is 2048
+               RAM used: 28 (16%) at main() level
+                         31 (18%) worst case
+               Stack:    3 worst case (2 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   1AC
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  MOVLW  8C
+001A:  MOVWF  04
+001B:  BTFSS  00.5
+001C:  GOTO   01F
+001D:  BTFSC  0C.5
+001E:  GOTO   032
+001F:  MOVF   22,W
+0020:  MOVWF  04
+0021:  MOVF   23,W
+0022:  MOVWF  77
+0023:  MOVF   24,W
+0024:  MOVWF  78
+0025:  MOVF   25,W
+0026:  MOVWF  79
+0027:  MOVF   26,W
+0028:  MOVWF  7A
+0029:  MOVF   27,W
+002A:  MOVWF  7B
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   0EF
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=11059200) 
+*
+0101:  MOVLW  38
+0102:  MOVWF  04
+0103:  MOVF   00,W
+0104:  BTFSC  03.2
+0105:  GOTO   113
+0106:  MOVLW  03
+0107:  MOVWF  78
+0108:  CLRF   77
+0109:  DECFSZ 77,F
+010A:  GOTO   109
+010B:  DECFSZ 78,F
+010C:  GOTO   108
+010D:  MOVLW  95
+010E:  MOVWF  77
+010F:  DECFSZ 77,F
+0110:  GOTO   10F
+0111:  DECFSZ 00,F
+0112:  GOTO   106
+0113:  RETLW  00
+.................... #use rs232(baud=9600, xmit=PIN_c6,rcv=PIN_c7) 
+....................  
+.................... #byte trisa=0x85 
+.................... #byte porta=0x05 
+....................  
+.................... #byte trisc=0x87 
+.................... #byte portc=0x07 
+....................  
+.................... #byte trisd=0x88 
+.................... #byte portd=0x08 
+....................  
+.................... #byte trise=0x89 
+.................... #byte porte=0x09 
+....................  
+.................... #byte intcon=0x0b 
+.................... #byte rcreg=0x1a 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+.................... char i=0,a[12]={0,0,0,0,0,0,0,0,0,0,0,0}; 
+*
+01BE:  BCF    03.5
+01BF:  CLRF   28
+01C0:  CLRF   29
+01C1:  CLRF   2A
+01C2:  CLRF   2B
+01C3:  CLRF   2C
+01C4:  CLRF   2D
+01C5:  CLRF   2E
+01C6:  CLRF   2F
+01C7:  CLRF   30
+01C8:  CLRF   31
+01C9:  CLRF   32
+01CA:  CLRF   33
+01CB:  CLRF   34
+.................... int1 flag=0; 
+01CC:  BCF    35.0
+.................... void function(int16); 
+.................... void gsm(unsigned int no); 
+.................... void gsm1(unsigned int no); 
+....................  
+.................... void command(unsigned char com) 
+.................... { 
+....................    portd=com; 
+*
+0114:  MOVF   36,W
+0115:  MOVWF  08
+....................    reg=0; 
+0116:  BCF    09.0
+....................    rw=0; 
+0117:  BCF    09.1
+....................    en=1; 
+0118:  BSF    09.2
+....................    delay_ms(1); 
+0119:  MOVLW  01
+011A:  MOVWF  38
+011B:  CALL   101
+....................    en=0; 
+011C:  BCF    09.2
+.................... } 
+011D:  RETLW  00
+....................  
+.................... void data(unsigned int da) 
+.................... { 
+....................    portd=da; 
+011E:  MOVF   37,W
+011F:  MOVWF  08
+....................    reg=1;rw=0; 
+0120:  BSF    09.0
+0121:  BCF    09.1
+....................    en=1; 
+0122:  BSF    09.2
+....................    delay_ms(1); 
+0123:  MOVLW  01
+0124:  MOVWF  38
+0125:  CALL   101
+....................    en=0; 
+0126:  BCF    09.2
+.................... } 
+0127:  RETLW  00
+....................  
+.................... #int_rda 
+.................... rda_isr() 
+.................... { 
+....................    a[i]=fgetc(); 
+*
+00EF:  MOVLW  29
+00F0:  ADDWF  28,W
+00F1:  MOVWF  04
+00F2:  BTFSS  0C.5
+00F3:  GOTO   0F2
+00F4:  MOVF   1A,W
+00F5:  MOVWF  00
+....................    i++; 
+00F6:  INCF   28,F
+.................... if(i==12) 
+00F7:  MOVF   28,W
+00F8:  SUBLW  0C
+00F9:  BTFSS  03.2
+00FA:  GOTO   0FD
+.................... { 
+....................    i=0; 
+00FB:  CLRF   28
+....................    flag=1; 
+00FC:  BSF    35.0
+.................... } 
+.................... } 
+....................  
+....................  
+00FD:  BCF    0C.5
+00FE:  BCF    0A.3
+00FF:  BCF    0A.4
+0100:  GOTO   01F
+.................... void main() 
+.................... { 
+*
+01AC:  CLRF   04
+01AD:  MOVLW  1F
+01AE:  ANDWF  03,F
+01AF:  MOVLW  11
+01B0:  BSF    03.5
+01B1:  MOVWF  19
+01B2:  MOVLW  22
+01B3:  MOVWF  18
+01B4:  MOVLW  90
+01B5:  BCF    03.5
+01B6:  MOVWF  18
+01B7:  BSF    03.5
+01B8:  BSF    1F.0
+01B9:  BSF    1F.1
+01BA:  BSF    1F.2
+01BB:  BCF    1F.3
+01BC:  MOVLW  07
+01BD:  MOVWF  1C
+....................  
+....................    trisa=0x00; 
+*
+01CD:  BSF    03.5
+01CE:  CLRF   05
+....................    porta=0x00; 
+01CF:  BCF    03.5
+01D0:  CLRF   05
+....................    trisc=0x80; 
+01D1:  MOVLW  80
+01D2:  BSF    03.5
+01D3:  MOVWF  07
+....................    portc=0x00; 
+01D4:  BCF    03.5
+01D5:  CLRF   07
+....................    trisd=0x00; 
+01D6:  BSF    03.5
+01D7:  CLRF   08
+....................    portd=0x00; 
+01D8:  BCF    03.5
+01D9:  CLRF   08
+....................    trise=0x00; 
+01DA:  BSF    03.5
+01DB:  CLRF   09
+....................    porte=0x00; 
+01DC:  BCF    03.5
+01DD:  CLRF   09
+....................     
+....................     
+....................    fputs("AT+CMGF=1"); 
+01DE:  CLRF   36
+01DF:  MOVF   36,W
+01E0:  CALL   035
+01E1:  IORLW  00
+01E2:  BTFSC  03.2
+01E3:  GOTO   1E9
+01E4:  INCF   36,F
+01E5:  BTFSS  0C.4
+01E6:  GOTO   1E5
+01E7:  MOVWF  19
+01E8:  GOTO   1DF
+01E9:  MOVLW  0D
+01EA:  BTFSS  0C.4
+01EB:  GOTO   1EA
+01EC:  MOVWF  19
+01ED:  MOVLW  0A
+01EE:  BTFSS  0C.4
+01EF:  GOTO   1EE
+01F0:  MOVWF  19
+....................    delay_ms(1000); 
+01F1:  MOVLW  04
+01F2:  MOVWF  36
+01F3:  MOVLW  FA
+01F4:  MOVWF  38
+01F5:  CALL   101
+01F6:  DECFSZ 36,F
+01F7:  GOTO   1F3
+....................     
+....................    fputs("AT+CNMI=1,2,0,0,0"); 
+01F8:  CLRF   36
+01F9:  MOVF   36,W
+01FA:  CALL   043
+01FB:  IORLW  00
+01FC:  BTFSC  03.2
+01FD:  GOTO   203
+01FE:  INCF   36,F
+01FF:  BTFSS  0C.4
+0200:  GOTO   1FF
+0201:  MOVWF  19
+0202:  GOTO   1F9
+0203:  MOVLW  0D
+0204:  BTFSS  0C.4
+0205:  GOTO   204
+0206:  MOVWF  19
+0207:  MOVLW  0A
+0208:  BTFSS  0C.4
+0209:  GOTO   208
+020A:  MOVWF  19
+....................    delay_ms(1000); 
+020B:  MOVLW  04
+020C:  MOVWF  36
+020D:  MOVLW  FA
+020E:  MOVWF  38
+020F:  CALL   101
+0210:  DECFSZ 36,F
+0211:  GOTO   20D
+....................     
+....................    fputs("AT+CMGR=1"); 
+0212:  CLRF   36
+0213:  MOVF   36,W
+0214:  CALL   059
+0215:  IORLW  00
+0216:  BTFSC  03.2
+0217:  GOTO   21D
+0218:  INCF   36,F
+0219:  BTFSS  0C.4
+021A:  GOTO   219
+021B:  MOVWF  19
+021C:  GOTO   213
+021D:  MOVLW  0D
+021E:  BTFSS  0C.4
+021F:  GOTO   21E
+0220:  MOVWF  19
+0221:  MOVLW  0A
+0222:  BTFSS  0C.4
+0223:  GOTO   222
+0224:  MOVWF  19
+....................    delay_ms(1000); 
+0225:  MOVLW  04
+0226:  MOVWF  36
+0227:  MOVLW  FA
+0228:  MOVWF  38
+0229:  CALL   101
+022A:  DECFSZ 36,F
+022B:  GOTO   227
+....................     
+....................     
+....................    command(0x38); 
+022C:  MOVLW  38
+022D:  MOVWF  36
+022E:  CALL   114
+....................    command(0x06); 
+022F:  MOVLW  06
+0230:  MOVWF  36
+0231:  CALL   114
+....................    command(0x0c); 
+0232:  MOVLW  0C
+0233:  MOVWF  36
+0234:  CALL   114
+....................    command(0x01); 
+0235:  MOVLW  01
+0236:  MOVWF  36
+0237:  CALL   114
+....................     
+....................    command(0x80); 
+0238:  MOVLW  80
+0239:  MOVWF  36
+023A:  CALL   114
+....................    data("Hi GRT"); 
+023B:  CLRF   36
+023C:  MOVF   36,W
+023D:  CALL   067
+023E:  IORLW  00
+023F:  BTFSC  03.2
+0240:  GOTO   245
+0241:  INCF   36,F
+0242:  MOVWF  37
+0243:  CALL   11E
+0244:  GOTO   23C
+....................     
+....................    enable_interrupts(global); 
+0245:  MOVLW  C0
+0246:  IORWF  0B,F
+....................    enable_interrupts(int_rda); 
+0247:  BSF    03.5
+0248:  BSF    0C.5
+....................    command(0x01); 
+0249:  MOVLW  01
+024A:  BCF    03.5
+024B:  MOVWF  36
+024C:  CALL   114
+....................    command(0x80); 
+024D:  MOVLW  80
+024E:  MOVWF  36
+024F:  CALL   114
+....................     
+....................    delay_ms(1000); 
+0250:  MOVLW  04
+0251:  MOVWF  36
+0252:  MOVLW  FA
+0253:  MOVWF  38
+0254:  CALL   101
+0255:  DECFSZ 36,F
+0256:  GOTO   252
+....................    i=0; 
+0257:  CLRF   28
+....................    data("RFID TAG"); 
+0258:  CLRF   36
+0259:  MOVF   36,W
+025A:  CALL   072
+025B:  IORLW  00
+025C:  BTFSC  03.2
+025D:  GOTO   262
+025E:  INCF   36,F
+025F:  MOVWF  37
+0260:  CALL   11E
+0261:  GOTO   259
+....................  
+.................... while(1) 
+.................... { 
+.................... if(flag==1) 
+0262:  BTFSS  35.0
+0263:  GOTO   2C3
+.................... { 
+.................... if(a[10]=='E' && a[11]=='0') 
+0264:  MOVF   33,W
+0265:  SUBLW  45
+0266:  BTFSS  03.2
+0267:  GOTO   293
+0268:  MOVF   34,W
+0269:  SUBLW  30
+026A:  BTFSS  03.2
+026B:  GOTO   293
+.................... { 
+....................    command(0x80); 
+026C:  MOVLW  80
+026D:  MOVWF  36
+026E:  CALL   114
+....................    data("MANAGE SYSTEM"); 
+026F:  CLRF   36
+0270:  MOVF   36,W
+0271:  CALL   07F
+0272:  IORLW  00
+0273:  BTFSC  03.2
+0274:  GOTO   279
+0275:  INCF   36,F
+0276:  MOVWF  37
+0277:  CALL   11E
+0278:  GOTO   270
+....................    command(0xc0); 
+0279:  MOVLW  C0
+027A:  MOVWF  36
+027B:  CALL   114
+....................    data("PRIYA IS PRESENT"); 
+027C:  CLRF   36
+027D:  MOVF   36,W
+027E:  CALL   091
+027F:  IORLW  00
+0280:  BTFSC  03.2
+0281:  GOTO   286
+0282:  INCF   36,F
+0283:  MOVWF  37
+0284:  CALL   11E
+0285:  GOTO   27D
+....................    gsm(0); 
+0286:  CLRF   36
+0287:  CALL   128
+....................    delay_ms(3000); 
+0288:  MOVLW  0C
+0289:  MOVWF  36
+028A:  MOVLW  FA
+028B:  MOVWF  38
+028C:  CALL   101
+028D:  DECFSZ 36,F
+028E:  GOTO   28A
+....................    gsm(1); 
+028F:  MOVLW  01
+0290:  MOVWF  36
+0291:  CALL   128
+.................... } 
+.................... else if(a[10]=='8' && a[11]=='A') 
+0292:  GOTO   2C1
+0293:  MOVF   33,W
+0294:  SUBLW  38
+0295:  BTFSS  03.2
+0296:  GOTO   2C1
+0297:  MOVF   34,W
+0298:  SUBLW  41
+0299:  BTFSS  03.2
+029A:  GOTO   2C1
+.................... { 
+....................    command(0x80); 
+029B:  MOVLW  80
+029C:  MOVWF  36
+029D:  CALL   114
+....................    data("MANAGE SYSTEM"); 
+029E:  CLRF   36
+029F:  MOVF   36,W
+02A0:  CALL   07F
+02A1:  IORLW  00
+02A2:  BTFSC  03.2
+02A3:  GOTO   2A8
+02A4:  INCF   36,F
+02A5:  MOVWF  37
+02A6:  CALL   11E
+02A7:  GOTO   29F
+....................    command(0xc0); 
+02A8:  MOVLW  C0
+02A9:  MOVWF  36
+02AA:  CALL   114
+....................    data("ARCHANA IS PRESENT"); 
+02AB:  CLRF   36
+02AC:  MOVF   36,W
+02AD:  CALL   0A6
+02AE:  IORLW  00
+02AF:  BTFSC  03.2
+02B0:  GOTO   2B5
+02B1:  INCF   36,F
+02B2:  MOVWF  37
+02B3:  CALL   11E
+02B4:  GOTO   2AC
+....................    gsm1(0); 
+02B5:  CLRF   36
+02B6:  CALL   16A
+....................    delay_ms(3000); 
+02B7:  MOVLW  0C
+02B8:  MOVWF  36
+02B9:  MOVLW  FA
+02BA:  MOVWF  38
+02BB:  CALL   101
+02BC:  DECFSZ 36,F
+02BD:  GOTO   2B9
+....................    gsm1(1); 
+02BE:  MOVLW  01
+02BF:  MOVWF  36
+02C0:  CALL   16A
+.................... } 
+.................... i=0;flag=0; 
+02C1:  CLRF   28
+02C2:  BCF    35.0
+....................  
+.................... } 
+.................... } 
+02C3:  GOTO   262
+....................  
+.................... } 
+.................... void gsm(unsigned char no) 
+.................... { 
+02C4:  SLEEP
+....................    if(no==0) 
+*
+0128:  MOVF   36,F
+0129:  BTFSS  03.2
+012A:  GOTO   13F
+....................    puts("AT+CMGS=\"9750375234\""); 
+012B:  CLRF   37
+012C:  MOVF   37,W
+012D:  CALL   0BD
+012E:  IORLW  00
+012F:  BTFSC  03.2
+0130:  GOTO   136
+0131:  INCF   37,F
+0132:  BTFSS  0C.4
+0133:  GOTO   132
+0134:  MOVWF  19
+0135:  GOTO   12C
+0136:  MOVLW  0D
+0137:  BTFSS  0C.4
+0138:  GOTO   137
+0139:  MOVWF  19
+013A:  MOVLW  0A
+013B:  BTFSS  0C.4
+013C:  GOTO   13B
+013D:  MOVWF  19
+....................    else 
+013E:  GOTO   152
+....................    puts("AT+CMGS=\"9976077338\""); 
+013F:  CLRF   37
+0140:  MOVF   37,W
+0141:  CALL   0D6
+0142:  IORLW  00
+0143:  BTFSC  03.2
+0144:  GOTO   14A
+0145:  INCF   37,F
+0146:  BTFSS  0C.4
+0147:  GOTO   146
+0148:  MOVWF  19
+0149:  GOTO   140
+014A:  MOVLW  0D
+014B:  BTFSS  0C.4
+014C:  GOTO   14B
+014D:  MOVWF  19
+014E:  MOVLW  0A
+014F:  BTFSS  0C.4
+0150:  GOTO   14F
+0151:  MOVWF  19
+....................     
+....................    puts("PRIYA IS PRESENT"); 
+0152:  CLRF   37
+0153:  MOVF   37,W
+0154:  CALL   091
+0155:  IORLW  00
+0156:  BTFSC  03.2
+0157:  GOTO   15D
+0158:  INCF   37,F
+0159:  BTFSS  0C.4
+015A:  GOTO   159
+015B:  MOVWF  19
+015C:  GOTO   153
+015D:  MOVLW  0D
+015E:  BTFSS  0C.4
+015F:  GOTO   15E
+0160:  MOVWF  19
+0161:  MOVLW  0A
+0162:  BTFSS  0C.4
+0163:  GOTO   162
+0164:  MOVWF  19
+....................    putc(0x1a); 
+0165:  MOVLW  1A
+0166:  BTFSS  0C.4
+0167:  GOTO   166
+0168:  MOVWF  19
+....................  
+.................... } 
+0169:  RETLW  00
+....................  
+.................... void gsm1(unsigned char no) 
+.................... { 
+....................    if(no==0) 
+016A:  MOVF   36,F
+016B:  BTFSS  03.2
+016C:  GOTO   181
+....................    puts("AT+CMGS=\"9750375234\""); 
+016D:  CLRF   37
+016E:  MOVF   37,W
+016F:  CALL   0BD
+0170:  IORLW  00
+0171:  BTFSC  03.2
+0172:  GOTO   178
+0173:  INCF   37,F
+0174:  BTFSS  0C.4
+0175:  GOTO   174
+0176:  MOVWF  19
+0177:  GOTO   16E
+0178:  MOVLW  0D
+0179:  BTFSS  0C.4
+017A:  GOTO   179
+017B:  MOVWF  19
+017C:  MOVLW  0A
+017D:  BTFSS  0C.4
+017E:  GOTO   17D
+017F:  MOVWF  19
+....................    else 
+0180:  GOTO   194
+....................    puts("AT+CMGS=\"9976077338\""); 
+0181:  CLRF   37
+0182:  MOVF   37,W
+0183:  CALL   0D6
+0184:  IORLW  00
+0185:  BTFSC  03.2
+0186:  GOTO   18C
+0187:  INCF   37,F
+0188:  BTFSS  0C.4
+0189:  GOTO   188
+018A:  MOVWF  19
+018B:  GOTO   182
+018C:  MOVLW  0D
+018D:  BTFSS  0C.4
+018E:  GOTO   18D
+018F:  MOVWF  19
+0190:  MOVLW  0A
+0191:  BTFSS  0C.4
+0192:  GOTO   191
+0193:  MOVWF  19
+....................     
+....................    puts("ARCHANA IS PRESENT"); 
+0194:  CLRF   37
+0195:  MOVF   37,W
+0196:  CALL   0A6
+0197:  IORLW  00
+0198:  BTFSC  03.2
+0199:  GOTO   19F
+019A:  INCF   37,F
+019B:  BTFSS  0C.4
+019C:  GOTO   19B
+019D:  MOVWF  19
+019E:  GOTO   195
+019F:  MOVLW  0D
+01A0:  BTFSS  0C.4
+01A1:  GOTO   1A0
+01A2:  MOVWF  19
+01A3:  MOVLW  0A
+01A4:  BTFSS  0C.4
+01A5:  GOTO   1A4
+01A6:  MOVWF  19
+....................    putc(0x1a); 
+01A7:  MOVLW  1A
+01A8:  BTFSS  0C.4
+01A9:  GOTO   1A8
+01AA:  MOVWF  19
+....................  
+.................... } 
+01AB:  RETLW  00

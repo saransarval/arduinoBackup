@@ -1,0 +1,61 @@
+005     PORTA
+005.1   MOT1
+005.3   MOT2
+006     PORTB
+006.0   LED
+006.1   KEY1
+006.2   KEY2
+006.3   BUZ
+006.5   IR2
+006.6   IR1
+006.7   OBJ_DET
+007     PORTC
+007.4   REG
+007.5   E
+00B     intcon
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+021     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+081     OPTION_REG
+085     TRISA
+086     TRISB
+087     TRISC
+09C.6   C1OUT
+09C.7   C2OUT
+
+0004  @delay_ms1
+0017  main
+0017  @cinit
+
+Project Files:
+    I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.c
+    C:\Program Files (x86)\PICC\devices\16F876A.H
+
+Units:
+    I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F876A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.err
+    INHX8:       I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.hex
+    Symbols:     I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.sym
+    List:        I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.lst
+    Debug/COFF:  I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.cof
+    Call Tree:   I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.tre
+    Statistics:  I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.sta

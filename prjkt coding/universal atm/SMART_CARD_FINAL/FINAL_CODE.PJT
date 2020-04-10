@@ -1,0 +1,39 @@
+[PROJECT]
+Target=FINAL_CODE.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=FINAL_CODE.c;
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[FINAL_CODE.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ENGINE~1\UNIVER~1\SMART_~1\FINAL_~1.C
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ENGINE~1\UNIVER~1\SMART_~1\FINAL_~1.C 0 0 796 451 3 0
+
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\SMART_CARD_FINAL\FINAL_CODE.c (main)
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\SMART_CARD_FINAL\FINAL_CODE.C
+2=
+3=

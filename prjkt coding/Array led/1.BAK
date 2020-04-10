@@ -1,0 +1,103 @@
+#include<16f877a.h>
+#use delay(clock=11059200)
+#use rs232(baud=9600, xmit=PIN_c6,rcv=PIN_c7)
+
+#byte trisc=0x87
+#byte portc=0x07
+
+#byte portd=0x08
+#byte trisd=0x88
+
+#byte porte=0x09
+#byte trise=0x89
+
+#bit reg=0x09.0
+#bit rw=0x09.1
+#bit en=0x09.2
+
+#byte intcon=0x0b
+#byte option_reg=0x81
+#byte rcreg=0x1a
+
+unsigned char a[30],b[30];
+unsigned int i=0,j=0;
+int1 flag=0,glag=0;
+void command(unsigned char com);
+void data(unsigned char da);
+void display(unsigned char c[]);
+
+#int_rda
+rda_isr()
+{
+a[i]=fgetC();
+i++;
+if((a[(i-1)]=='\0')||(a[(i-1)]==0x1a) || (a[(i-1)] == 0x0d))
+{
+flag=1;a[(i-1)]='\0';i=0;
+}
+}
+void command(unsigned int com)
+{
+portd=com;
+reg=0;
+rw=0;
+en=1;
+delay_ms(10);
+en=0;
+}
+
+void data(unsigned int da)
+{
+portd=da;
+reg=1;
+rw=0;
+en=1;
+delay_ms(10);
+en=0;
+}
+void data1(char* add)
+{
+   unsigned char i;
+   reg=1;
+   rw=0;
+   for(i=0;*add != '\0';add++)
+   {
+      portd=*add;      
+      en=1;
+      delay_ms(1);
+      en=0;
+   }
+}
+void main()
+{
+ char *add=a;
+ portd=0x00;porte=0x00;portc=0x00;
+ trisd=0x00;trise=0x00;trisc=0x80;
+
+ command(0x38);
+ command(0x06);
+ command(0x0c);
+ command(0x01);
+
+ enable_interrupts(global);
+ enable_interrupts(int_rda);
+
+ delay_ms(300);
+ command(0x80);
+ data("GRT EMBEDDED");
+ command(0xc0);
+ data("SOLUTIONS");
+ delay_ms(1500);
+ command(0x01);
+
+ while(1)
+ {
+ if(flag==1)
+ {
+ COMMAND(0X01);DELAY_MS(2);
+ command(0x80);
+ data1(a);
+ flag=0;
+ }
+}
+}

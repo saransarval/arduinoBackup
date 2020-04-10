@@ -1,0 +1,38 @@
+[PROJECT]
+Target=school management system.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart School Management system using rfid\school management system.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[school management system.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=F:\GANESH~1\RFIDWI~1\SCHOOL~1.C
+
+[Windows]
+0=0000 F:\GANESH~1\RFIDWI~1\SCHOOL~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart School Management system using rfid\school management system.c
+2=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart School Management system using rfid\school management system.c (main)

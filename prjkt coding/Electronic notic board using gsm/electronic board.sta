@@ -1,0 +1,37 @@
+
+ROM used: 299 (4%)
+          299 (4%) including unused fragments
+
+          1 Average locations per line
+          8 Average locations per statement
+
+RAM used: 56 (32%) at main() level
+          61 (35%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   91    39 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Electronic notic board using gsm\electronic board.c
+  306     0   0  C:\Program Files\PICC\devices\16f877a.h
+----- -----
+  794    78 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   6   1  @delay_ms1
+0     41  14   3  rda_isr
+0     39  13   2  @MUL88
+0     10   3   1  command
+0     10   3   1  data
+0     96  32   1  main
+0     17   6   0  @const10052
+0     14   5   0  @const10057
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF   246  1749  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

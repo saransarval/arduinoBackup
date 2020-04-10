@@ -1,0 +1,115 @@
+006     portb
+006.0   motor1_p
+006.1   motor1_n
+006.2   motor2_p
+006.3   motor2_n
+006.4   relay1
+006.5   relay2
+006.7   reg
+007     portc
+007.0   RELAY3
+007.1   RELAY4
+008     PSP_DATA
+008     portd
+009     porte
+009.1   rw
+009.2   en
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028-029 value1
+02A-02B value2
+02C-02D value3
+02E-02F value4
+030-031 value5
+032-033 value6
+034     sec
+035     time
+036.0   flag
+036.1   glag
+037     z
+038-039 display.n
+038     main.@SCRATCH
+039     main.@SCRATCH
+03A     display.i
+03A     main.@SCRATCH
+03B-03E display.a
+03B     main.@SCRATCH
+03F     command.com
+03F     display.@SCRATCH
+040     data.da
+040-041 @DIV1616.P1
+041     @delay_ms1.P1
+042-043 @DIV1616.P1
+044     @DIV1616.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+0096  @delay_ms1
+00A9  command
+00B3  data
+008A  TIMER0_isr
+0138  main
+0033  @const10047
+0046  @const10101
+004E  @const10106
+0056  @const10111
+005E  @const10116
+0066  @const10124
+0075  @const10129
+00E3  display
+00BD  @DIV1616
+0084  @const10195
+0138  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.c
+    C:\Program Files\PICC\devices\16F877A.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final simulation_solar tracking\pro.sta

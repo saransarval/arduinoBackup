@@ -1,0 +1,62 @@
+
+ROM used: 1608 (20%)
+          1608 (20%) including unused fragments
+
+          2 Average locations per line
+          7 Average locations per statement
+
+RAM used: 46 (26%) at main() level
+          57 (33%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  397   231 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Automatic meter reading using gsm\AIT_Energy and water meter using GSM\Automatic meter reading using gsm\meter.c
+  306     0   0  C:\Program Files\PICC\devices\16f877a.h
+----- -----
+ 1406   462 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     31   2   0  TIMER2_ISR
+0     10   1   1  command
+0     10   1   1  data
+0    426  26   2  main
+0     14   1   0  @const10073
+0     22   1   0  @const10082
+0     21   1   0  @const10091
+0     20   1   0  @const10096
+0     13   1   0  @const10119
+0     10   1   0  @const10124
+0      8   0   0  @const10133
+0     23   1   5  @MUL1616
+0     72   4   8  display1
+0     38   2   5  @DIV1616
+0     72   4   8  display
+0     41   3   5  DISPLAY_SEC
+0     21   1   3  @DIV88
+0     54   3   5  DISPLAY_MINT
+0      6   0   0  @const10257
+0     54   3   5  DISPLAY_HOURS
+0     36   2   4  send
+0     36   2   4  send1
+0     94   6   2  gsm
+0     28   2   0  @const10305
+0     28   2   0  @const10314
+0     10   1   0  @const10326
+0     94   6   2  gsm1
+0      8   0   0  @const10361
+0     96   6   2  gsm2
+0     22   1   0  @const10396
+0     96   6   2  gsm3
+0     22   1   0  @const10431
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF  1555  440  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

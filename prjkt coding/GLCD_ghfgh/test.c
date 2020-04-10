@@ -1,0 +1,60 @@
+#include<16f877a.h>
+#use delay(clock=11059200)
+#include "Header_GLCD.h"
+#byte trisc=0x87
+#byte trisd=0x88
+#byte trise=0x89
+#byte trisb=0x86
+#byte portd=0x08
+#byte porte=0x09
+#byte portb=0x06
+#byte portc=0x07
+
+
+
+unsigned int i;
+int j,b,c,d,nam1;
+int a=0;
+
+/*void funct(unsigned int nam1,int i)
+{
+   int j1=0,k;
+   for(j=0;j<i;j++)
+   {
+   if(j>=128)j1=j%128;
+   nam1=*nam1;
+   for(k=0;k<=8;k++)
+      {
+      d=(d*8)+k;
+      b=0x01<<k;
+      if(nam1&b)glcd_pixel(j,d,on);
+      else glcd_pixel(c,d,off);
+      }
+   }
+}*/
+
+void main()
+   {
+   
+   trisc = 0x00;
+   trisd=0x00;
+   trisb=0x00;
+   trise=0x00;
+   delay_ms(500);
+   glcd_init(on);
+   delay_ms(500);
+   a=1;
+   while(1)
+      {
+
+      glcd_line(10,16,87,48,on);
+   delay_ms(500);
+       glcd_pixel(6,6,on);
+       glcd_fillScreen(on);
+     //  glcd_text57(40,30,name,1,on);
+
+      delay_ms(500);
+      
+      }
+
+   }

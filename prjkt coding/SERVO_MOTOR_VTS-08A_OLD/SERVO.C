@@ -1,0 +1,136 @@
+#INCLUDE<16F877A.H>
+#USE DELAY(CLOCK=11059200)
+
+#BYTE PORTB=0X06
+#BYTE TRISB=0X86
+
+#BYTE PORTD=0X08
+#BYTE TRISD=0X88
+
+#BYTE PORTE=0X09
+#BYTE TRISE=0X89
+
+#BIT REG=0X09.0
+#BIT RW=0X09.1
+#BIT EN=0X09.2
+
+#BIT PULSE=PORTB.0
+
+#BIT KEY1=PORTB.4
+#BIT KEY2=PORTB.5
+#BIT KEY3=PORTB.6
+#BIT KEY4=PORTB.7
+
+#BYTE OPTION_REG=0X81
+#BYTE INTCON=0X0B
+
+INT I=0;
+INT1 K1=0,K2=0,K3=0,K4=0;
+
+VOID COMMAND(UNSIGNED CHAR COM)
+{
+PORTD=COM;
+REG=0;
+RW=0;
+EN=1;
+DELAY_MS(1);
+EN=0;
+}
+
+VOID DATA(UNSIGNED CHAR DA)
+{
+PORTD=DA;
+REG=1;
+RW=0;
+EN=1;
+DELAY_MS(1);
+EN=0;
+}
+
+VOID MAIN()
+{
+   TRISB=0XF0;
+   PORTB=0X00;
+   TRISD=0X00;
+   PORTB=0X00;
+   PORTE=0X00;
+   TRISE=0X00;
+   OPTION_REG=0X00;
+   INTCON=0X88;
+
+
+   COMMAND(0X38);
+   COMMAND(0X06);
+   COMMAND(0X0C);
+   COMMAND(0X01);
+   DELAY_MS(10);
+   COMMAND(0X80);
+   DATA("SERVO MOTOR");DELAY_MS(100);
+   COMMAND(0XC0);
+   DATA("****TEST*******");
+
+   WHILE(1)
+
+   {
+
+IF(KEY1==0)
+{
+DELAY_MS(300);
+K1=1;K2=0;K3=0;K4=0;
+}
+IF(KEY2==0)
+{
+DELAY_MS(300);
+K1=0;K2=1;K3=0;K4=0;
+}
+IF(KEY3==0)
+{
+DELAY_MS(300);
+K1=0;K2=0;K3=1;K4=0;
+}
+IF(KEY4==0)
+{
+DELAY_MS(300);
+K1=0;K2=0;K3=0;K4=1;
+}
+
+IF(K1==1)////ANGLE 0.5MS,1.5MS//// 90 DEGREE
+{
+      command(0x80);
+      data("CLOCKWISE");
+      command(0xc0);
+      data("90 DEGREE");
+      PULSE=1;
+      DELAY_US(1500);
+      PULSE=0;
+      DELAY_US(500);
+
+}
+
+IF(K2==1)////ANGLE 0.1MS,1.9MS//// 0 DEGREE
+{
+      command(0x80);
+      data("ANTI-CLOCKWISE");
+      command(0xc0);
+      data("0 DEGREE");
+      PULSE=1;
+      DELAY_US(1);
+      PULSE=0;
+      DELAY_US(1999);
+
+}
+
+IF(K4==1)////ANGLE 1.9MS,0.1MS//// 180 DEGREE
+{
+      command(0x80);
+      data("CLOCKWISE");
+      command(0xc0);
+      data("180 DEGREE");
+      PULSE=1;
+      DELAY_US(1900);
+      PULSE=0;
+      DELAY_US(100);
+
+}
+   }
+}

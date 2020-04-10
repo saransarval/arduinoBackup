@@ -1,0 +1,9 @@
+atm.o: ATM.c
+atm.o: C:\Keil\ARM\INC\Philips\LPC214X.H
+atm.o: delay.h
+atm.o: pll.h
+atm.o: lcd.h
+atm.o: uart0.h
+atm.o: keypad.h
+atm.o: bank.h
+atm.o: uart0_1.h

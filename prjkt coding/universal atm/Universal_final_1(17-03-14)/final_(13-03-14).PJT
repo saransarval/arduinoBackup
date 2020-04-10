@@ -1,0 +1,39 @@
+[PROJECT]
+Target=final_(13-03-14).HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\Universal_final_1(17-03-14)\final_(13-03-14).c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[final_(13-03-14).c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\Ganesh\UNIVER~2\FINAL_~1.C
+
+[Windows]
+0=0000 E:\Ganesh\UNIVER~2\FINAL_~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\Universal_final_1(17-03-14)\final_(13-03-14).c
+2=
+3=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\Universal_final_1(17-03-14)\final_(13-03-14).c (main)

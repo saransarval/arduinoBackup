@@ -1,0 +1,36 @@
+ÀÄproject1
+   ÃÄmain  0/706  Ram=2
+   ³  ÃÄ??0??
+   ³  ÃÄcan_init  0/216  Ram=2
+   ³  ³  ÃÄcan_set_mode  0/34  Ram=2
+   ³  ³  ÃÄcan_set_baud  0/48  Ram=0
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÃÄcan_set_id  0/304  Ram=14
+   ³  ³  ÀÄcan_set_mode  0/34  Ram=2
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÃÄ@const10251  0/36  Ram=0
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÃÄ@const10260  0/44  Ram=0
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÀÄcan_putd  0/192  Ram=17
+   ³     ÀÄcan_set_id  0/304  Ram=14
+   ÃÄCANRX0_isr  0/268  Ram=0
+   ³  ÀÄcan_getd  (Inline)  Ram=14
+   ³     ÀÄcan_get_id  0/478  Ram=18
+   ÃÄRDA_isr  0/26  Ram=0
+   ³  ÀÄ@GETCH_BIU_1  0/26  Ram=0
+   ÃÄtimer0_isr  0/10  Ram=0
+   ÀÄext_isr  0/264  Ram=13
+      ÃÄ@MUL3232  0/86  Ram=14
+      ÃÄ@DTOF  0/52  Ram=4
+      ÃÄ@MULFF  0/244  Ram=11
+      ÃÄ@DTOF  0/52  Ram=4
+      ÃÄ@ADDFF  0/622  Ram=16
+      ÃÄ@MULFF  0/244  Ram=11
+      ÀÄ@FTOSD  0/64  Ram=5

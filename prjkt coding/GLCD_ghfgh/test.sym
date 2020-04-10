@@ -1,0 +1,113 @@
+004-005 @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+006     portb
+007     portc
+008     PSP_DATA
+008     portd
+009     porte
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     i
+022     j
+023     b
+024     c
+025     d
+026     nam1
+027     a
+028     glcd_init.mode
+028     glcd_line.x1
+028     MAIN.@SCRATCH1
+029     @delay_ms1.P1
+029     glcd_fillScreen.color
+029     glcd_line.y1
+02A     glcd_fillScreen.i
+02A     glcd_line.x2
+02B     glcd_fillScreen.j
+02B     glcd_line.y2
+02C     glcd_line.color
+02C     glcd_fillScreen.@SCRATCH1
+02D     glcd_line.x
+02E     glcd_line.y
+02F     glcd_line.addx
+030     glcd_line.addy
+031     glcd_line.dx
+032     glcd_line.dy
+033-034 glcd_line.P
+035     glcd_line.i
+036     glcd_pixel.x
+036     glcd_line.@SCRATCH1
+037     @MUL88.P1
+037     glcd_pixel.y
+038     glcd_pixel.color
+038     @MUL88.P1
+039     glcd_pixel.data
+03A     glcd_pixel.chip
+03B     glcd_readByte.chip
+03B     glcd_pixel.@SCRATCH1
+03C     glcd_readByte.data
+03C     glcd_writeByte.chip
+03D     glcd_writeByte.data
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+000018  glcd_writeByte
+000042  @MUL88
+000067  glcd_fillScreen
+0000B0  glcd_init
+000100  glcd_pixel
+00012A  glcd_readByte
+00019D  glcd_line
+00026D  @cinit1
+00026D  MAIN
+00027A  @cinit2
+
+Project Directory:
+    C:\Users\GRT-Embedded\Desktop\GLCD\
+
+Project Files:
+    test.c                                                  [15-Feb-14 22:02  CRC=2A767055]
+    ..\..\..\..\Program Files\PICC\Devices\16f877a.h        [03-Jul-13 14:28  CRC=4E65664C]
+    Header_GLCD.h                                           [15-Feb-14 21:56  CRC=C6ACD324]
+
+Source signature=06357CE9
+
+Units:
+    test (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   test.xsym
+    Errors:      test.err
+    Ext Symbols: test.esym
+    INHX8:       test.hex
+    Symbols:     test.sym
+    List:        test.lst
+    Debug/COFF:  test.cof
+    Project:     test.ccspjt
+    Call Tree:   test.tre
+    Statistics:  test.STA

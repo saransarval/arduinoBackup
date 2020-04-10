@@ -1,0 +1,39 @@
+
+ROM used: 390 (5%)
+          390 (5%) including unused fragments
+
+          1 Average locations per line
+          3 Average locations per statement
+
+RAM used: 28 (16%) at main() level
+          30 (17%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  130    97  83  H:\WELCOME BACK GK\Confidential\R & D division\SERVO_MOTOR_VTS-08A\SERVO.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.H
+   38    20   9  H:\WELCOME BACK GK\Confidential\R & D division\SERVO_MOTOR_VTS-08A\LCD.H
+----- -----
+  948   234 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   5   1  @delay_ms1
+0     10   3   1  command
+0     10   3   1  data
+0     27   7   0  lcd_int
+0     52  13   0  TIMER0_ISR
+0     41  11   3  PWM
+0    142  36   1  MAIN
+0     16   4   0  @const10097
+0     20   5   0  @const10102
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF   337  1658  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

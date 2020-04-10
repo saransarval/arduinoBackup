@@ -1,0 +1,40 @@
+[PROJECT]
+Target=1.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\ARRAY LED\1.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[1.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\GANESH~1\GANESH~2\ARRAYL~1\1.c
+
+[Windows]
+0=0000 E:\GANESH~1\GANESH~2\ARRAYL~1\1.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\ARRAY LED\1.C
+2=
+3=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Array led\prj.c
+4=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\ARRAY LED\1.c (main)

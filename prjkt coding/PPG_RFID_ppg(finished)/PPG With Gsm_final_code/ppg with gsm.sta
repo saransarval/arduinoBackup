@@ -1,0 +1,86 @@
+
+ROM used: 3062 (37%)
+          3663 (45%) including unused fragments
+
+          4 Average locations per line
+          10 Average locations per statement
+
+RAM used: 40 (23%) at main() level
+          49 (28%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  431   300 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1474   600 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     12   0   0  @GETCH_BIU_1
+0     40   1   1  @PUTCHAR_2_
+0     36   1   2  RDA_isr
+0     17   1   0  timer0_isr
+0     10   0   1  command
+0     10   0   1  data
+1   1615  53   1  main
+0     23   1   0  @const10115
+0     20   1   0  @const10120
+0     14   0   0  @const10126
+0     22   1   0  @const10135
+0     14   0   0  @const10144
+0     18   1   0  @const10188
+0     17   1   0  @const10193
+0     18   1   0  @const10208
+0      7   0   0  @const10232
+0     20   1   0  @const10237
+0     20   1   0  @const10242
+0     21   1   0  @const10250
+0     19   1   0  @const10261
+0     18   1   0  @const10272
+0     15   0   0  @const10283
+0     15   0   0  @const10294
+0     19   1   0  @const10305
+0     20   1   0  @const10311
+0     18   1   0  @const10316
+0     18   1   0  @const10327
+0     18   1   0  @const10333
+0     21   1   0  @const10338
+0     20   1   0  @const10349
+0     19   1   0  @const10360
+0      7   0   0  @const10373
+0     22   1   0  @const10378
+0     21   1   0  @const10383
+0     15   0   0  @const10435
+0     19   1   0  @const10446
+0     20   1   0  @const10452
+0     18   1   0  @const10457
+0     18   1   0  @const10468
+0     18   1   0  @const10474
+0     20   1   0  @const10479
+0     19   1   0  @const10485
+0     19   1   0  @const10501
+0     40   1   5  display
+0     21   1   3  @DIV88
+0     50   2   5  display1
+0      6   0   0  @const10540
+0     89   3   2  gsm
+0     25   1   0  @const10551
+0     53   2   0  @const10559
+0     25   1   0  @const10571
+0     52   2   0  @const10579
+0     89   3   2  gsm1
+0     27   1   0  @const10603
+0     89   3   2  gsm2
+0     27   1   0  @const10647
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-0003B    56  0  
+0003C-007FF  1387  601  
+00800-00FFF  1615  433  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

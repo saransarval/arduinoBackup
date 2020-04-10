@@ -1,0 +1,39 @@
+[PROJECT]
+Target=kkey.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Password using keypad with buzzer_kgisl\kkey.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[kkey.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=E:\E\GANESH~1\PASSWO~1\kkey.c
+
+[Windows]
+0=0000 E:\E\GANESH~1\PASSWO~1\kkey.c 0 0 796 451 3 0
+
+[Opened Files]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Password using keypad with buzzer_kgisl\kkey.c
+2=
+3=
+[Units]
+Count=1
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Password using keypad with buzzer_kgisl\kkey.c (main)

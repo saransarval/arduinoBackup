@@ -1,0 +1,31 @@
+
+ROM used: 127 (2%)
+          127 (2%) including unused fragments
+
+          0 Average locations per line
+          6 Average locations per statement
+
+RAM used: 24 (14%) at main() level
+          25 (14%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   66    22 100  \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon using uart.c
+  306     0   0  C:\Program Files\PICC\devices\16f877a.h
+----- -----
+  744    44 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     18  14   1  rda_isr
+0     56  44   1  main
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF    74  1921  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

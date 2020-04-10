@@ -1,0 +1,67 @@
+#include <16F877A.h>
+#use delay(clock=11059200)
+#include "Header_GLCD.h"
+
+#FUSES NOWDT, HS
+
+#byte trisb=0x86
+#byte portb=0x06
+
+#byte trisc=0x87
+#byte portc=0x07
+
+#byte trisd=0x88
+#byte portd=0x08
+
+#byte trise=0x89
+#byte porte=0x09
+
+char PAGE1_TOP[]="STAFF INFO";
+char PAGE1_BOTTOM[]="APP CTRL";
+
+char PAGE2_ECE[]="ECE";
+char PAGE2_EEE[]="EEE";
+char PAGE2_CSC[]="CSC";
+char PAGE2_MEK[]="MEK";
+
+void page1(void);
+void page2(void);
+void page3(void);
+void page4(void);
+
+
+
+void main()
+{
+   glcd_init(ON);  
+   delay_ms(500);
+   
+      while(1)
+      {    
+         page2();
+         
+        /* glcd_line(32, 26, 96, 26, ON);
+         glcd_line(96, 26, 96, 38, ON);
+         glcd_line(32, 38, 96, 38, ON);
+          glcd_line(32, 26, 32, 38, ON);
+         //glcd_RECT(32,26,96,34,1,OFF);
+         //glcd_pixel(1,1,ON);*/            
+ 
+      }
+}
+
+void page1(void)
+{
+   glcd_text57(10, 10, PAGE1_TOP, 2, ON); DELAY_MS(100);        
+   glcd_text57(10, 44, PAGE1_BOTTOM, 2, ON); DELAY_MS(100);
+}
+
+void page2(void)
+{
+   glcd_text57(10, 10, PAGE2_ECE, 2, ON); DELAY_MS(100);        
+  glcd_text57(80, 10, PAGE2_EEE, 2, ON); DELAY_MS(100);   
+  /* glcd_text57(48, 31, PAGE2_CSC, 2, ON); DELAY_MS(100);         
+   glcd_text57(48, 91, PAGE2_MEK, 2, ON); DELAY_MS(100);*/
+}
+
+

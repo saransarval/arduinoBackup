@@ -1,0 +1,32 @@
+ÀÄprj
+   ÃÄMAIN  0/106  Ram=1
+   ³  ÃÄ??0??
+   ³  ÃÄLCD_INT  0/27  Ram=0
+   ³  ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄ@const10051  0/12  Ram=0
+   ³  ÃÄDATA  0/10  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÃÄCOMMAND  0/10  Ram=1
+   ³  ³  ÀÄ@delay_ms1  0/19  Ram=1
+   ³  ÀÄDATA  0/10  Ram=1
+   ³     ÀÄ@delay_ms1  0/19  Ram=1
+   ÀÄUSART  0/17  Ram=1

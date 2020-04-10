@@ -1,0 +1,39 @@
+#define TOUCH_X1 porta.0
+#define TOUCH_X2 porta.2
+
+#define TOUCH_Y1 porta.1
+#define TOUCH_Y2 porta.5
+unsigned char read_touch()
+{
+   unsigned char a[10], pre_count, pre_value, count, i, j;
+   
+   for(i=0; i<10; i++)
+   {
+      trisa=0x05;
+      TOUCH_Y1=0; TOUCH_Y2=1;
+      
+      adcon0=0x81;
+      adcon1=0x42;
+      
+      delay_us(50);
+      go=1;
+      delay_us(50);
+      while(go);
+      array[i]=adresh;
+   }
+   
+   for(i=0; i<10; i++)
+   {
+      trisa=0x22;
+      TOUCH_X1=0; TOUCH_X2=1;
+      
+      adcon0=0x89;
+      adcon1=0x42;
+      
+      delay_us(50);
+      go=1;
+      delay_us(50);
+      while(go);
+      array[i]=adresh;
+   }
+}

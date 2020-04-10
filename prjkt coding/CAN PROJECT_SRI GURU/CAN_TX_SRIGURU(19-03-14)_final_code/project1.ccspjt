@@ -1,0 +1,44 @@
+[PROJECT]
+Target=project1.HEX
+Development_Mode=
+Processor=0x8458
+ToolSuite=CCS
+
+[Directories]
+Include=C:\Program Files\PICC\devices\;C:\Program Files\PICC\dr
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\project1.c
+BuildTool=C-COMPILER
+OptionString=+FH
+AdditionalOptionString=
+BuildRequired=1
+
+[project1.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=project1.c
+
+[Windows]
+0=0000 project1.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(19-03-14)_final_code\project1.c
+2=
+3=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\tx_header.h
+4=
+5=reg.h
+6=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_RX_SRIGURU(13-03-14)\rx_header.h
+7=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)\tx_header.h
+8=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\project1.c (main)

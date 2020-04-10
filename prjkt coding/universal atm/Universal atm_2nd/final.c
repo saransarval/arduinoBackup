@@ -1,0 +1,412 @@
+#include <16F877A.h>
+#use delay(clock=11059200)
+#use rs232(baud=9600, xmit=PIN_c6,rcv=PIN_c7, bits=8, errors)
+
+#byte trisb=0x86
+#byte portb=0x06
+
+#byte trisd=0x88
+#byte portd=0x08
+
+#byte trisc=0x87
+#byte portc=0x07
+
+#byte trise=0x89
+#byte porte=0x09
+
+#byte intcon=0x0b
+#byte option_reg=0x81
+#byte rcreg=0x1a
+
+#bit c1=portb.7
+#bit c2=portb.6
+#bit c3=portb.5
+#bit c4=portb.4
+
+#bit r4=portb.0
+#bit r3=portb.1
+#bit r2=portb.2
+#bit r1=portb.3
+
+#bit reg=porte.0
+#bit rw=porte.1
+#bit en=porte.2
+
+#define Z PUTC('M')
+#define Y PUTC('L')
+
+struct name
+{
+  unsigned char a[12] : 1;
+  unsigned char x : 1;
+  unsigned char i : 1;
+  unsigned char i1 : 1;
+}bit;
+
+unsigned char a[12]={0,0,0,0,0,0,0,0,0,0,0,0},x=0,i=0,i1=0;
+unsigned char flag=0,flag_1=1,glag=0,glag_1=0,glag_2=0,glag_3=0,glag_4=0,k=0,l=0,m=1,n=1,p=1,o=1,t=0,q=1,r=0,receiver=0;
+void command(unsigned int com);
+void data(unsigned int dat);
+
+#int_rb
+rb_isr()
+{
+      portb=0xf0;
+      r1=0; if(c1==0) {x=0;} if(c2==0){x=1;} if(c3==0){x=2;} if(c4==0){x=3;}r1=1;
+
+      r2=0; if(c1==0) {x=4; }if(c2==0){x=5;} if(c3==0){x=6;} if(c4==0){x=7;}r2=1;
+
+      r3=0; if(c1==0) {x=8;} if(c2==0){x=9;} if(c3==0){x='A';} if(c4==0){x='B';}r3=1;
+
+      r4=0; if(c1==0) {x='C';} if(c2==0){x='D';} if(c3==0){x='E';} if(c4==0){x='F';}r4=1;
+      portb=0x00;
+      while(!(portb==0xf0));
+      delay_ms(10);
+}
+
+#int_rda
+rda_isr()
+{
+      a[i1]=fgetc();
+      i1++;
+      if(i1>=12)
+      {
+      i1=0;
+      flag=1;
+}
+}
+void command(unsigned int com)
+{
+      portd=com;
+      reg=0;
+      rw=0;
+      en=1;
+      delay_ms(1);
+      en=0;
+}
+void data(unsigned int dat)
+{
+      portd=dat;
+      reg=1;
+      rw=0;
+      en=1;
+      delay_ms(1);
+      en=0;
+}
+
+void main()
+	{
+      int t,r,c;
+
+    	trisb=0xf0;
+   	portb=0x00;
+
+   	trisd=0x00;
+   	portd=0x00;
+
+   	trisc=0x80;
+   	portc=0x00;
+
+      trise=0x00;
+   	porte=0x00;
+
+   	option_reg=0x07;
+   	intcon=0xc8;
+
+      enable_interrupts(global);
+      enable_interrupts(int_rda);
+
+   	command(0x38);
+   	command(0x0c);
+   	command(0x06);
+   	command(0x01);
+
+      delay_ms(1);
+   	command(0x80);
+   	data("   PLEASE ENTER  ");
+   	command(0xc0);
+   	data("   YOUR CHOICES    ");
+      delay_ms(1000);
+      command(0x01);
+
+ while(1)
+  {
+      if((x==0) && (o==1))
+      {
+         k=1;
+         delay_ms(2);
+         command(0x80);
+         data("KEY1:");
+         command(0x85);
+         data("CLASS ROOM");
+         delay_ms(10);
+         command(0xc0);
+         data("KEY2:");
+         command(0xc5);
+         data("LIBRARY");
+         delay_ms(10);
+         command(0x94);
+         data("KEY3:");
+         command(0x99);
+         data("CANTEEN");
+         delay_ms(1);
+         command(0xd4);
+         data("KEY4:");
+         command(0xd9);
+         data("HOSTEL");
+         delay_ms(10);
+         command(0xa2);
+         data("KEY5:");
+         command(0xe2);
+         data("BANKS");
+   }
+  if((k==1) && (x==1))                                   ////// CLASS ROOM
+  {
+         o=0;k=0;glag=1;glag_1=0;glag_2=0;glag_3=0;glag_4=0;
+         putc('A');
+         command(0x01);
+         command(0x80);
+         data("CLASS ROOM");
+         delay_ms(200);
+  }
+  if((flag==1) && (glag==1))
+  {
+  if((a[10]=='5') && (a[11]=='1'))
+   {
+         receiver=1;
+         Z;
+         command(0x80);
+         data("DIVYA IS PRESENT");
+   }
+  if((a[9]=='5') && (a[10]=='3'))
+   {
+         receiver=0;
+         Y;
+         command(0xc0);
+         data("RAMYA IS PRESENT");
+   }
+   flag=0;
+  }
+  if(x==2)                                              ////// LIBRARY
+  {
+         x=0;o=0;glag=0;glag_2=0;glag_1=1;glag_3=0;glag_4=0;
+         putc('B');
+         command(0x01);
+         command(0x80);
+         data("LIBRARY");
+         delay_ms(200);
+   }
+   if((flag==1) && (glag_1==1))
+   {
+   if((a[10]=='5') && (a[11]=='1'))
+   {
+         o=0;l=1;
+         Z;
+         command(0x80);
+         data("TWO BOOKS ARE");
+         command(0xc0);
+         data("TAKEN BY DIVYA");
+  }
+  if((a[9]=='5') && (a[10]=='3'))
+   {
+         l=0;o=0;
+         Y;
+         command(0x80);
+         data("FOUR BOOKS ARE");
+         command(0xc0);
+         data("TAKEN BY RAMYA");
+   }
+   flag=0;
+   }
+  if(x==3)                                           ////// CANTEEN
+   {
+         x=0;o=0;glag_1=0;glag=0;glag_2=1;glag_3=0;glag_4=0;
+         putc('C');
+         command(0x01);
+         command(0x80);
+         data("CANTEEN");
+         delay_ms(200);
+   }
+   if((flag==1) && (glag_2==1))
+   {
+
+   if((a[10]=='5') && (a[11]=='1'))
+   {
+         m=1;o=0;
+         Z;
+         command(0x80);
+         data("AMOUNT HAS BEEN PAID");
+         command(0xc0);
+         data("   BY DIVYA  ");
+         command(0x94);
+         data("REMAINING BALANCE:");
+         command(0xd4);
+         data("     RS.250    ");
+  }
+   if((a[9]=='5') && (a[10]=='3'))
+  {
+         m=0;o=0;
+         Y;
+         command(0x80);
+         data("AMOUNT HAS BEEN PAID");
+         command(0xc0);
+         data("    BY RAMYA   ");
+         command(0x94);
+         data("REMAINING BALANCE:");
+         command(0xd4);
+         data("     RS.175    ");
+  }
+  flag=0;
+}
+   if(x==4)                                             /////// HOSTEL
+   {
+         x=0;o=0;glag=0;glag_1=0;glag_2=0;glag_4=0;glag_3=1;
+         putc('D');
+         command(0x01);
+         command(0x80);
+         data("HOSTEL");
+         delay_ms(200);
+   }
+   if((flag==1) && (glag_3==1))
+   {
+   if((a[10]=='5') && (a[11]=='1'))
+   {
+         n=1;o=0;
+         Z;
+         command(0x80);
+         data("MESS AMOUNT WAS");
+         command(0xC0);
+         data("PAID BY DIVYA");
+  }
+  if((a[9]=='5') && (a[10]=='3'))
+  {
+         n=0;o=0;
+         Y;
+         command(0x80);
+         data("MESS AMOUNT WAS");
+         command(0xC0);
+         data("PAID BY RAMYA");
+  }
+  flag=0;
+}
+   if(x==5)                                           ////// BANKS
+   {
+         x=0;o=0;glag_4=1;glag_3=0;glag_2=0;glag_1=0;glag=0;
+         putc('E');
+         command(0x01);
+         command(0x80);
+         data("HDFC::KEY-6");
+         command(0xc0);
+         data("IOB::KEY-7");
+         command(0x94);
+         data("SBI::KEY-8");
+         command(0xd4);
+         data("IB::KEY-9");
+         delay_ms(200);
+   }
+   if((x==6) && (glag_4==1))
+   {
+         t=1;glag_4=0;
+         putc('F');
+         command(0x01);
+         command(0x80);
+         data("HDFC BANK HAS BEEN   ");
+         command(0xc0);
+         data("     SELECTED    ");
+         delay_ms(200);
+   }
+   else if((x==7) && (glag_4==1))
+   {
+         t=1;glag_4=0;
+         putc('G');
+         command(0x01);
+         command(0x80);
+         data("IOB BANK HAS BEEN   ");
+         command(0xc0);
+         data("     SELECTED    ");
+         delay_ms(200);
+   }
+   else if((x==8) && (glag_4==1))
+   {
+         t=1;glag_4=0;
+         putc('H');
+         command(0x01);
+         command(0x80);
+         data("SBI BANK HAS BEEN   ");
+         command(0xc0);
+         data("     SELECTED    ");
+         delay_ms(200);
+   }
+   else if((x==9) && (glag_4==1))
+   {
+         t=1;glag_4=0;
+         putc('I');
+         command(0x01);
+         command(0x80);
+         data("IB BANK HAS BEEN   ");
+         command(0xc0);
+         data("     SELECTED    ");
+         delay_ms(200);
+   }
+   if((flag==1) && (t==1))
+  {
+   if(((a[10]=='5') && (a[11]=='1')) || ((a[9]=='5') && (a[10]=='3')))
+   {
+         t=0;x=0;p=0;flag=0;glag_4=0;r=1;
+         Z;
+         command(0x80);
+         data("CASH WITHDRA-KEY10");
+         command(0xc0);
+         data("CASH DEPOS-KEY11");
+         command(0x94);
+         data("BALANCE ENQU-KEY12");
+         command(0xd4);
+   }
+  }
+   if((x=='A') && (r==1))
+   {
+         x=0;r=0;
+         putc('J');
+         delay_ms(200);
+         command(0x01);
+         command(0x80);
+         data("  CASH WITHDRAWAL  ");
+         command(0xc0);
+         data("   AMOUNT: RS.1,500   ");
+         command(0x94);
+         data("  BALANCE AMOUNT:  ");
+         command(0xd4);
+         data("    RS.10,500    ");
+   }
+   else if((x=='B') && (r==1))
+   {
+         x=0;r=0;
+         putc('K');
+         delay_ms(200);
+         command(0x01);
+         command(0x80);
+         data("  CASH DEPOSITED ");
+         command(0xc0);
+         data("   AMOUNT: RS.1,500   ");
+         command(0x94);
+         data("  TOTAL AMOUNT:  ");
+         command(0xd4);
+         data("    RS.13,500    ");
+   }
+   else if((x=='C') && (r==1))
+   {
+         x=0;r=0;
+         putc('N');
+         delay_ms(200);
+         command(0x01);
+         command(0x80);
+         data("  ACCOUNT BAL: ");
+         command(0xc0);
+         data("   RS.12,000  ");
+         command(0x94);
+         data("  TOTAL AMOUNT:  ");
+         command(0xd4);
+         data("    RS.12,000    ");
+   }
+ }
+}

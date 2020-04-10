@@ -1,0 +1,43 @@
+
+ROM used: 917 (11%)
+          917 (11%) including unused fragments
+
+          2 Average locations per line
+          6 Average locations per statement
+
+RAM used: 33 (19%) at main() level
+          42 (24%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  284   161 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_skcet(finished)\final(23-03-14)\solar_final.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1180   322 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   2   1  @delay_ms1
+0     10   1   1  command
+0     10   1   1  data
+0     12   1   0  TIMER0_isr
+0    621  68   4  main
+0     19   2   0  @const10047
+0      8   1   0  @const10097
+0      8   1   0  @const10102
+0      8   1   0  @const10107
+0      8   1   0  @const10112
+0     15   2   0  @const10120
+0     15   2   0  @const10125
+0     75   8   8  display
+0     38   4   5  @DIV1616
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00032    47  0  
+00033-007FF   866  1131  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

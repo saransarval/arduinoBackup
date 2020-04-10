@@ -1,0 +1,23 @@
+[PROJECT]
+Target=touch_GLCD.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.008
+Compiler=PCM
+[Target Data]
+FileList=touch_GLCD.c
+[Directories]
+Include=C:\Program Files\PICC\Devices\;C:\Program Files\PICC\Drivers\;C:\Users\GRT-Embedded\Desktop\GLCD\Touch\
+[touch_GLCD.c]
+Type=4
+[mru-list]
+1=touch_GLCD.c
+[Opened Files]
+1=touch_GLCD.c
+2=Header_Touch.h
+3=
+[ExtraIncludes]
+Count=1
+1=touch_glcd=c:\users\grt-embedded\desktop\glcd\touch\header_touch.h
+[Units]
+Count=1
+1=touch_GLCD (main)

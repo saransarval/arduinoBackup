@@ -1,0 +1,43 @@
+ÀÄtouch_GLCD
+   ÀÄMAIN  0/101  Ram=1
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PSTRINGC7_639  0/75  Ram=4
+      ³  ÃÄdata  0/10  Ram=1
+      ³  ³  ÀÄ@delay_ms1  0/20  Ram=1
+      ³  ÀÄdata  0/10  Ram=1
+      ³     ÀÄ*
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@PSTRINGC7_639  0/75  Ram=4
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@delay_ms1  0/20  Ram=1
+      ÃÄread_touch  0/291  Ram=24
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄ@delay_ms1  0/20  Ram=1
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÃÄ@DIV88  0/21  Ram=3
+      ³  ÀÄ@MUL88  (Inline)  Ram=2
+      ÃÄcommand  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@DIV88  0/21  Ram=3
+      ÃÄdata  0/10  Ram=1
+      ³  ÀÄ*
+      ÃÄ@DIV88  0/21  Ram=3
+      ÀÄdata  0/10  Ram=1
+         ÀÄ*

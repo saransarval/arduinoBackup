@@ -1,0 +1,333 @@
+
+Embedded System Laboratory logo
+
+    Twitter
+    Facebook
+
+    Home
+    Course information
+    Mini-projects
+    Blog
+    Personnel
+    Resources
+
+mini-projects › 2012 › SPI based LED display unit
+SPI based LED display unit
+
+February 25, 2012 by U.S. Muthugala | Categories: 2012 | Tags: 8*40, 8x40, 8x8, colombo, display, engineering physics, led, led display, led matrix, matrix, microcontroller, muthugala, physics, pic, pic 16f877a, spi, spi based led display, spid based, udara, udara muthugala, university	No Comments ?	
+spi_LED_panel	
+Introduction
+
+The main purpose of a display unit is to display information and other visual graphics  to a particular audience. Over the years various types of display systems were developed and are being used to display information and to provide entertainment in various situations.
+
+Neon display signs were a popular signage method in the past but once a display is designed it’s impossible to do any modifications. And due to high power consumption and higher cost, the popularity of this method is going down.
+
+Now-a-days LED display units are being used everywhere as a much better method of signage. They are cheaper and much less power consuming. they can be used to display both static and dynamic messages and other graphics. Some display units can be connected or cascaded together to create much larger display units.Mono-color, bi-color and even RGB LED display units are being used  today. The information that are being displayed can be changed easily by connecting the display unit to a computer.
+
+The objective of the project is to construct a SPI based 8×40 LED display capable of displaying static and animated information.
+Materials and methods
+PIC16F877A
+
+PIC16F877A is a CMOS FLASH-based 8-bit microcontroller. It has EEPROM data memory of 256 bytes and self-programming function.PIC16F877A consist of
+
+             2 Comparators
+             8 channels of 10-bit Analog-to-Digital converter
+             2 capture/compare/PWM functions
+
+Its synchronous serial port can be configured as either Serial Peripheral Interface (SPI) or Inter-Integrated Circuit (I2C) bus and a Universal Asynchronous Receiver Transmitter (USART).
+Figure 1-PIC16F877A Microcontroller
+  MAX7219
+
+The MAX7219 is serial input/output common-cathode display driver that can drive 7-segment displays of up to 8 digits, bar-graph displays, or 64 individual LEDs. Included on-chip are a BCD code-B decoder, multiplex scan circuitry, segment and digit drivers, and an 8×8 static RAM that stores each digit. One external resistor is required to set the segment current for all LEDs.
+
+It uses 4-wire serial interface for SPI communication. Individual digits may be addressed and updated without rewriting the entire display. The devices include a shutdown mode, analog and digital brightness control, a scan-limit register that allows the user to display from 1 to 8 digits, and a test mode that forces all LEDs on. Pins DIG 0-DIG7 and SEG A-SEG G, DP are used to drive LEDs.
+
+Figure 2-MAX7219 LED Display driver
+MAX232
+
+MAX232 IC converts signals from an RS-232 serial port to signals suitable for use in TTL compatible digital logic circuits. The MAX232 is a dual driver/receiver and typically converts the RX, TX, CTS and RTS signals.
+	
+
+The drivers provide RS-232 voltage level outputs (approx. ± 7.5 V) from a single + 5 V supply via on-chip charge pumps and external capacitors. This makes it useful for implementing RS-232 in devices that otherwise do not need any voltages outside the 0 V to + 5 V range, as power supply design does not need to be made more complicated just for driving the RS-232 in this case.
+
+Figure 3-MAX232 Driver/Receiver
+ NL23881A
+
+A column-cathode row-anode type 60 mmx60 m 8×8 LED matrix
+
+Figure 4-NL2381a LED Matrix
+Serial Peripheral Interface (SPI)
+
+SPI is one of the two operating modes of Master Synchronous Serial Port (MSSP) module of PIC16F877A. SPI mode allows 8 bits of data to be transmitted or received simultaneously. Typically 3 pins are used to accomplish communication.
+
+·         Serial Data Out(SDO)
+
+·         Serial Data In(SDI)
+
+·         Serial Clock(SCK)
+High Level Design
+
+The approach taken in this project is to build the LED display using 8×8 LED matrices and to control the individual 8×8 LED segments by MAX7219 Display Drivers. The Display drivers are daisy-chained and communicates with the microcontroller via Serial Peripheral Interface (SPI).This approach gives the ability to control the whole LED display by just 3 I/O pins. And this method also eliminates the necessity of current drivers that are required in the previous methods. LEDs can be individually controlled and the brightness of the LEDs can also be controlled by the software without any additional hardware.
+Figure 5-High level design diagram
+Design and Construction
+Motherboard
+
+The motherboard consist of several units.
+Microcontroller Unit
+
+Consist of PIC16F877A microcontroller, crystal oscillator, MLCR and the necessary PORT outs. Three pins from PORT C are used for SPI communication with MAX 7219 ICs. They are
+
+    RC0-LOAD
+    RC3-Serial Clock(SCK)
+    RC5- Serial Data Out(SDO)
+
+Another two pins of PORT C are used for RS-232 communication. They are
+
+    RC6-TX(USART Asynchronous Transmit)
+    RC7-RX(USART Asynchronous Receive)
+
+RB1 and RB2 of PORTB are used to get the button inputs of brightness and speed control.
+Power Supply Unit
+
+Supplies a smooth regulated 5 V to the microcontroller, RS-232 unit, Daughter card and to the LED panel through Daughter card
+RS-232 Communication Unit
+
+Consist of  MAX232 and serial port connector for serial communication with the computer.
+Figure 6-Motherboard PCB layout
+ 
+Figure 7-Motherboard PCB layout
+
+Daughter Card
+
+In the Daughter card circuit, 5 MAX7219 LED drivers are cascaded. LOAD pins of all the drivers are connected together. DOUT of each IC is connected to the DIN of the next IC.DIN of the 1st IC is connected to RC5 (SDO) pin of the microcontroller. Same clock pulse is given to all the drivers from RC3 (SCK).
+
+Brightness of the LEDs can be controlled either internally by the software or externally by connecting a fixed or variable resistor between the V+ and ISET pins of MAX7219. The minimum value of this resistor should be 9.53 kO. In this project the brightness of the LEDs are controlled by the software. So a 10 kO resister is connected to each IC. To reduce noise, 0.1 µF capacitor is connected between V+ and GND of each IC. There are two ground pins in MAX7219 ICs and both of them must be connected to ground.
+
+In this project, a single MAX7219 LED display driver controls 64 LEDs. It uses 16 pins for this task. SEG A-SEG G and DP pins drive current to the display. When a segment driver is turned off, it is pulled to GND and is at high-impedance state. DIG 0-DIG7 pins sink current from the display common cathode. When turned off they are pulled to V+ and are at high-impedance state.
+Figure 8-Daughter card diagram
+Figure 9-Motherboard PCB layout
+   Figure 10-Motherboard PCB layout
+Display Panel   
+
+The display panel is a 8×40 red color LED matrix. The matrix was constructed by combining 5 column-cathode row-anode type 60 mmx60 mm 8×8 LED matrices. Each matrix has 16 pins for rows 1-8 and columns 1-8.The 5 8×8 segments are not interconnected and are controlled by the 5 MAX7219 ICs individually. The matrix segments were not placed on the Daughter card were connected by 10 8-way wire connectors. Even though the MAX7219 ICs have their SEG pins on one side and the DIG pins on the other side of the IC the pins of the LED matrix segments were not in a proper order at all. So the circuit design with LED matrix segments and the ICs on the same Daughter card ended up with large number of jumpers. Even if a separate circuit is designed for the matrix segments still 10 wire connectors are needed. The wire connectors fitted perfectly to the pins of the matrices. Thus connecting matrices to Daughter card directly with wire connectors seemed to be a better option.
+MAX7219 Serial Addressing
+
+Serial data is sent to MAX7219 as 16-bit packets and are shifted into the internal shift register with each rising edge of the clock regardless of the state of the LOAD. The data is then latched into either the digit or control registers on the rising edge of the LOAD. Data at DIN appears at DOUT after 16.5 clock cycles. Data bits are labeled D0-D15. D8–D11 contain the register address. D0–D7 contain the data, and D12–D15 are “don’t care” bits. The first received is D15, the most significant bit (MSB).
+
+There are two types of registers on MAX 7219 ICs.
+
+    Control registers – consist of decode mode, display intensity, scan limit, shut down and display test registers and are set prior to display use.
+    Digit registers – consist of 8 registers. They can be directly addressed updated individually.
+
+Apart from the above two types, there is a another register called No-Op register. This register is used to write data to a specific IC, when several MAX7219s are cascaded.
+SPI Communication
+
+Data is transmitted to LED drivers via SPI Master mode of the microcontroller. In Master mode the clock is provided by the microcontroller. In the circuit 4 MHz crystal is used and the clock speed is at 1 MHz. The 2 control registers SSPSTAT and SSPCON1 are set to accomplish the required data communication. In this project, the following register bits were set
+
+    Ideal state of the clock is low (CKP=1)
+    transmit occurs on transition from Idle to active clock state (CKE=0)
+    SPI master mode is selected and clock=Fosc/4 (SSPM3:SSPM0=0000)
+    Enable serial port(SSPEN=1)
+
+SPI mode transmits 8 bits of data serially. MAX7219 requires 16-bit data packets to function. Thus the 16 bits of data is transmitted as 2 8-bit data packets. The LOAD is cleared before the transmission of the 1st 8-bit data packet and set right after the 2nd 8-bit data packet is transmitted. There is no delay between the 1st and the 2nd data packets. So MAX7219 receives 16-bit data packets.
+Software
+
+The LED display basically displays text. Each character is defined by 8 hexadecimal numbers. Characters are defined in a 8×8 matrix with 1st and 8th columns as 0s.then the spacing between characters are automatically set. the character definitions are stored in an array.
+
+Two functions were written to pass data to LED drivers.
+
+The first function passes 16-bit data packets. This function is used to write to control registers.5 16-bit data packets are passed to the control registers and to write same control data on all 5 ICs, these data packets are followed by 5 No-Op codes.
+
+The second function passes 80-bit data packets to the LED drivers. This function is used to write to a specific digit register in a specific IC. The 80 bits consist of 4 No-Op codes and 1 16-bit data packet which needs to written. By changing the sequence of the 4 No-Op codes and the data packet, the data can be written in any one of the 5 ICs.
+
+Brightness of the LEDs of the display and the speed of the animations are set at initial power up by two functions. A delay function is used to control the speed.
+
+Different functions are written to animate different scrolling, display and transition patterns.
+
+The sequence of the program is as follows.
+
+    SPI mode of the microcontroller is initialized
+    MAX7219s are initialized by sending control register data.
+    Brightness and speed are adjusted.
+    The preprogrammed animations are then run in an infinite loop.
+
+Results
+
+The LED display unit worked well in displaying preprogrammed text based massages in preprogrammed characters. All the programmed animations worked well. The SPI based LED display was programmed to display various types of animations.
+
+    Static
+    Horizontal scrolling
+     Horizontal inverse scrolling
+    Vertical scrolling
+     Blinking
+     Display fill
+     Display clear
+
+The display was able to display all the animations without any errors or delays. Any one or more LEDs in the panel could be lit up at any given time. The brightness and the speed of the display could be adjusted by the two external buttons. The text on the display was visible in well-lit indoors even with minimum brightness.
+
+RS-232 communication between the device and the computer was not successful due to a hardware failure.
+Figure 11-Final device enclosed
+Figure 12-Final device testing
+Figure 13-Scrolling text display
+Figure 14-Static text display
+
+Conclusions
+
+Some LED matrix displays are based on cascaded counters. To transfer data to the display they require output pins equal to the number of rows of the matrix. In that method only one column is lit at a time and all the columns needs to scanned before updating the display. This leads to flickers on display Thus long display panels cannot be constructed successfully with this method. And the design is always limited by the number of outputs pins of the microcontroller. And also external current drivers and transistor arrays are required to drive LEDs.
+
+The method implemented in this project requires only 3 pins to communicate with a LED matrix of any height or width. Each 8×8 LED segment controlled and scanned separately. Thus any column of any 8×8 matrix can be updated separately without updating the whole matrix. Data can be transferred to the matrix at a maximum speed of 10 MHz.  So even large LED matrices can be updated by a single microcontroller without any flicker. MAX 7219s are specifically designed to drive LEDs. So the external current drivers or transistors are not required to drive the LEDs.
+Limitations
+
+     Brightness and speed could only be adjusted at the start up. They cannot be adjusted during the display. The program needs to be reset in order to adjust the speed and the brightness again.
+    Clearing the LED matrix before each frame update ended up giving a slight flicker due to low scan rate of the LED drivers.
+     The RS-232 unit of the motherboard did not work successfully due to a hardware failure. Serial communication between microcontroller and computer could not be achieved. Thus the microcontroller could not be programmed serially by the motherboard itself.
+    Maximum data transfer speed of 10 MHz between microcontroller and MAX 7219s could not be achieved due to the use of external 4 MHz crystal oscillator.
+
+Recommendations and Further Enhancements
+
+    Using 20 MHz crystal oscillator to achieve faster data communication
+    Using variable resistors to control brightness and speed
+    Using interrupt statements to control brightness and speed and any time
+    Increasing  row and column length of the matrix to display larger and detailed images and information
+     Connecting an external EEPROM to the microcontroller or using a microcontroller with more memory so more characters, symbols, fonts, animation and                     transition effects can be defined
+    Developing a graphical user interface to manipulate the display by a computer using serial port or USB port.
+    Constructing the LED matrix using RGB LEDs to display colored images
+    Constructing a separate hardware circuit to each 8×8 LED matrix  with  a MAX7219 so they can be used as building blocks to construct larger LED matrices
+    Same method can be used to construct a 8×8 LED cube
+
+References
+
+7219_1.C
+
+8×40 LED display
+
+MAX232
+
+PIC16F876A & MAX7219 For 8×8 LED Display
+
+PIC16F877A 
+
+PIC16F87XA Data Sheet
+
+Serially Interfaced, 8-Digit, LED Display Drivers
+
+Cascading Max7219
+
+Matrix & Sprite Libraries
+Appendix A – Hardware Schematics
+Figure 15-Motherboard schematic diagram
+Figure 16-Daughter card schematic diagram
+Appendix B – Code Listing
+The C code for the device can be found in the attachments.
+Appendix C – Component Lists
+
+Table 1-Motherboard Component list
+Component 	Quantity
+PIC16F877A 	1
+40-pin IC base 	1
+MAX232 	1
+16-pin IC base 	1
+4 MHz crystal oscillator 	1
+LM7805 	1
+22 pF capacitor 	2
+0.1 µF capacitor 	3
+1 µF electrolyte 	4
+220 µF electrolyte 	2
+micro switch 	1
+Push buttons 	2
+1-way switch 	2
+LED Red 	1
+LED Green 	1
+4-way wire connector 	1
+DB9 female connector 	1
+
+Table 2-Daughter Card Component List
+Component 	Quantity
+MAX7219 	5
+28-pin narrow IC base 	5
+8-way wire connector 	10
+5-way wire connector 	1
+10 kO resistor 	5
+0.1 µF capacitor 	5
+
+Udara Muthugala | Create Your Badge
+Leave a Reply
+
+Your email address will not be published. Required fields are marked *
+
+Name *
+
+Email *
+
+Website
+
+Comment
+
+You may use these HTML tags and attributes: <a href="" title=""> <abbr title=""> <acronym title=""> <b> <blockquote cite=""> <cite> <code> <del datetime=""> <em> <i> <q cite=""> <strike> <strong>
+
+‹ Previous Next ›
+Author
+U.S. Muthugala
+U.S. Muthugala
+ 
+Recent Posts
+
+    Raspberry PI weather station – Section two – GPIO
+    For a proper illumination of a LED
+    Raspberry PI weather station – Section one creating database and interface temperature sensor
+    General Purpose Input Output Arduino Shield
+    Passwords Based Security Door Lock
+
+Categories
+
+    2011
+    2012
+    2013
+    Arduino
+    mini-projects
+    Raspberry
+    tutorials
+    Uncategorized
+
+Students blog – Faculty of Science
+???????? ????? ??? ???????
+
+???????? ????? ???? ????? ????????? ????? ???? ????? ???????? ???? ?????????? ??? ????? ???? ???? ?? [...]
+??? ????
+
+??? ??????? ???? ?????? ??? ?????? ???? ?????? ????? ??? ???? ? ?????? ??? ???? ???? ?????? ??? ???? [...]
+??????…
+
+?????? ??? ??? ????? ???? ?????? ?????? ???? ?????? ??? ???? ???? ?????? ??? ????? ??????? ???? ???? [...]
+Geneticists gone mad……
+
+“Is a loved one missing some body parts? Are blondes becoming extinct? Is everyone at your dinner ta [...]
+???? with ???? (PART 3)
+
+???? ??? ???????? ????? ???? ??? ???. ??? ?????? ??? 3 ?? tutorial ??. ?? ??? ???? ????? ????? ???? [...]
+
+    Home
+    Course information
+    Mini-projects
+    Blog
+    Personnel
+    Resources
+
+Recent posts
+
+    Raspberry PI weather station – Section two – GPIO
+    For a proper illumination of a LED
+    Raspberry PI weather station – Section one creating database and interface temperature sensor
+    General Purpose Input Output Arduino Shield
+    Passwords Based Security Door Lock
+
+Contact
+
+Hiran H E Jayaweera
+
+Phone: +94 71 602 9334
+
+Fax : +94 11 258 4777
+
+Email : hiran@sci.cmb.ac.lk
+© 2008 -2013, Embedded System Laboratory, Centre for Instrument Development, Department of Physics, University of Colombo, Sri Lanka

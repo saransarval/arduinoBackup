@@ -1,0 +1,10 @@
+>>> Warning 203 "test.c" Line 47(1,1): Condition always TRUE
+>>> Warning 202 "test.c" Line 15(14,15): Variable never used:   i
+>>> Warning 202 "test.c" Line 16(5,6): Variable never used:   j
+>>> Warning 202 "test.c" Line 16(7,8): Variable never used:   b
+>>> Warning 202 "test.c" Line 16(9,10): Variable never used:   c
+>>> Warning 202 "test.c" Line 16(11,12): Variable never used:   d
+>>> Warning 202 "test.c" Line 16(13,17): Variable never used:   nam1
+      Memory usage:   ROM=8%      RAM=4% - 10%
+      0 Errors,  7 Warnings.
+Build Successful.

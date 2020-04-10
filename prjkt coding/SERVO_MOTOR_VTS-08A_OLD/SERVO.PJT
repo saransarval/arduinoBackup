@@ -1,0 +1,39 @@
+[PROJECT]
+Target=SERVO.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\SERVO_MOTOR_VTS-08A\SERVO.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[SERVO.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=H:\WELCOM~1\CONFID~1\R&DDIV~1\SERVO_~1\SERVO.c
+
+[Windows]
+0=0000 H:\WELCOM~1\CONFID~1\R&DDIV~1\SERVO_~1\SERVO.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Embedded All programs\Lcd name display\NAME.c
+2=E:\Ganesh Potti\Ganesh Projects\SERVO_MOTOR_VTS-08A\SERVO.C
+3=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\SERVO_MOTOR_VTS-08A\SERVO.c (main)

@@ -1,0 +1,73 @@
+
+ROM used: 2830 (35%)
+          3847 (47%) including unused fragments
+
+          4 Average locations per line
+          7 Average locations per statement
+
+RAM used: 69 (39%) at main() level
+          78 (45%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  482   428 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\universal atm\Universal_final_1(17-03-14)\final_(13-03-14).c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1576   856 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     14   0   0  @GETCH_BIU_1
+0     85   3   1  rb_isr
+0     20   1   2  rda_isr
+0     16   1   1  command
+0     16   1   1  data
+0     86   3   5  display
+0     38   1   5  @DIV1616
+0     88   3   5  display1
+1   1799  64   5  main
+0     22   1   0  @const10194
+0     24   1   0  @const10199
+0      9   0   0  @const10205
+0      9   0   0  @const10220
+0     15   1   0  @const10225
+0      9   0   0  @const10230
+0     12   0   0  @const10235
+0      9   0   0  @const10240
+0     12   0   0  @const10245
+0      9   0   0  @const10250
+0     11   0   0  @const10255
+0      9   0   0  @const10260
+0     10   0   0  @const10265
+0     21   1   0  @const10300
+0     24   1   0  @const10312
+0     18   1   0  @const10344
+0     19   1   0  @const10349
+0     19   1   0  @const10361
+0     19   1   0  @const10366
+0     20   1   0  @const10436
+0     18   1   0  @const10441
+0     18   1   0  @const10458
+0     16   1   0  @const10469
+0     15   1   0  @const10474
+0     14   0   0  @const10479
+0     26   1   0  @const10493
+0     22   1   0  @const10498
+0     28   1   0  @const10513
+0     24   1   0  @const10533
+0     23   1   0  @const10557
+0     21   1   0  @const10562
+0     22   1   0  @const10595
+0     22   1   0  @const10600
+0     20   1   0  @const10615
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-0003B    56  0  
+0003C-007FF   971  1017  
+00800-00FFF  1799  249  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

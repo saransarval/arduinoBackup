@@ -1,0 +1,42 @@
+[PROJECT]
+Target=can_rx.HEX
+Development_Mode=2
+Processor=0x8458
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_RX\can_rx.c
+BuildTool=C-COMPILER
+OptionString=+FH
+AdditionalOptionString=
+BuildRequired=1
+
+[can_rx.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=D:\KARTHI~1\CAN_PR~1\CAN_RX\can_rx.c
+
+[Windows]
+0=0000 D:\KARTHI~1\CAN_PR~1\CAN_RX\can_rx.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_RX\can_rx.c
+2=
+3=
+4=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\tx_header.h
+5=
+6=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_RX\can_rx.c (main)

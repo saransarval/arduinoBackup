@@ -1,0 +1,45 @@
+#INCLUDE<16F876A.H>
+#USE DELAY(CLOCK=11059200)
+
+#BYTE TRISA=0X85
+#BYTE TRISB=0X86
+#BYTE TRISC=0X87
+
+#BYTE PORTA=0X05
+#BYTE PORTB=0X06
+#BYTE PORTC=0X07
+
+#BYTE OPTION_REG=0X81
+#byte intcon=0x0b
+
+
+#BIT REG=PORTc.4
+#BIT E=PORTc.5
+
+#BIT LED=PORTB.0
+#BIT BUZ=PORTB.3
+#BIT KEY1=PORTB.1
+#BIT KEY2=PORTB.2
+
+#BIT IR1=PORTB.6
+#BIT IR2=PORTB.5
+
+#BIT OBJ_DET=PORTB.7
+
+#BIT MOT1=PORTA.1
+#BIT MOT2=PORTA.3
+
+
+void main()
+{
+   trisa=0x00;
+   porta=0x00;
+   
+   while(1)
+   {
+      mot1=1;//mot2=1;
+      delay_ms(50);
+      mot1=0;mot2=0;
+      delay_ms(50);
+   }
+}

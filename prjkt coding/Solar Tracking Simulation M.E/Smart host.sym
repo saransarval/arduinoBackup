@@ -1,0 +1,141 @@
+001     tmr0
+005     porta
+006     portb
+006.0   driver1
+006.1   driver2
+006.2   driver3
+006.3   driver4
+006.4   LDR1
+006.5   LDR2
+006.6   LDR3
+006.7   LDR4
+007.0   relay1
+007     portc
+007.1   relay2
+007.2   relay3
+007.3   relay4
+007.4   Battery_1
+007.4   relay5
+007.5   relay6
+007.5   Battery_2
+007.6   relay7
+007.7   relay8
+008     PSP_DATA
+008     portd
+009.0   reg
+009     porte
+009.1   rw
+009.2   en
+00B     intcon
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+01E     adresh
+01F     adcon0
+01F.2   go
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     b
+02A     sec
+02B     mint
+02C     hrs
+02D     flag1
+02E     flag2
+02F     flag3
+030     flag4
+031-032 SOLAR
+033-034 BATTERY
+035.0   glag
+036     display_battery.o
+036     display_solar.m
+036     main.@SCRATCH
+037-038 display_solar.a
+037-038 display_battery.b
+037     main.@SCRATCH
+039     display_battery.j
+039     display_solar.i
+03A     display_solar.@SCRATCH
+03A     display_battery.@SCRATCH
+03B     @DIV88.P1
+03C     @DIV88.P1
+03D     @DIV88.@SCRATCH
+03E     command.com
+03E     rb_isr.@SCRATCH
+03F     data.da
+03F     rb_isr.@SCRATCH
+040     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     option_reg
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+09C.6   C1OUT
+09C.7   C2OUT
+09E     adresl
+09F     adcon1
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+00BD  @delay_ms1
+00E4  rb_isr
+003A  @const10045
+0051  @const10064
+0066  @const10083
+007B  @const10102
+0178  timer0_isr
+00D0  command
+00DA  data
+0220  main
+0092  @const10138
+00A5  @const10152
+00B0  @const10162
+01A6  display_solar
+0191  @DIV88
+01E3  display_battery
+0220  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.c
+    C:\Program Files\PICC\devices\16f877a.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.sta

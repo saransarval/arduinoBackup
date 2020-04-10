@@ -1,0 +1,42 @@
+[PROJECT]
+Target=KEY.HEX
+Development_Mode=2
+Processor=0x876A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\PROGRAMS\KEY\KEY.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[KEY.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\WORK_S~1\KCTEMB~1\CDINCL~1\PROGRAMS\KEY\KEY.c
+
+[Windows]
+0=0000 \\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\WORK_S~1\KCTEMB~1\CDINCL~1\PROGRAMS\KEY\KEY.c 0 0 796 451 3 0
+
+[Opened Files]
+1=C:\Users\mani\Documents\grt\led_project\blink.c
+2=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\PROGRAMS\LED\LED.C
+3=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\PROGRAMS\KEY\KEY.C
+4=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\ALL_TEST.C
+5=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.c
+6=
+[Units]
+Count=1
+1=I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\PROGRAMS\KEY\KEY.c (main)

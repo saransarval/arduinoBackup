@@ -1,0 +1,486 @@
+CCS PCM C Compiler, Version 3.249, 33340               24-Jan-14 17:22
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\SERVO_MOTOR_VTS-08A\SERVO.lst
+
+               ROM used: 441 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 8 (5%) at main() level
+                         10 (6%) worst case
+               Stack:    2 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0B0
+0003:  NOP
+.................... #INCLUDE<16F877A.H> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #USE DELAY(CLOCK=11059200) 
+0073:  MOVLW  24
+0074:  MOVWF  04
+0075:  MOVF   00,W
+0076:  BTFSC  03.2
+0077:  GOTO   085
+0078:  MOVLW  03
+0079:  MOVWF  78
+007A:  CLRF   77
+007B:  DECFSZ 77,F
+007C:  GOTO   07B
+007D:  DECFSZ 78,F
+007E:  GOTO   07A
+007F:  MOVLW  95
+0080:  MOVWF  77
+0081:  DECFSZ 77,F
+0082:  GOTO   081
+0083:  DECFSZ 00,F
+0084:  GOTO   078
+0085:  RETLW  00
+*
+009A:  MOVLW  07
+009B:  SUBWF  23,F
+009C:  BTFSS  03.0
+009D:  GOTO   0AF
+009E:  MOVLW  23
+009F:  MOVWF  04
+00A0:  MOVLW  FC
+00A1:  ANDWF  00,F
+00A2:  BCF    03.0
+00A3:  RRF    00,F
+00A4:  RRF    00,F
+00A5:  MOVF   00,W
+00A6:  BTFSC  03.2
+00A7:  GOTO   0AF
+00A8:  MOVLW  02
+00A9:  MOVWF  77
+00AA:  DECFSZ 77,F
+00AB:  GOTO   0AA
+00AC:  NOP
+00AD:  DECFSZ 00,F
+00AE:  GOTO   0A8
+00AF:  RETLW  00
+....................  
+.................... #BYTE PORTB=0X06 
+.................... #BYTE TRISB=0X86 
+....................  
+.................... #BYTE PORTD=0X08 
+.................... #BYTE TRISD=0X88 
+....................  
+.................... #BYTE PORTE=0X09 
+.................... #BYTE TRISE=0X89 
+....................  
+.................... #BIT REG=0X09.0 
+.................... #BIT RW=0X09.1 
+.................... #BIT EN=0X09.2 
+....................  
+.................... #BIT PULSE=PORTB.0 
+....................  
+.................... #BIT KEY1=PORTB.4 
+.................... #BIT KEY2=PORTB.5 
+.................... #BIT KEY3=PORTB.6 
+.................... #BIT KEY4=PORTB.7 
+....................  
+.................... #BYTE OPTION_REG=0X81 
+.................... #BYTE INTCON=0X0B 
+....................  
+.................... INT I=0; 
+*
+00BA:  BCF    03.5
+00BB:  CLRF   20
+.................... INT1 K1=0,K2=0,K3=0,K4=0; 
+00BC:  BCF    21.0
+00BD:  BCF    21.1
+00BE:  BCF    21.2
+00BF:  BCF    21.3
+....................  
+.................... VOID COMMAND(UNSIGNED CHAR COM) 
+.................... { 
+.................... PORTD=COM; 
+*
+0086:  MOVF   22,W
+0087:  MOVWF  08
+.................... REG=0; 
+0088:  BCF    09.0
+.................... RW=0; 
+0089:  BCF    09.1
+.................... EN=1; 
+008A:  BSF    09.2
+.................... DELAY_MS(1); 
+008B:  MOVLW  01
+008C:  MOVWF  24
+008D:  CALL   073
+.................... EN=0; 
+008E:  BCF    09.2
+.................... } 
+008F:  RETLW  00
+....................  
+.................... VOID DATA(UNSIGNED CHAR DA) 
+.................... { 
+.................... PORTD=DA; 
+0090:  MOVF   23,W
+0091:  MOVWF  08
+.................... REG=1; 
+0092:  BSF    09.0
+.................... RW=0; 
+0093:  BCF    09.1
+.................... EN=1; 
+0094:  BSF    09.2
+.................... DELAY_MS(1); 
+0095:  MOVLW  01
+0096:  MOVWF  24
+0097:  CALL   073
+.................... EN=0; 
+0098:  BCF    09.2
+.................... } 
+0099:  RETLW  00
+....................  
+.................... VOID MAIN() 
+.................... { 
+*
+00B0:  CLRF   04
+00B1:  MOVLW  1F
+00B2:  ANDWF  03,F
+00B3:  BSF    03.5
+00B4:  BSF    1F.0
+00B5:  BSF    1F.1
+00B6:  BSF    1F.2
+00B7:  BCF    1F.3
+00B8:  MOVLW  07
+00B9:  MOVWF  1C
+....................    TRISB=0XF0; 
+*
+00C0:  MOVLW  F0
+00C1:  BSF    03.5
+00C2:  MOVWF  06
+....................    PORTB=0X00; 
+00C3:  BCF    03.5
+00C4:  CLRF   06
+....................    TRISD=0X00; 
+00C5:  BSF    03.5
+00C6:  CLRF   08
+....................    PORTB=0X00; 
+00C7:  BCF    03.5
+00C8:  CLRF   06
+....................    PORTE=0X00; 
+00C9:  CLRF   09
+....................    TRISE=0X00; 
+00CA:  BSF    03.5
+00CB:  CLRF   09
+....................    OPTION_REG=0X00; 
+00CC:  CLRF   01
+....................    INTCON=0X88; 
+00CD:  MOVLW  88
+00CE:  BCF    03.5
+00CF:  MOVWF  0B
+....................  
+....................  
+....................    COMMAND(0X38); 
+00D0:  MOVLW  38
+00D1:  MOVWF  22
+00D2:  CALL   086
+....................    COMMAND(0X06); 
+00D3:  MOVLW  06
+00D4:  MOVWF  22
+00D5:  CALL   086
+....................    COMMAND(0X0C); 
+00D6:  MOVLW  0C
+00D7:  MOVWF  22
+00D8:  CALL   086
+....................    COMMAND(0X01); 
+00D9:  MOVLW  01
+00DA:  MOVWF  22
+00DB:  CALL   086
+....................    DELAY_MS(10); 
+00DC:  MOVLW  0A
+00DD:  MOVWF  24
+00DE:  CALL   073
+....................    COMMAND(0X80); 
+00DF:  MOVLW  80
+00E0:  MOVWF  22
+00E1:  CALL   086
+....................    DATA("SERVO MOTOR");DELAY_MS(100); 
+00E2:  CLRF   22
+00E3:  MOVF   22,W
+00E4:  CALL   004
+00E5:  IORLW  00
+00E6:  BTFSC  03.2
+00E7:  GOTO   0EC
+00E8:  INCF   22,F
+00E9:  MOVWF  23
+00EA:  CALL   090
+00EB:  GOTO   0E3
+00EC:  MOVLW  64
+00ED:  MOVWF  24
+00EE:  CALL   073
+....................    COMMAND(0XC0); 
+00EF:  MOVLW  C0
+00F0:  MOVWF  22
+00F1:  CALL   086
+....................    DATA("****TEST*******"); 
+00F2:  CLRF   22
+00F3:  MOVF   22,W
+00F4:  CALL   014
+00F5:  IORLW  00
+00F6:  BTFSC  03.2
+00F7:  GOTO   0FC
+00F8:  INCF   22,F
+00F9:  MOVWF  23
+00FA:  CALL   090
+00FB:  GOTO   0F3
+....................  
+....................    WHILE(1) 
+....................  
+....................    { 
+....................  
+.................... IF(KEY1==0) 
+00FC:  BTFSC  06.4
+00FD:  GOTO   109
+.................... { 
+.................... DELAY_MS(300); 
+00FE:  MOVLW  02
+00FF:  MOVWF  22
+0100:  MOVLW  96
+0101:  MOVWF  24
+0102:  CALL   073
+0103:  DECFSZ 22,F
+0104:  GOTO   100
+.................... K1=1;K2=0;K3=0;K4=0; 
+0105:  BSF    21.0
+0106:  BCF    21.1
+0107:  BCF    21.2
+0108:  BCF    21.3
+.................... } 
+.................... IF(KEY2==0) 
+0109:  BTFSC  06.5
+010A:  GOTO   116
+.................... { 
+.................... DELAY_MS(300); 
+010B:  MOVLW  02
+010C:  MOVWF  22
+010D:  MOVLW  96
+010E:  MOVWF  24
+010F:  CALL   073
+0110:  DECFSZ 22,F
+0111:  GOTO   10D
+.................... K1=0;K2=1;K3=0;K4=0; 
+0112:  BCF    21.0
+0113:  BSF    21.1
+0114:  BCF    21.2
+0115:  BCF    21.3
+.................... } 
+.................... IF(KEY3==0) 
+0116:  BTFSC  06.6
+0117:  GOTO   123
+.................... { 
+.................... DELAY_MS(300); 
+0118:  MOVLW  02
+0119:  MOVWF  22
+011A:  MOVLW  96
+011B:  MOVWF  24
+011C:  CALL   073
+011D:  DECFSZ 22,F
+011E:  GOTO   11A
+.................... K1=0;K2=0;K3=1;K4=0; 
+011F:  BCF    21.0
+0120:  BCF    21.1
+0121:  BSF    21.2
+0122:  BCF    21.3
+.................... } 
+.................... IF(KEY4==0) 
+0123:  BTFSC  06.7
+0124:  GOTO   130
+.................... { 
+.................... DELAY_MS(300); 
+0125:  MOVLW  02
+0126:  MOVWF  22
+0127:  MOVLW  96
+0128:  MOVWF  24
+0129:  CALL   073
+012A:  DECFSZ 22,F
+012B:  GOTO   127
+.................... K1=0;K2=0;K3=0;K4=1; 
+012C:  BCF    21.0
+012D:  BCF    21.1
+012E:  BCF    21.2
+012F:  BSF    21.3
+.................... } 
+....................  
+.................... IF(K1==1)////ANGLE 0.5MS,1.5MS//// 90 DEGREE 
+0130:  BTFSS  21.0
+0131:  GOTO   15F
+.................... { 
+....................       command(0x80); 
+0132:  MOVLW  80
+0133:  MOVWF  22
+0134:  CALL   086
+....................       data("CLOCKWISE"); 
+0135:  CLRF   22
+0136:  MOVF   22,W
+0137:  CALL   028
+0138:  IORLW  00
+0139:  BTFSC  03.2
+013A:  GOTO   13F
+013B:  INCF   22,F
+013C:  MOVWF  23
+013D:  CALL   090
+013E:  GOTO   136
+....................       command(0xc0); 
+013F:  MOVLW  C0
+0140:  MOVWF  22
+0141:  CALL   086
+....................       data("90 DEGREE"); 
+0142:  CLRF   22
+0143:  MOVF   22,W
+0144:  CALL   036
+0145:  IORLW  00
+0146:  BTFSC  03.2
+0147:  GOTO   14C
+0148:  INCF   22,F
+0149:  MOVWF  23
+014A:  CALL   090
+014B:  GOTO   143
+....................       PULSE=1; 
+014C:  BSF    06.0
+....................       DELAY_US(1500); 
+014D:  MOVLW  01
+014E:  MOVWF  24
+014F:  CALL   073
+0150:  MOVLW  02
+0151:  MOVWF  22
+0152:  MOVLW  F9
+0153:  MOVWF  23
+0154:  CALL   09A
+0155:  DECFSZ 22,F
+0156:  GOTO   152
+....................       PULSE=0; 
+0157:  BCF    06.0
+....................       DELAY_US(500); 
+0158:  MOVLW  02
+0159:  MOVWF  22
+015A:  MOVLW  F9
+015B:  MOVWF  23
+015C:  CALL   09A
+015D:  DECFSZ 22,F
+015E:  GOTO   15A
+....................  
+.................... } 
+....................  
+.................... IF(K2==1)////ANGLE 0.1MS,1.9MS//// 0 DEGREE 
+015F:  BTFSS  21.1
+0160:  GOTO   189
+.................... { 
+....................       command(0x80); 
+0161:  MOVLW  80
+0162:  MOVWF  22
+0163:  CALL   086
+....................       data("ANTI-CLOCKWISE"); 
+0164:  CLRF   22
+0165:  MOVF   22,W
+0166:  CALL   044
+0167:  IORLW  00
+0168:  BTFSC  03.2
+0169:  GOTO   16E
+016A:  INCF   22,F
+016B:  MOVWF  23
+016C:  CALL   090
+016D:  GOTO   165
+....................       command(0xc0); 
+016E:  MOVLW  C0
+016F:  MOVWF  22
+0170:  CALL   086
+....................       data("0 DEGREE"); 
+0171:  CLRF   22
+0172:  MOVF   22,W
+0173:  CALL   057
+0174:  IORLW  00
+0175:  BTFSC  03.2
+0176:  GOTO   17B
+0177:  INCF   22,F
+0178:  MOVWF  23
+0179:  CALL   090
+017A:  GOTO   172
+....................       PULSE=1; 
+017B:  BSF    06.0
+....................       DELAY_US(1); 
+017C:  NOP
+017D:  NOP
+....................       PULSE=0; 
+017E:  BCF    06.0
+....................       DELAY_US(1999); 
+017F:  MOVLW  01
+0180:  MOVWF  24
+0181:  CALL   073
+0182:  MOVLW  09
+0183:  MOVWF  22
+0184:  MOVLW  6E
+0185:  MOVWF  23
+0186:  CALL   09A
+0187:  DECFSZ 22,F
+0188:  GOTO   184
+....................  
+.................... } 
+....................  
+.................... IF(K4==1)////ANGLE 1.9MS,0.1MS//// 180 DEGREE 
+0189:  BTFSS  21.3
+018A:  GOTO   1B7
+.................... { 
+....................       command(0x80); 
+018B:  MOVLW  80
+018C:  MOVWF  22
+018D:  CALL   086
+....................       data("CLOCKWISE"); 
+018E:  CLRF   22
+018F:  MOVF   22,W
+0190:  CALL   028
+0191:  IORLW  00
+0192:  BTFSC  03.2
+0193:  GOTO   198
+0194:  INCF   22,F
+0195:  MOVWF  23
+0196:  CALL   090
+0197:  GOTO   18F
+....................       command(0xc0); 
+0198:  MOVLW  C0
+0199:  MOVWF  22
+019A:  CALL   086
+....................       data("180 DEGREE"); 
+019B:  CLRF   22
+019C:  MOVF   22,W
+019D:  CALL   064
+019E:  IORLW  00
+019F:  BTFSC  03.2
+01A0:  GOTO   1A5
+01A1:  INCF   22,F
+01A2:  MOVWF  23
+01A3:  CALL   090
+01A4:  GOTO   19C
+....................       PULSE=1; 
+01A5:  BSF    06.0
+....................       DELAY_US(1900); 
+01A6:  MOVLW  01
+01A7:  MOVWF  24
+01A8:  CALL   073
+01A9:  MOVLW  04
+01AA:  MOVWF  22
+01AB:  MOVLW  E0
+01AC:  MOVWF  23
+01AD:  CALL   09A
+01AE:  DECFSZ 22,F
+01AF:  GOTO   1AB
+....................       PULSE=0; 
+01B0:  BCF    06.0
+....................       DELAY_US(100); 
+01B1:  MOVLW  5B
+01B2:  MOVWF  77
+01B3:  DECFSZ 77,F
+01B4:  GOTO   1B3
+01B5:  NOP
+01B6:  NOP
+....................  
+.................... } 
+....................    } 
+01B7:  GOTO   0FC
+.................... } 
+01B8:  SLEEP

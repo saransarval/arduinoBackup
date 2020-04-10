@@ -1,0 +1,53 @@
+
+ROM used: 1244 (15%)
+          1244 (15%) including unused fragments
+
+          2 Average locations per line
+          10 Average locations per statement
+
+RAM used: 34 (19%) at main() level
+          46 (26%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  180    81  64  \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\Prog Samples\Speed\moto_speed.c
+  306     0   0  C:\Program Files\PICC\devices\16f877a.h
+  109    45  22  \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\Prog Samples\Speed\lcd.h
+----- -----
+ 1190   252 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   2   1  @delay_ms1
+0     18   1   0  lcd_inti
+0     10   1   1  lcd_command
+0     10   1   1  lcd_data
+0     38   3   5  @DIV1616
+0     21   2   0  timer0
+0    306  25   2  rpm
+0     32   3   2  @ITOF
+0    120  10  13  @MULFF
+0     34   3   4  @SFTOI
+0     12   1   0  @const10143
+0     10   1   0  @const10148
+0    224  18   1  main
+0     14   1   0  @const10158
+0     22   2   0  @const10167
+0     14   1   0  @const10176
+0     22   2   0  @const10185
+0     25   2   0  @const10190
+0     77   6   3  gsm
+0     10   1   1  @SPRINTF
+0    119  10   8  @PRINTF_LD_383
+0     25   2   0  @const10235
+0     11   1   0  @const10243
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00032    47  0  
+00033-007FF  1193  804  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

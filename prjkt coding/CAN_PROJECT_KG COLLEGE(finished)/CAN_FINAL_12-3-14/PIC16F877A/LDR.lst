@@ -1,0 +1,232 @@
+CCS PCM C Compiler, Version 3.249, 33340               12-Mar-14 12:15
+
+               Filename: C:\Users\GRT EMBEDDED\Desktop\universal atm\PIC16F877A\LDR.lst
+
+               ROM used: 160 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 8 (5%) at main() level
+                         9 (5%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #INCLUDE<16F877A.H> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #USE DELAY(CLOCK=11059200) 
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  MOVF   00,W
+0007:  BTFSC  03.2
+0008:  GOTO   016
+0009:  MOVLW  03
+000A:  MOVWF  78
+000B:  CLRF   77
+000C:  DECFSZ 77,F
+000D:  GOTO   00C
+000E:  DECFSZ 78,F
+000F:  GOTO   00B
+0010:  MOVLW  95
+0011:  MOVWF  77
+0012:  DECFSZ 77,F
+0013:  GOTO   012
+0014:  DECFSZ 00,F
+0015:  GOTO   009
+0016:  BCF    0A.3
+0017:  BCF    0A.4
+0018:  GOTO   056 (RETURN)
+.................... #fuses nowdt, hs 
+....................  
+.................... #BYTE PORTA=0X05 
+.................... #BYTE TRISA=0X85 
+....................  
+.................... #BYTE PORTC=0X07 
+.................... #BYTE TRISC=0X87 
+....................  
+.................... #DEFINE LDR 400 
+....................  
+.................... UNSIGNED INT16 VALUE=0; 
+*
+0023:  BCF    03.5
+0024:  CLRF   20
+0025:  CLRF   21
+....................  
+.................... void main() 
+.................... { 
+*
+0019:  CLRF   04
+001A:  MOVLW  1F
+001B:  ANDWF  03,F
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  MOVLW  07
+0022:  MOVWF  1C
+....................  PORTA=0x00; 
+*
+0028:  CLRF   05
+....................  TRISA=0x00; 
+0029:  BSF    03.5
+002A:  CLRF   05
+....................  
+....................  PORTC=0x00; 
+002B:  BCF    03.5
+002C:  CLRF   07
+....................  TRISC=0x00; 
+002D:  BSF    03.5
+002E:  CLRF   07
+....................    setup_adc_ports(AN0); 
+002F:  BCF    1F.0
+0030:  BSF    1F.1
+0031:  BSF    1F.2
+0032:  BSF    1F.3
+....................    setup_adc(ADC_CLOCK_INTERNAL); 
+0033:  BCF    1F.6
+0034:  BCF    03.5
+0035:  BSF    1F.6
+0036:  BSF    1F.7
+0037:  BSF    03.5
+0038:  BCF    1F.7
+0039:  BCF    03.5
+003A:  BSF    1F.0
+....................    setup_ccp1(CCP_PWM); 
+*
+0026:  MOVLW  FF
+0027:  MOVWF  22
+*
+003B:  BCF    22.2
+003C:  MOVF   22,W
+003D:  BSF    03.5
+003E:  MOVWF  07
+003F:  BCF    03.5
+0040:  BCF    07.2
+0041:  MOVLW  0C
+0042:  MOVWF  17
+....................    setup_comparator(NC_NC_NC_NC); 
+0043:  MOVLW  07
+0044:  BSF    03.5
+0045:  MOVWF  1C
+0046:  MOVF   05,W
+0047:  MOVLW  08
+0048:  MOVWF  77
+0049:  DECFSZ 77,F
+004A:  GOTO   049
+004B:  NOP
+004C:  NOP
+004D:  MOVF   1C,W
+004E:  BCF    03.5
+004F:  BCF    0D.6
+....................    setup_vref(FALSE); 
+0050:  BSF    03.5
+0051:  CLRF   1D
+....................  
+.................... WHILE(1) 
+.................... { 
+....................    delay_ms(100); 
+0052:  MOVLW  64
+0053:  BCF    03.5
+0054:  MOVWF  23
+0055:  GOTO   004
+....................    set_adc_channel(0); 
+0056:  MOVLW  00
+0057:  MOVWF  78
+0058:  MOVF   1F,W
+0059:  ANDLW  C7
+005A:  IORWF  78,W
+005B:  MOVWF  1F
+....................    delay_us(100);         //wait for the acquisition time 
+005C:  MOVLW  5B
+005D:  MOVWF  77
+005E:  DECFSZ 77,F
+005F:  GOTO   05E
+0060:  NOP
+0061:  NOP
+....................    VALUE=read_adc(); 
+0062:  BSF    1F.2
+0063:  BTFSC  1F.2
+0064:  GOTO   063
+0065:  MOVF   1E,W
+0066:  CLRF   21
+0067:  MOVWF  20
+....................    delay_us(4); 
+0068:  MOVLW  03
+0069:  MOVWF  77
+006A:  DECFSZ 77,F
+006B:  GOTO   06A
+006C:  NOP
+....................  
+....................    if(value>LDR) 
+006D:  MOVF   21,W
+006E:  SUBLW  00
+006F:  BTFSC  03.0
+0070:  GOTO   08B
+0071:  XORLW  FF
+0072:  BTFSS  03.2
+0073:  GOTO   078
+0074:  MOVF   20,W
+0075:  SUBLW  90
+0076:  BTFSC  03.0
+0077:  GOTO   08B
+....................    { 
+....................     setup_timer_2(T2_DIV_BY_16, 124, 1); /// (11059200/4)/32000 to generate 40KHZ frequency 
+0078:  MOVLW  00
+0079:  MOVWF  78
+007A:  IORLW  06
+007B:  MOVWF  12
+007C:  MOVLW  7C
+007D:  BSF    03.5
+007E:  MOVWF  12
+....................          setup_ccp1(CCP_PWM); 
+007F:  BCF    03.5
+0080:  BCF    22.2
+0081:  MOVF   22,W
+0082:  BSF    03.5
+0083:  MOVWF  07
+0084:  BCF    03.5
+0085:  BCF    07.2
+0086:  MOVLW  0C
+0087:  MOVWF  17
+....................          set_pwm1_duty(62); // 50% duty cycle 
+0088:  MOVLW  3E
+0089:  MOVWF  15
+....................    } 
+....................    ELSE 
+008A:  GOTO   09D
+....................    { 
+....................    setup_timer_2(T2_DIV_BY_16, 124, 1); /// (11059200/4)/32000 to generate 40KHZ frequency 
+008B:  MOVLW  00
+008C:  MOVWF  78
+008D:  IORLW  06
+008E:  MOVWF  12
+008F:  MOVLW  7C
+0090:  BSF    03.5
+0091:  MOVWF  12
+....................          setup_ccp1(CCP_PWM); 
+0092:  BCF    03.5
+0093:  BCF    22.2
+0094:  MOVF   22,W
+0095:  BSF    03.5
+0096:  MOVWF  07
+0097:  BCF    03.5
+0098:  BCF    07.2
+0099:  MOVLW  0C
+009A:  MOVWF  17
+....................          set_pwm1_duty(124); // 100% duty cycle 
+009B:  MOVLW  7C
+009C:  MOVWF  15
+....................    } 
+.................... } 
+009D:  BSF    03.5
+009E:  GOTO   052
+.................... } 
+009F:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3FFA   HS NOWDT NOPUT NODEBUG NOPROTECT BROWNOUT LVP NOCPD NOWRT

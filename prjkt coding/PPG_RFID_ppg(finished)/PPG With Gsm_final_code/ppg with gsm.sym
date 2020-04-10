@@ -1,0 +1,182 @@
+001     tmr0
+005     porta
+006     portb
+006.0   key
+006.1   RELAY
+007     portc
+008     PSP_DATA
+008     portd
+009     porte
+009.0   reg
+009.1   rw
+009.2   en
+00B     intcon
+00B.5   tmr0ie
+00C     pir1
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+018     rcsta
+019     txreg
+01A     rcreg
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     rs232_errors
+029     @TRIS_C
+02A-035 a
+036     i
+037     j
+038     r
+039     s
+03A     flag
+03B     b
+03C     c
+03D     m
+03E     count
+03F     sec
+040     mint
+041.0   glag
+041.1   glag_1
+041.2   receiver
+041.3   x
+041.4   y
+042     display1.p
+042     gsm2.no
+042     display.o
+042     gsm.no
+042     gsm1.no
+042     main.@SCRATCH
+043     @PUTCHAR_2_.P1
+043-044 display1.y
+043-044 display.z
+043     gsm.@SCRATCH
+043     gsm1.@SCRATCH
+043     gsm2.@SCRATCH
+045     display.j
+045     display1.k
+046     command.com
+046     display.@SCRATCH
+046     display1.@SCRATCH
+047     @DIV88.P1
+047     data.da
+048     @delay_ms1.P1
+048     @DIV88.P2
+049     @DIV88.@SCRATCH
+04A     RDA_isr.@SCRATCH
+04B     RDA_isr.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+081     option_reg
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+08C     pie1
+098     txsta
+099     spbrg
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+03DE  @delay_ms1
+039D  @GETCH_BIU_1
+057F  @PUTCHAR_2_
+03A9  RDA_isr
+03CD  timer0_isr
+03F1  command
+03FB  data
+0800  main
+003C  @const10115
+0053  @const10120
+0067  @const10126
+0075  @const10135
+008B  @const10144
+0099  @const10188
+00AB  @const10193
+00BC  @const10208
+00CE  @const10232
+00D5  @const10237
+00E9  @const10242
+00FD  @const10250
+0112  @const10261
+0125  @const10272
+0137  @const10283
+0146  @const10294
+0155  @const10305
+0168  @const10311
+017C  @const10316
+018E  @const10327
+01A0  @const10333
+01B2  @const10338
+01C7  @const10349
+01DB  @const10360
+01EE  @const10373
+01F5  @const10378
+020B  @const10383
+0220  @const10435
+022F  @const10446
+0242  @const10452
+0256  @const10457
+0268  @const10468
+027A  @const10474
+028C  @const10479
+02A0  @const10485
+02B3  @const10501
+041A  display
+0405  @DIV88
+0442  display1
+02C6  @const10540
+0474  gsm
+02CC  @const10551
+02E5  @const10559
+031A  @const10571
+0333  @const10579
+04CD  gsm1
+0367  @const10603
+0526  gsm2
+0382  @const10647
+0800  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.c
+    C:\Program Files\PICC\devices\16F877A.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg(finished)\PPG With Gsm_final_code\ppg with gsm.sta

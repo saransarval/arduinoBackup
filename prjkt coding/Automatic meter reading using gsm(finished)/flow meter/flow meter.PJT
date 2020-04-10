@@ -1,0 +1,42 @@
+[PROJECT]
+Target=flow meter.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[flow meter.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=C:\Users\GRTEMB~1\Desktop\FLOWME~1\FLOWME~1.C
+
+[Windows]
+0=0000 C:\Users\GRTEMB~1\Desktop\FLOWME~1\FLOWME~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Diploma Projects\Cardiac arrest\cardiac.c
+2=C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.c
+3=
+4=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\final simulation\pro.c
+5=C:\Users\GRT EMBEDDED\Desktop\Final_solar tracking\tracking_final.c
+6=
+[Units]
+Count=1
+1=C:\Users\GRT EMBEDDED\Desktop\flow meter\flow meter.c (main)

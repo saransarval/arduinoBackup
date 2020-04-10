@@ -1,0 +1,56 @@
+
+ROM used:   695/8192 (8%)
+            695/8192 (8%) including unused fragments
+
+            0.5 Average locations per line
+            2.9 Average locations per statement
+
+RAM used:   14/368 (4%) at main() level
+            35/368 (10%) worst case
+
+Stack used: 3 worst case (3 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   61    15   6  test.c
+  661     0   0  ..\..\..\..\Program Files\PICC\Devices\16f877a.h
+  644   224  94  Header_GLCD.h
+----- -----
+ 1366   239 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   3    1             @delay_ms1
+0     80  12    1   555  3.4  glcd_init
+0    157  23    6   734  7.1  glcd_pixel
+0    208  30   15  1634  8.6  glcd_line
+0     37   5    2             @MUL88
+0     73  11    4   498  4.8  glcd_fillScreen
+0     42   6    2   247  3.2  glcd_writeByte
+ Inline         2   391  3.9  glcd_readByte
+0     74  11    1   375  2.8  MAIN
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               7
+    Statements              239
+    Comments                410
+    Volume (V)              6359
+    Difficulty (D)          33.7
+    Effort to implement (E) 214354
+    Time to implement (T)   3 hours, 18 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   14
+    Maintainability (MI)    45
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   691  1353  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

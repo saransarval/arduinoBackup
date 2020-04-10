@@ -1,0 +1,39 @@
+[PROJECT]
+Target=lat and lon using uart.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon using uart.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[lat and lon using uart.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\2013PR~1\GANESH~2\LEDUSI~1\LATAND~2.C
+
+[Windows]
+0=0000 \\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\2013PR~1\GANESH~2\LEDUSI~1\LATAND~2.C 0 0 796 451 3 0
+
+[Opened Files]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon.c
+2=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon using uart.c
+3=
+[Units]
+Count=1
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\Led using lat and lon\lat and lon using uart.c (main)

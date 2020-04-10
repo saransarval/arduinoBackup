@@ -1,0 +1,168 @@
+#include <16f877a.h>
+
+#use delay(clock=11059200)
+#include"lcd.h"
+#fuses Nowdt,hs,NOBROWNOUT,NOLVP
+#use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
+
+
+#byte porta=0x05
+#byte portb=0x06
+#byte portc=0x07
+#byte portd=0x08
+#byte porte=0x09
+
+
+#byte trisa=0x85
+#byte trisb=0x86
+#byte trisc=0x87
+#byte trisd=0x88
+#byte trise=0x89
+
+
+#byte pir1=0x0c
+#byte pie1=0x8c
+
+#byte tmr0=0x01
+
+#byte option_reg=0x81
+#byte intcon=0x0b
+
+
+#byte tmr1h=0x0f
+#byte tmr1l=0x0e
+#byte t1con=0x10
+#byte tmr0=0x01
+
+
+#bit tmr0ie=intcon.5
+
+#bit tmr1on=t1con.0
+
+
+
+#zero_ram
+
+int i=0,tm=0;
+int16 count=0;
+int16 c=0,t=0,speed=0;
+int1 flag=0,f_c=0;
+
+//timer0 interrupt
+
+#INT_TIMER0
+timmer0()
+{
+   //speed
+   tm++;
+   if(tm==43)
+   {
+
+
+      tm=0;
+
+      count=make16(tmr1h,tmr1l);
+      tmr1on=0;
+      tmr1h=0x00;
+      tmr1l=0x00;
+     // count=.85*count;
+      f_c=1;
+      tm=0;
+      tmr1on=1;
+      tmr0=0x00;
+      //flag=0;
+
+
+   }
+
+
+}
+
+
+
+
+
+/////  speed/////
+void rperm()
+{
+
+
+         //speed
+         speed=count*3.14;
+         lcd_command(0x80);
+         lcd_data("SPEED: ");
+         t=speed;
+         t=t/10000;
+         lcd_data(t|0x30);
+
+         t=speed;
+         t=((t%10000)/1000);
+         lcd_data(t|0x30);
+
+         t=speed;
+         t=((t%1000)/100);
+         lcd_data(t|0x30);
+
+         t=speed;
+         t=((t%100)/10);
+         lcd_data(t|0x30);
+
+         t=speed;
+         t=(t%10);
+         lcd_data(t|0x30);
+         lcd_data(" km/s");
+
+
+         f_c=0;
+
+}
+
+
+//main program
+
+void main()
+{
+      trisd=0x00;
+
+      trisb=0x00;
+      trise=0x00;
+      portb=0x00;
+      portd=0;
+      trisc=0x01;
+      portc=0x00;
+      option_reg=0x07;
+      delay_ms(500);
+
+
+      tmr0=0x00;
+      t1con=0x07;
+      tmr1h=0x00;
+      tmr1l=0x00;
+
+      intcon=0x80;
+      tmr0ie=1;
+      tmr0=0;
+      delay_ms(2);
+      lcd_inti();
+
+
+lcd_command(0X80);
+lcd_data("MOTOR SPEED......");
+lcd_command(0Xc0);
+lcd_data("MONITERING SYSTEM   ");
+
+delay_ms(2000);
+
+   lcd_command(0x01);
+   delay_ms(5);
+
+   while(1)
+   {
+
+
+       if(f_c==1)
+       rperm();
+
+   }
+
+}

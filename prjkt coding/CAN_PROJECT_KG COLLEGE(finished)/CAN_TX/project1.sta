@@ -1,0 +1,52 @@
+
+ROM used: 3946 (12%)
+          3946 (12%) including unused fragments
+
+          3 Average locations per line
+          15 Average locations per statement
+
+RAM used: 79 (5%) at main() level
+          137 (9%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  205   112  44  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\project1.c
+   57     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\tx_header.h
+  388     0   0  C:\Program Files\PICC\devices\18F458.h
+   93     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\pic18_f_reg.h
+  439   135  37  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\can-18xxx8_own.h
+  369     0   0  C:\Program Files\PICC\drivers\can-18xxx8.h
+   27     8   2  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN_PROJECT\CAN_TX\reg.h
+----- -----
+ 3156   510 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     38   0   1  @delay_ms1
+0     26   0   0  @GETCH_BIU_1
+0    216   3   2  can_init
+0     48   1   0  can_set_baud
+0     34   0   2  can_set_mode
+0    304   4  14  can_set_id
+0    478   6  18  can_get_id
+0    192   2  17  can_putd
+0    268   3   0  CANRX0_isr
+0     26   0   0  RDA_isr
+0     10   0   0  timer0_isr
+0    264   3  13  ext_isr
+0     86   1  14  @MUL3232
+0     52   1   4  @DTOF
+0    244   3  11  @MULFF
+0    622   8  16  @ADDFF
+0     64   1   5  @FTOSD
+0    706   9   2  main
+0     36   0   0  @const10251
+0     44   1   0  @const10260
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-000BE   184  0  
+000C0-07FFE  3758  28818  
+

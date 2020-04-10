@@ -1,0 +1,38 @@
+[PROJECT]
+Target=prj.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\ARRAY_LED_DISPALY\prj.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[prj.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=C:\Users\GRTEMB~1\Desktop\tr_proj\prj.c
+
+[Windows]
+0=0000 C:\Users\GRTEMB~1\Desktop\tr_proj\prj.c 0 0 796 451 3 0
+
+[Opened Files]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\ARRAY_LED_DISPALY\prj.c
+2=
+[Units]
+Count=1
+1=\\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\2013 Projects Programs\Ganesh_tr\ARRAY_LED_DISPALY\prj.c (main)

@@ -1,0 +1,51 @@
+
+ROM used: 919 (11%)
+          919 (11%) including unused fragments
+
+          2 Average locations per line
+          8 Average locations per statement
+
+RAM used: 34 (19%) at main() level
+          37 (21%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  202    98  85  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\Transmitter.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+   39    17   8  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Rfid for ppg\lcd.h
+----- -----
+ 1094   230 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   2   1  @delay_ms2
+0     10   1   1  command
+0     10   1   1  data
+0     18   2   0  lcd_init
+0     18   2   1  RDA_isr
+0    523  57   2  main
+0     13   1   0  @const10060
+0      7   1   0  @const10086
+0     20   2   0  @const10094
+0     20   2   0  @const10099
+0     21   2   0  @const10107
+0     19   2   0  @const10118
+0     21   2   0  @const10129
+0     20   2   0  @const10140
+0     19   2   0  @const10151
+0      7   1   0  @const10164
+0     19   2   0  @const10172
+0     24   3   0  @const10177
+0     20   2   0  @const10206
+0     19   2   0  @const10212
+0     19   2   0  @const10228
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF   866  1129  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

@@ -1,0 +1,310 @@
+#include "tx_header.h"
+
+unsigned int16 adc_value = 0, speed_count =  0 , vibration_value = 0 , adc_dummy_1=0 , speed=0;
+unsigned char adc_dummy[4]={0} , display_speed_1[5]={0}, vibration_dummy[4] = {0},send_distance[4] = {0} , y[4] = {0}, Q[4]={0};
+unsigned long int time=0, distance=0;
+int16 v=0 ;
+int I=0, b=0, c=0, t=0, receive = 0 , tm = 0, sec = 0, s[5]={0};
+int1 flag=0, flag_1 = 0 , vibration_flag = 0 ,speed_flag = 0;
+void display(unsigned int16 adc_value);
+void display1(unsigned int16 vib_value);
+void function1(unsigned int16 an_value);
+void command(unsigned char com);
+void data(unsigned char da);
+void function1(int16 a);
+int1 tx_rtr=0;
+int1 tx_ext=1;
+int tx_pri=1;
+int out_data[4];
+void display2(unsigned int16 c);
+void rpm(unsigned int16 n);
+
+#ZERO_RAM
+
+#INT_TIMER2
+timer2_isr()
+{
+   c++;
+   b++;
+   tm++;
+   if(tm>=43)
+   {
+      tm=0;sec++;
+      speed_flag=1;
+   }
+}
+
+void command(unsigned char com)
+{
+   portd=com;
+   reg=0;
+   rw=0;
+   en=1;
+   delay_us(50);
+   en=0;
+}
+
+void data(unsigned char da)
+{
+   portd=da;
+   reg=1;
+   rw=0;
+   en=1;
+   delay_us(50);
+   en=0;
+}
+
+void main()
+{
+   porta = 0x00;
+   trisa = 0x03;
+
+   portb = 0x00;
+   trisb = 0x01;
+
+   portc = 0x00;
+   trisc = 0x01;
+
+   portd = 0x00;
+   trisd = 0x00;
+
+   porte = 0x00;
+   trise = 0x00;
+
+   setup_wdt(WDT_OFF);
+   setup_adc_ports( RA0_RA1_RA3_ANALOG );
+   setup_adc(ADC_CLOCK_INTERNAL);
+   setup_psp(PSP_DISABLED);
+   setup_spi(FALSE);
+
+   SETUP_TIMER_1(T1_EXTERNAL | T1_DIV_BY_1 ); //ext_int_edge(H_TO_L);
+   set_timer1(0);
+   enable_interrupts(int_timer1);
+   setup_timer_3(T3_DISABLED|T3_DIV_BY_1);
+   setup_comparator(NC_NC_NC_NC);
+   setup_low_volt_detect(FALSE);
+   setup_oscillator(False);
+
+   setup_timer_2 ( T2_DIV_BY_4, 0xc0, 2);
+   setup_timer_0 (RTCC_DIV_2|RTCC_INTERNAL);
+
+   tmr0l=0x00;
+   tmr0h=0x00;
+
+   tmr1l=0x00;
+   tmr1h=0x00;
+
+   tmr2=0x00;
+
+   command(0x38);
+   command(0x06);
+   command(0x0c);
+   command(0x01);
+   delay_ms(100);
+
+   command(0x80);
+   data("CAN BASED MONIT");
+   command(0xc0);
+   data("FAULT DIAGONSTICS");
+   delay_ms(1000);
+   command(0x01);
+
+   can_init();
+   delay_ms(100);
+
+   TRIG=0;
+   delay_us(10);
+   TRIG=1;
+   delay_us(10);
+   TRIG=0;
+   delay_us(10);
+   enable_interrupts(int_timer2);
+   enable_interrupts(INT_RDA);
+   enable_interrupts(GLOBAL);
+
+   motor = 1 ;
+
+   while(1)
+   {
+      delay_ms(10);
+      set_adc_channel( 0 );
+      delay_ms(1);
+      adc_value = read_adc();
+      display(adc_value/2);
+      command(0xc0);
+      data("T:");
+
+      adc_dummy[0] = Q[0];
+      adc_dummy[1] = Q[1];
+      adc_dummy[2] = Q[2];
+      adc_dummy[3] = Q[3];
+      out_data[0] = adc_dummy[0];
+      out_data[1] = adc_dummy[1];
+      out_data[2] = adc_dummy[2];
+      out_data[3] = adc_dummy[3];
+
+      can_putd(0x01,     out_data,   4,   tx_pri,      tx_ext,    tx_rtr);
+
+      delay_ms(10);
+      set_adc_channel( 1 );
+      delay_ms(1);
+      vibration_value = read_adc();
+      display1(vibration_value);
+      command(0xc8);
+      data("V:");
+
+      vibration_dummy[0] = y[0];
+      vibration_dummy[1] = y[1];
+      vibration_dummy[2] = y[2];
+      vibration_dummy[3] = y[3];
+      out_data[0] = vibration_dummy[0];
+      out_data[1] = vibration_dummy[1];
+      out_data[2] = vibration_dummy[2];
+      out_data[3] = vibration_dummy[3];
+
+      can_putd(0x02,     out_data,   4,   tx_pri,      tx_ext,    tx_rtr);
+      delay_ms(10);
+
+      if(speed_flag==1)
+      {
+      speed_flag = 0;
+      speed_count =GET_TIMER1();
+      speed = speed_count*3.14;
+      rpm(speed);
+      set_timer1(0);
+      
+      display_speed_1[0] = S[0];
+      display_speed_1[1] = S[1];
+      display_speed_1[2] = S[2];
+      display_speed_1[3] = S[3];
+
+      out_data[0] = display_speed_1[0];
+      out_data[1] = display_speed_1[1];
+      out_data[2] = display_speed_1[2];
+      out_data[3] = display_speed_1[3];
+
+      can_putd(0x03,     out_data,   4,   tx_pri,      tx_ext,    tx_rtr);
+      delay_ms(10);
+      }
+
+      if(b>=3)
+      {
+      b=0;
+      tmr2=0;
+      time=0;
+      TRIG=0;
+      delay_us(10);
+      TRIG=1;
+      delay_us(10);
+      TRIG=0;
+      delay_us(10);
+      while(!ECHO);                // wait for high state of echo pin and do nothing
+
+      set_timer0(0);                           // setting timer zero
+      while(ECHO);             // Wait for high state of echo pin and do nothing
+      time=get_timer0();                       // Getting the time
+      distance=time*0.028 + 1.093 ;
+      command(0x88);
+      data("O:");
+      function1(distance);
+
+      out_data[0] = send_distance[0];
+      out_data[1] = send_distance[1];
+      out_data[2] = send_distance[2];
+      out_data[3] = send_distance[3];
+
+      can_putd(0x04,     out_data,   4,   tx_pri,      tx_ext,    tx_rtr);
+      delay_ms(10);
+      }
+
+    }
+}
+
+
+void display(unsigned int16 adc_value)
+{
+      unsigned int j=0 , Z[4];
+      for(j=0;j<=3;j++)
+      {
+      z[j]=adc_value%10;
+      Q[j]=adc_value%10;
+      adc_value=adc_value/10;
+      }
+      command(0xc2);
+      data(z[3]|0x30);
+      data(z[2]|0x30);
+      data(z[1]|0x30);
+      data(z[0]|0x30);
+      delay_ms(300);
+
+}
+
+void display1(unsigned int16 vib_value)
+{
+      unsigned int j=0;
+      for(j=0;j<=3;j++)
+      {
+      y[j]=vib_value%10;
+      vib_value=vib_value/10;
+      }
+      command(0xca);
+      data(y[3]|0x30);
+      data(y[2]|0x30);
+      data(y[1]|0x30);
+      data(y[0]|0x30);
+      delay_ms(300);
+
+}
+
+void function1(unsigned int16 n)
+{
+      unsigned int i;
+      command(0x8A);
+
+      for(i=0;i<=1;i++)
+      {
+      send_distance[i]=n%10;
+      n=n/10;
+      }
+
+      data(send_distance[3]|0x30);
+      data(send_distance[2]|0x30);
+      data(send_distance[1]|0x30);
+      data(send_distance[0]|0x30);
+
+}
+
+void display2(unsigned int16 c)
+{
+      unsigned int z, x[4];
+
+      for(z=0;z<=3;z++)
+      {
+      x[z]=c%10;
+      c=c/10;
+      }
+      command(0x82);
+      data(x[3]|0x30);
+      data(x[2]|0x30);
+      data(x[1]|0x30);
+      data(x[0]|0x30);
+}
+
+
+void rpm(unsigned int16 n)
+{
+      int i, a[4];
+      n = n*30;
+      for(i=0; i<4;i++)
+      {
+      a[i]=n%10;
+      S[i]=n%10;
+      n=n/10;
+      }
+      command(0x80);
+      data("S:");
+      data(a[3]|0x30);
+      data(a[2]|0x30);
+      data(a[1]|0x30);
+      data(a[0]|0x30);
+}

@@ -1,0 +1,39 @@
+[PROJECT]
+Target=battery.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Battery selection\battery.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[battery.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=\\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\2014PR~2\GANESH~1\ENGINE~1\BATTER~1\battery.c
+
+[Windows]
+0=0000 \\GRT-EMBEDDED-PC\Users\Public\GRTSHA~1\2014PR~2\GANESH~1\ENGINE~1\BATTER~1\battery.c 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Battery selection\battery.c
+2=
+3=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Battery selection\battery.c (main)

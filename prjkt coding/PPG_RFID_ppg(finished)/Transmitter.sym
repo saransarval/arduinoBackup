@@ -1,0 +1,117 @@
+005     porta
+006     portb
+007     portc
+008     portd
+008     PSP_DATA
+009.0   reg
+009     porte
+009.1   rw
+009.2   en
+00B     intcon
+00C     pir1
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+018     rcsta
+019     txreg
+01A     rcreg
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028-033 a
+034     i
+035     j
+036     r
+037     s
+038     flag
+039     b
+03A     c
+03B.0   glag
+03B.1   glag_1
+03B.2   receiver
+03C     command.com
+03C     main.@SCRATCH
+03D     main.@SCRATCH
+03E     data.da
+03F     @delay_ms1.P1
+040     RDA_isr.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+085     trisa
+086     trisb
+087     trisc
+088     trisd
+089     trise
+08C     pie1
+098     txsta
+099     spbrg
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+0197  @delay_ms1
+0173  RDA_isr
+01AA  command
+01B4  data
+01BE  main
+0035  @const10059
+0043  @const10068
+0059  @const10077
+0067  @const10087
+0074  @const10113
+007B  @const10121
+008F  @const10126
+00A3  @const10134
+00B8  @const10145
+00CB  @const10156
+00E0  @const10167
+00F4  @const10178
+010A  @const10191
+0111  @const10199
+0124  @const10204
+0139  @const10233
+014D  @const10239
+0160  @const10255
+01BE  @cinit
+
+Project Files:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.c
+    C:\Program Files\PICC\devices\16F877A.h
+
+Units:
+    E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.err
+    INHX8:       E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.hex
+    Symbols:     E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.sym
+    List:        E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.lst
+    Debug/COFF:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.cof
+    Call Tree:   E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.tre
+    Statistics:  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\Transmitter.sta

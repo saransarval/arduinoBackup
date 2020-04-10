@@ -1,0 +1,108 @@
+CCS PCM C Compiler, Version 3.249, 33340               03-Oct-13 15:33
+
+               Filename: I:\WELCOME BACK GK\Confidential\R & D division\ROBO KIT(pic16f876a)\motor.lst
+
+               ROM used: 48 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 5 (3%) at main() level
+                         6 (3%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   017
+0003:  NOP
+.................... #INCLUDE<16F876A.H> 
+.................... //////// Standard Header file for the PIC16F876A device //////////////// 
+.................... #device PIC16F876A 
+.................... #list 
+....................  
+.................... #USE DELAY(CLOCK=11059200) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  MOVF   00,W
+0007:  BTFSC  03.2
+0008:  GOTO   016
+0009:  MOVLW  03
+000A:  MOVWF  78
+000B:  CLRF   77
+000C:  DECFSZ 77,F
+000D:  GOTO   00C
+000E:  DECFSZ 78,F
+000F:  GOTO   00B
+0010:  MOVLW  95
+0011:  MOVWF  77
+0012:  DECFSZ 77,F
+0013:  GOTO   012
+0014:  DECFSZ 00,F
+0015:  GOTO   009
+0016:  RETLW  00
+....................  
+.................... #BYTE TRISA=0X85 
+.................... #BYTE TRISB=0X86 
+.................... #BYTE TRISC=0X87 
+....................  
+.................... #BYTE PORTA=0X05 
+.................... #BYTE PORTB=0X06 
+.................... #BYTE PORTC=0X07 
+....................  
+.................... #BYTE OPTION_REG=0X81 
+.................... #byte intcon=0x0b 
+....................  
+....................  
+.................... #BIT REG=PORTc.4 
+.................... #BIT E=PORTc.5 
+....................  
+.................... #BIT LED=PORTB.0 
+.................... #BIT BUZ=PORTB.3 
+.................... #BIT KEY1=PORTB.1 
+.................... #BIT KEY2=PORTB.2 
+....................  
+.................... #BIT IR1=PORTB.6 
+.................... #BIT IR2=PORTB.5 
+....................  
+.................... #BIT OBJ_DET=PORTB.7 
+....................  
+.................... #BIT MOT1=PORTA.1 
+.................... #BIT MOT2=PORTA.3 
+....................  
+....................  
+.................... void main() 
+.................... { 
+0017:  CLRF   04
+0018:  MOVLW  1F
+0019:  ANDWF  03,F
+001A:  BSF    03.5
+001B:  BSF    1F.0
+001C:  BSF    1F.1
+001D:  BSF    1F.2
+001E:  BCF    1F.3
+001F:  MOVLW  07
+0020:  MOVWF  1C
+....................    trisa=0x00; 
+0021:  CLRF   05
+....................    porta=0x00; 
+0022:  BCF    03.5
+0023:  CLRF   05
+....................     
+....................    while(1) 
+....................    { 
+....................       mot1=1;mot2=1; 
+0024:  BSF    05.1
+0025:  BSF    05.3
+....................       delay_ms(50); 
+0026:  MOVLW  32
+0027:  MOVWF  21
+0028:  CALL   004
+....................       mot1=0;mot2=0; 
+0029:  BCF    05.1
+002A:  BCF    05.3
+....................       delay_ms(50); 
+002B:  MOVLW  32
+002C:  MOVWF  21
+002D:  CALL   004
+....................    } 
+002E:  GOTO   024
+.................... } 
+002F:  SLEEP

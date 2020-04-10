@@ -1,0 +1,148 @@
+#include<16f877a.h>
+#use delay(clock=11059200)
+
+#byte portd=0x08
+#byte porte=0x09
+#byte porta=0x05
+#byte portc=0x07
+
+#byte trisd=0x88
+#byte trise=0x89
+#byte trisa=0x85
+#byte trisc=0x87
+
+#bit reg=0x09.0
+#bit rw=0x09.1
+#bit en=0x09.2
+
+#bit driver1=portc.0
+#bit driver2=portc.1
+#bit driver3=portc.2
+#bit driver4=portc.3
+
+#bit LDR1=porta.0
+#bit LDR2=porta.1
+#bit LDR3=porta.2
+#bit LDR4=porta.3
+
+#bit SOLAR=portc.4
+
+unsigned int flag1, flag2, flag3, flag4;
+
+void command(unsigned char com)
+{
+portd=com;
+reg=0;
+rw=0;
+en=1;
+delay_ms(1);
+en=0;
+}
+
+void data(unsigned char da)
+
+{
+portd=da;
+reg=1;
+rw=0;
+en=1;
+delay_ms(1);
+en=0;
+}
+
+void main()
+{
+portd=0x00;
+porte=0x00;
+porta=0x00;
+portc=0x00;
+
+trisd=0x00;
+trise=0x00;
+trisa=0x0f;
+trisc=0x00;
+
+
+command(0x38);
+command(0x06);
+command(0x0c);
+command(0x01);
+
+
+while(1)
+{
+
+command(0x80);
+data("SOLAR TRACKING");
+
+if(LDR1==1 && LDR2==0 && flag1==0)
+{
+command(0xc0);
+data("X-AXIS A-CLOCKWISE");
+driver1=1;
+delay_ms(1000);
+driver1=0;
+flag1=1;
+flag2=0;
+
+}
+else
+driver1=0;
+
+
+if(LDR2==1 && LDR1==0 && flag2==0)
+{
+command(0xc0);
+data("X-AXIS CLOCKWISE");
+driver2=1;
+delay_ms(1000);
+driver2=0;
+flag2=1;
+flag1=0;
+}
+else
+driver2=0;
+
+if(LDR3==1 && LDR4==0 && flag3==0)
+{
+command(0xc0);
+data("Y-AXIS CLOCKWISE");
+driver3=1;
+delay_ms(1000);
+driver3=0;
+flag3=1;
+flag4=0;
+}
+else
+driver3=0;
+
+
+if(LDR4==1 && LDR3==0 && flag4==0)
+{
+command(0xc0);
+data("Y-AXIS A-CLOCKWISE");
+driver4=1;
+delay_ms(1000);
+driver4=0;
+flag4=1;
+flag3=0;
+}
+else
+driver4=0;
+
+if(LDR1==1 || LDR2==1 || LDR3==1 || LDR4==1)
+{
+SOLAR=1;
+command(0xc0);
+data("SOLAR>> MODE>>>>");
+}
+
+else
+{
+SOLAR=0;
+command(0xc0);
+data("BATTERY MODE>>>>");
+}
+
+}
+}

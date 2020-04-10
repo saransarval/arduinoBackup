@@ -1,0 +1,45 @@
+
+ROM used: 1436 (18%)
+          1436 (18%) including unused fragments
+
+          2 Average locations per line
+          5 Average locations per statement
+
+RAM used: 38 (22%) at main() level
+          49 (28%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  437   300 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking\tracking_final.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1486   600 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   1   1  @delay_ms1
+0     14   1   0  @GETCH_BIU_1
+0      9   1   0  RDA_ISR
+0     10   1   1  command
+0     10   1   1  data
+0     11   1   0  TIMER0_isr
+0   1099  77   2  main
+0     19   1   0  @const10056
+0      8   1   0  @const10117
+0      8   1   0  @const10130
+0      8   1   0  @const10143
+0      8   1   0  @const10156
+0     15   1   0  @const10172
+0     15   1   0  @const10186
+0     85   6   8  display
+0     38   3   5  @DIV1616
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-0003B    56  0  
+0003C-007FF  1376  612  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

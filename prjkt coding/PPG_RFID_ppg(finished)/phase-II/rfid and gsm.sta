@@ -1,0 +1,58 @@
+
+ROM used: 1236 (15%)
+          1236 (15%) including unused fragments
+
+          2 Average locations per line
+          9 Average locations per statement
+
+RAM used: 33 (19%) at main() level
+          36 (21%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  307   139 100  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\PPG_RFID_ppg\phase-II\rfid and gsm.c
+  306     0   0  C:\Program Files\PICC\devices\16F877A.h
+----- -----
+ 1226   278 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     19   2   1  @delay_ms1
+0     35   3   1  RDA_isr
+0     10   1   1  command
+0     10   1   1  data
+0    617  50   1  main
+0     14   1   0  @const10063
+0     22   2   0  @const10072
+0     14   1   0  @const10081
+0     13   1   0  @const10091
+0      8   1   0  @const10113
+0      7   1   0  @const10136
+0     20   2   0  @const10144
+0     20   2   0  @const10149
+0     21   2   0  @const10157
+0     19   2   0  @const10168
+0     21   2   0  @const10179
+0     20   2   0  @const10190
+0     19   2   0  @const10201
+0      7   1   0  @const10214
+0     19   2   0  @const10222
+0     21   2   0  @const10227
+0     20   2   0  @const10256
+0     19   2   0  @const10262
+0     19   2   0  @const10278
+0     48   4   2  gsm_1
+0     25   2   0  @const10291
+0     26   2   0  @const10299
+0     48   4   2  gsm
+0     22   2   0  @const10321
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF  1183  812  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+

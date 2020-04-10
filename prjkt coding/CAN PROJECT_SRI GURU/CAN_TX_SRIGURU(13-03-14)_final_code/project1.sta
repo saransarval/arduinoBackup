@@ -1,0 +1,57 @@
+
+ROM used: 4284 (13%)
+          4284 (13%) including unused fragments
+
+          3 Average locations per line
+          12 Average locations per statement
+
+RAM used: 114 (7%) at main() level
+          140 (9%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  310   201  58  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\project1.c
+   78     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\tx_header.h
+  388     0   0  C:\Program Files\PICC\devices\18F458.h
+   93     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\pic18_f_reg.h
+  440   135  25  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\can-18xxx8_own.h
+  370     0   0  C:\Program Files\PICC\drivers\can-18xxx8.h
+   27     8   1  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU(13-03-14)_final_code\reg.h
+----- -----
+ 3412   688 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     38   0   1  @delay_ms1
+0    216   3   2  can_init
+0     48   1   0  can_set_baud
+0     34   0   2  can_set_mode
+0    304   4  14  can_set_id
+0    202   2  17  can_putd
+0     24   0   0  timer2_isr
+0     26   0   1  command
+0     26   0   1  data
+0   1352  16   4  main
+0     42   0   0  @const10186
+0     44   1   0  @const10191
+0     30   0   0  @const10204
+0     30   0   0  @const10214
+0     56   1   2  @ITOF
+0    244   3  11  @MULFF
+0     58   1   4  @SFTOI
+0    622   7  16  @ADDFF
+0     30   0   0  @const10314
+0    170   2   9  display
+0     68   1   5  @DIV1616
+0    136   2   5  display1
+0    130   2   5  function1
+0    172   2   9  rpm
+0     30   0   0  @const10391
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-0009A   148  0  
+0009C-07FFE  4132  28480  
+

@@ -1,0 +1,79 @@
+005     PORTA
+006     PORTB
+007     PORTC
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     lcd_init.i
+021     MAIN.@SCRATCH
+022     lcd_putc.c
+022     lcd_init.@SCRATCH
+023     @delay_ms1.P1
+023     lcd_gotoxy.x
+024     lcd_gotoxy.y
+025     lcd_gotoxy.address
+026     lcd_gotoxy.@SCRATCH
+027     lcd_send_byte.address
+028     lcd_send_byte.n
+029     lcd_read_byte.low
+029     lcd_send_byte.@SCRATCH
+02A     lcd_read_byte.high
+02A     lcd_send_nibble.nibble
+02B     lcd_read_nibble.retval
+02B.0   lcd_read_nibble.retval_0
+02B.1   lcd_read_nibble.retval_1
+02B.2   lcd_read_nibble.retval_2
+02B.3   lcd_read_nibble.retval_3
+02B     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+085     TRISA
+086     TRISB
+087     TRISC
+09C.6   C1OUT
+09C.7   C2OUT
+
+001F  @delay_ms1
+0004  @const43
+0032  lcd_send_nibble
+006D  lcd_read_nibble
+00AC  lcd_read_byte
+00A6  lcd_send_byte
+00E3  lcd_init
+012A  lcd_gotoxy
+0113  lcd_putc
+014A  MAIN
+000C  @const10115
+014A  @cinit
+
+Project Files:
+    \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.c
+    C:\Program Files\PICC\devices\16F876A.H
+    \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.H
+
+Units:
+    \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F876A
+    Pointer Size:   8
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: 1,8,16
+
+Output Files:
+    Errors:      \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.err
+    INHX8:       \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.hex
+    Symbols:     \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.sym
+    List:        \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.lst
+    Debug/COFF:  \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.cof
+    Call Tree:   \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.tre
+    Statistics:  \\GRT-EMBEDDED-PC\Users\Public\GRT SHARE_DOC\WORK_SHOP_DETAILS\KCT embedded system workshop\CD INCLUSIONS\PROGRAMS\LCD\LCD.sta

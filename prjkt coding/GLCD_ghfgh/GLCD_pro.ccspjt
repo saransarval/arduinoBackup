@@ -1,0 +1,24 @@
+[PROJECT]
+Target=GLCD_pro.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.008
+Compiler=PCM
+[Target Data]
+FileList=GLCD_pro.c
+[Directories]
+Include=C:\Program Files\PICC\Devices\;C:\Program Files\PICC\Drivers\;C:\Users\GRT-Embedded\Desktop\GLCD\
+[GLCD_pro.c]
+Type=4
+[mru-list]
+1=GLCD_pro.c
+[Opened Files]
+1=GLCD_pro.c
+2=Header_GLCD.h
+3=
+4=
+[ExtraIncludes]
+Count=1
+1=glcd_pro=c:\users\grt-embedded\desktop\glcd\header_glcd.h
+[Units]
+Count=1
+1=GLCD_pro (main)

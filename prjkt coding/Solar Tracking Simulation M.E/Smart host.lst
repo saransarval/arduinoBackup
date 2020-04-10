@@ -1,0 +1,965 @@
+CCS PCM C Compiler, Version 3.249, 33340               18-Feb-14 17:25
+
+               Filename: E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Solar Tracking Simulation M.E\Smart host.lst
+
+               ROM used: 839 words (10%)
+                         Largest free fragment is 2048
+               RAM used: 29 (17%) at main() level
+                         38 (22%) worst case
+               Stack:    6 worst case (3 in main + 3 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   220
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  BTFSS  0B.3
+001A:  GOTO   01D
+001B:  BTFSC  0B.0
+001C:  GOTO   034
+001D:  BTFSS  0B.5
+001E:  GOTO   021
+001F:  BTFSC  0B.2
+0020:  GOTO   037
+0021:  MOVF   22,W
+0022:  MOVWF  04
+0023:  MOVF   23,W
+0024:  MOVWF  77
+0025:  MOVF   24,W
+0026:  MOVWF  78
+0027:  MOVF   25,W
+0028:  MOVWF  79
+0029:  MOVF   26,W
+002A:  MOVWF  7A
+002B:  MOVF   27,W
+002C:  MOVWF  7B
+002D:  MOVF   20,W
+002E:  MOVWF  0A
+002F:  SWAPF  21,W
+0030:  MOVWF  03
+0031:  SWAPF  7F,F
+0032:  SWAPF  7F,W
+0033:  RETFIE
+0034:  BCF    0A.3
+0035:  BCF    0A.4
+0036:  GOTO   0E4
+0037:  BCF    0A.3
+0038:  BCF    0A.4
+0039:  GOTO   178
+.................... #include<16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #device adc=10 
+.................... #use delay(clock=11059200) 
+*
+00BD:  MOVLW  40
+00BE:  MOVWF  04
+00BF:  MOVF   00,W
+00C0:  BTFSC  03.2
+00C1:  GOTO   0CF
+00C2:  MOVLW  03
+00C3:  MOVWF  78
+00C4:  CLRF   77
+00C5:  DECFSZ 77,F
+00C6:  GOTO   0C5
+00C7:  DECFSZ 78,F
+00C8:  GOTO   0C4
+00C9:  MOVLW  95
+00CA:  MOVWF  77
+00CB:  DECFSZ 77,F
+00CC:  GOTO   0CB
+00CD:  DECFSZ 00,F
+00CE:  GOTO   0C2
+00CF:  RETLW  00
+....................  
+....................  
+.................... #byte porte=0x09 
+.................... #byte portd=0x08 
+.................... #byte portc=0x07 
+.................... #byte portb=0x06 
+.................... #byte porta=0x05 
+....................  
+.................... #byte trisa=0x85 
+.................... #byte trisb=0x86 
+.................... #byte trisc=0x87 
+.................... #byte trisd=0x88 
+.................... #byte trise=0x89 
+....................  
+.................... #byte intcon=0x0b 
+.................... #byte tmr0=0x01 
+.................... #byte option_reg=0x81 
+....................  
+.................... #byte adcon0=0x1f 
+.................... #byte adcon1=0x9f 
+....................  
+.................... #byte adresh=0x1e 
+.................... #byte adresl=0x9e 
+....................  
+.................... #bit go=0x1f.2 
+....................  
+.................... #bit reg=0x09.0 
+.................... #bit rw=0x09.1 
+.................... #bit en=0x09.2 
+....................  
+.................... #bit driver1=portb.0 
+.................... #bit driver2=portb.1 
+.................... #bit driver3=portb.2 
+.................... #bit driver4=portb.3 
+....................  
+.................... #bit LDR1=portb.4 
+.................... #bit LDR2=portb.5 
+.................... #bit LDR3=portb.6 
+.................... #bit LDR4=portb.7 
+....................  
+.................... #bit relay1=0x07.0 
+.................... #bit relay2=0x07.1 
+.................... #bit relay3=0x07.2 
+.................... #bit relay4=0x07.3 
+.................... #bit relay5=0x07.4 
+.................... #bit relay6=0x07.5 
+.................... #bit relay7=0x07.6 
+.................... #bit relay8=0x07.7 
+....................  
+.................... #bit Battery_1=portc.4 
+.................... #bit Battery_2=portc.5 
+....................  
+.................... int b=0,sec=0,mint=0,hrs=0; 
+*
+022A:  BCF    03.5
+022B:  CLRF   29
+022C:  CLRF   2A
+022D:  CLRF   2B
+022E:  CLRF   2C
+.................... unsigned int flag1, flag2, flag3, flag4; 
+.................... unsigned int16 SOLAR=0,BATTERY=0; 
+022F:  CLRF   31
+0230:  CLRF   32
+0231:  CLRF   33
+0232:  CLRF   34
+.................... int1 glag=0; 
+0233:  BCF    35.0
+.................... void display_solar(unsigned int m); 
+.................... void display_battery(unsigned int o); 
+.................... void command(unsigned char com); 
+.................... void data(unsigned char da); 
+....................  
+.................... #int_rb 
+.................... rb_isr() 
+.................... { 
+.................... if(LDR1==1 && LDR2==0 && flag1==0) 
+*
+00E4:  BTFSS  06.4
+00E5:  GOTO   107
+00E6:  BTFSC  06.5
+00E7:  GOTO   107
+00E8:  MOVF   2D,F
+00E9:  BTFSS  03.2
+00EA:  GOTO   107
+.................... { 
+.................... command(0x80); 
+00EB:  MOVLW  80
+00EC:  MOVWF  3E
+00ED:  CALL   0D0
+.................... data("X-AXIS A-CLOCKWISE"); 
+00EE:  CLRF   3E
+00EF:  MOVF   3E,W
+00F0:  CALL   03A
+00F1:  IORLW  00
+00F2:  BTFSC  03.2
+00F3:  GOTO   0F8
+00F4:  INCF   3E,F
+00F5:  MOVWF  3F
+00F6:  CALL   0DA
+00F7:  GOTO   0EF
+.................... driver1=1; 
+00F8:  BSF    06.0
+.................... delay_ms(2000); 
+00F9:  MOVLW  08
+00FA:  MOVWF  3E
+00FB:  MOVLW  FA
+00FC:  MOVWF  40
+00FD:  CALL   0BD
+00FE:  DECFSZ 3E,F
+00FF:  GOTO   0FB
+.................... driver1=0; 
+0100:  BCF    06.0
+.................... flag1=1; 
+0101:  MOVLW  01
+0102:  MOVWF  2D
+.................... flag2=0; 
+0103:  CLRF   2E
+.................... command(0x01); 
+0104:  MOVWF  3E
+0105:  CALL   0D0
+.................... } 
+.................... else 
+0106:  GOTO   108
+.................... driver1=0; 
+0107:  BCF    06.0
+....................  
+.................... if(LDR2==1 && LDR1==0 && flag2==0) 
+0108:  BTFSS  06.5
+0109:  GOTO   12B
+010A:  BTFSC  06.4
+010B:  GOTO   12B
+010C:  MOVF   2E,F
+010D:  BTFSS  03.2
+010E:  GOTO   12B
+.................... { 
+.................... command(0x80); 
+010F:  MOVLW  80
+0110:  MOVWF  3E
+0111:  CALL   0D0
+.................... data("X-AXIS CLOCKWISE"); 
+0112:  CLRF   3E
+0113:  MOVF   3E,W
+0114:  CALL   051
+0115:  IORLW  00
+0116:  BTFSC  03.2
+0117:  GOTO   11C
+0118:  INCF   3E,F
+0119:  MOVWF  3F
+011A:  CALL   0DA
+011B:  GOTO   113
+.................... driver2=1; 
+011C:  BSF    06.1
+.................... delay_ms(2000); 
+011D:  MOVLW  08
+011E:  MOVWF  3E
+011F:  MOVLW  FA
+0120:  MOVWF  40
+0121:  CALL   0BD
+0122:  DECFSZ 3E,F
+0123:  GOTO   11F
+.................... driver2=0; 
+0124:  BCF    06.1
+.................... flag2=1; 
+0125:  MOVLW  01
+0126:  MOVWF  2E
+.................... flag1=0; 
+0127:  CLRF   2D
+.................... command(0x01); 
+0128:  MOVWF  3E
+0129:  CALL   0D0
+.................... } 
+.................... else 
+012A:  GOTO   12C
+.................... driver2=0; 
+012B:  BCF    06.1
+....................  
+.................... if(LDR3==1 && LDR4==0 && flag3==0) 
+012C:  BTFSS  06.6
+012D:  GOTO   14F
+012E:  BTFSC  06.7
+012F:  GOTO   14F
+0130:  MOVF   2F,F
+0131:  BTFSS  03.2
+0132:  GOTO   14F
+.................... { 
+.................... command(0x80); 
+0133:  MOVLW  80
+0134:  MOVWF  3E
+0135:  CALL   0D0
+.................... data("Y-AXIS CLOCKWISE"); 
+0136:  CLRF   3E
+0137:  MOVF   3E,W
+0138:  CALL   066
+0139:  IORLW  00
+013A:  BTFSC  03.2
+013B:  GOTO   140
+013C:  INCF   3E,F
+013D:  MOVWF  3F
+013E:  CALL   0DA
+013F:  GOTO   137
+.................... driver3=1; 
+0140:  BSF    06.2
+.................... delay_ms(2000); 
+0141:  MOVLW  08
+0142:  MOVWF  3E
+0143:  MOVLW  FA
+0144:  MOVWF  40
+0145:  CALL   0BD
+0146:  DECFSZ 3E,F
+0147:  GOTO   143
+.................... driver3=0; 
+0148:  BCF    06.2
+.................... flag3=1; 
+0149:  MOVLW  01
+014A:  MOVWF  2F
+.................... flag4=0; 
+014B:  CLRF   30
+.................... command(0x01); 
+014C:  MOVWF  3E
+014D:  CALL   0D0
+.................... } 
+.................... else 
+014E:  GOTO   150
+.................... driver3=0; 
+014F:  BCF    06.2
+....................  
+.................... if(LDR4==1 && LDR3==0 && flag4==0) 
+0150:  BTFSS  06.7
+0151:  GOTO   173
+0152:  BTFSC  06.6
+0153:  GOTO   173
+0154:  MOVF   30,F
+0155:  BTFSS  03.2
+0156:  GOTO   173
+.................... { 
+.................... command(0x80); 
+0157:  MOVLW  80
+0158:  MOVWF  3E
+0159:  CALL   0D0
+.................... data("Y-AXIS A-CLOCKWISE"); 
+015A:  CLRF   3E
+015B:  MOVF   3E,W
+015C:  CALL   07B
+015D:  IORLW  00
+015E:  BTFSC  03.2
+015F:  GOTO   164
+0160:  INCF   3E,F
+0161:  MOVWF  3F
+0162:  CALL   0DA
+0163:  GOTO   15B
+.................... driver4=1; 
+0164:  BSF    06.3
+.................... delay_ms(2000); 
+0165:  MOVLW  08
+0166:  MOVWF  3E
+0167:  MOVLW  FA
+0168:  MOVWF  40
+0169:  CALL   0BD
+016A:  DECFSZ 3E,F
+016B:  GOTO   167
+.................... driver4=0; 
+016C:  BCF    06.3
+.................... flag4=1; 
+016D:  MOVLW  01
+016E:  MOVWF  30
+.................... flag3=0; 
+016F:  CLRF   2F
+.................... command(0x01); 
+0170:  MOVWF  3E
+0171:  CALL   0D0
+.................... } 
+.................... else 
+0172:  GOTO   174
+.................... driver4=0; 
+0173:  BCF    06.3
+.................... } 
+....................  
+0174:  BCF    0B.0
+0175:  BCF    0A.3
+0176:  BCF    0A.4
+0177:  GOTO   021
+.................... #int_timer0 
+.................... timer0_isr() 
+.................... { 
+.................... b++; 
+0178:  INCF   29,F
+.................... if(b==43) 
+0179:  MOVF   29,W
+017A:  SUBLW  2B
+017B:  BTFSS  03.2
+017C:  GOTO   18D
+.................... { 
+.................... b=0; 
+017D:  CLRF   29
+.................... sec++; 
+017E:  INCF   2A,F
+.................... if(sec==60) 
+017F:  MOVF   2A,W
+0180:  SUBLW  3C
+0181:  BTFSS  03.2
+0182:  GOTO   18D
+.................... { 
+.................... sec=0; 
+0183:  CLRF   2A
+.................... mint++; 
+0184:  INCF   2B,F
+.................... if(mint==60) 
+0185:  MOVF   2B,W
+0186:  SUBLW  3C
+0187:  BTFSS  03.2
+0188:  GOTO   18D
+.................... { 
+.................... mint=0;sec=0;hrs++; 
+0189:  CLRF   2B
+018A:  CLRF   2A
+018B:  INCF   2C,F
+.................... glag=1; 
+018C:  BSF    35.0
+.................... } 
+.................... } 
+.................... } 
+.................... } 
+....................  
+018D:  BCF    0B.2
+018E:  BCF    0A.3
+018F:  BCF    0A.4
+0190:  GOTO   021
+.................... void command(unsigned char com) 
+.................... { 
+.................... portd=com; 
+*
+00D0:  MOVF   3E,W
+00D1:  MOVWF  08
+.................... reg=0; 
+00D2:  BCF    09.0
+.................... rw=0; 
+00D3:  BCF    09.1
+.................... en=1; 
+00D4:  BSF    09.2
+.................... delay_ms(1); 
+00D5:  MOVLW  01
+00D6:  MOVWF  40
+00D7:  CALL   0BD
+.................... en=0; 
+00D8:  BCF    09.2
+.................... } 
+00D9:  RETLW  00
+....................  
+.................... void data(unsigned char da) 
+.................... { 
+.................... portd=da; 
+00DA:  MOVF   3F,W
+00DB:  MOVWF  08
+.................... reg=1; 
+00DC:  BSF    09.0
+.................... rw=0; 
+00DD:  BCF    09.1
+.................... en=1; 
+00DE:  BSF    09.2
+.................... delay_ms(1); 
+00DF:  MOVLW  01
+00E0:  MOVWF  40
+00E1:  CALL   0BD
+.................... en=0; 
+00E2:  BCF    09.2
+.................... } 
+00E3:  RETLW  00
+....................  
+.................... void main() 
+.................... { 
+*
+0220:  CLRF   04
+0221:  MOVLW  1F
+0222:  ANDWF  03,F
+0223:  BSF    03.5
+0224:  BSF    1F.0
+0225:  BSF    1F.1
+0226:  BSF    1F.2
+0227:  BCF    1F.3
+0228:  MOVLW  07
+0229:  MOVWF  1C
+.................... portd=0x00; 
+*
+0234:  CLRF   08
+.................... porte=0x00; 
+0235:  CLRF   09
+.................... porta=0x00; 
+0236:  CLRF   05
+.................... portc=0x00; 
+0237:  CLRF   07
+.................... portb=0x00; 
+0238:  CLRF   06
+....................  
+.................... trisd=0x00; 
+0239:  BSF    03.5
+023A:  CLRF   08
+.................... trise=0x00; 
+023B:  CLRF   09
+.................... trisa=0x3f; 
+023C:  MOVLW  3F
+023D:  MOVWF  05
+.................... trisc=0x00; 
+023E:  CLRF   07
+.................... trisb=0xf0; 
+023F:  MOVLW  F0
+0240:  MOVWF  06
+....................  
+.................... adresh=0x00; 
+0241:  BCF    03.5
+0242:  CLRF   1E
+.................... adresl=0x00; 
+0243:  BSF    03.5
+0244:  CLRF   1E
+.................... adcon1=0x82; 
+0245:  MOVLW  82
+0246:  MOVWF  1F
+....................  
+.................... tmr0=0x00; 
+0247:  BCF    03.5
+0248:  CLRF   01
+.................... option_reg=0x07; 
+0249:  MOVLW  07
+024A:  BSF    03.5
+024B:  MOVWF  01
+.................... intcon=0x88; 
+024C:  MOVLW  88
+024D:  BCF    03.5
+024E:  MOVWF  0B
+024F:  CLRF   28
+0250:  BTFSC  0B.7
+0251:  BSF    28.7
+0252:  BCF    0B.7
+....................  
+.................... command(0x38); 
+0253:  MOVLW  38
+0254:  MOVWF  3E
+0255:  CALL   0D0
+0256:  BTFSC  28.7
+0257:  BSF    0B.7
+0258:  CLRF   28
+0259:  BTFSC  0B.7
+025A:  BSF    28.7
+025B:  BCF    0B.7
+.................... command(0x06); 
+025C:  MOVLW  06
+025D:  MOVWF  3E
+025E:  CALL   0D0
+025F:  BTFSC  28.7
+0260:  BSF    0B.7
+0261:  CLRF   28
+0262:  BTFSC  0B.7
+0263:  BSF    28.7
+0264:  BCF    0B.7
+.................... command(0x0c); 
+0265:  MOVLW  0C
+0266:  MOVWF  3E
+0267:  CALL   0D0
+0268:  BTFSC  28.7
+0269:  BSF    0B.7
+....................  
+.................... delay_ms(300); 
+026A:  MOVLW  02
+026B:  MOVWF  36
+026C:  CLRF   28
+026D:  BTFSC  0B.7
+026E:  BSF    28.7
+026F:  BCF    0B.7
+0270:  MOVLW  96
+0271:  MOVWF  40
+0272:  CALL   0BD
+0273:  BTFSC  28.7
+0274:  BSF    0B.7
+0275:  DECFSZ 36,F
+0276:  GOTO   26C
+0277:  CLRF   28
+0278:  BTFSC  0B.7
+0279:  BSF    28.7
+027A:  BCF    0B.7
+.................... command(0x80); 
+027B:  MOVLW  80
+027C:  MOVWF  3E
+027D:  CALL   0D0
+027E:  BTFSC  28.7
+027F:  BSF    0B.7
+.................... data("SOLAR TRACKING"); 
+0280:  CLRF   36
+0281:  MOVF   36,W
+0282:  CALL   092
+0283:  IORLW  00
+0284:  BTFSC  03.2
+0285:  GOTO   290
+0286:  INCF   36,F
+0287:  CLRF   28
+0288:  BTFSC  0B.7
+0289:  BSF    28.7
+028A:  BCF    0B.7
+028B:  MOVWF  3F
+028C:  CALL   0DA
+028D:  BTFSC  28.7
+028E:  BSF    0B.7
+028F:  GOTO   281
+.................... delay_ms(1000); 
+0290:  MOVLW  04
+0291:  MOVWF  36
+0292:  CLRF   28
+0293:  BTFSC  0B.7
+0294:  BSF    28.7
+0295:  BCF    0B.7
+0296:  MOVLW  FA
+0297:  MOVWF  40
+0298:  CALL   0BD
+0299:  BTFSC  28.7
+029A:  BSF    0B.7
+029B:  DECFSZ 36,F
+029C:  GOTO   292
+029D:  CLRF   28
+029E:  BTFSC  0B.7
+029F:  BSF    28.7
+02A0:  BCF    0B.7
+.................... command(0x01); 
+02A1:  MOVLW  01
+02A2:  MOVWF  3E
+02A3:  CALL   0D0
+02A4:  BTFSC  28.7
+02A5:  BSF    0B.7
+02A6:  CLRF   28
+02A7:  BTFSC  0B.7
+02A8:  BSF    28.7
+02A9:  BCF    0B.7
+....................  
+.................... while(1) 
+.................... { 
+.................... delay_ms(10); 
+02AA:  MOVLW  0A
+02AB:  MOVWF  40
+02AC:  CALL   0BD
+02AD:  BTFSC  28.7
+02AE:  BSF    0B.7
+.................... adcon0=0x81; 
+02AF:  MOVLW  81
+02B0:  MOVWF  1F
+.................... go=1; 
+02B1:  BSF    1F.2
+.................... while(go==1); 
+02B2:  BTFSC  1F.2
+02B3:  GOTO   2B2
+.................... SOLAR=make16(adresh,adresl); 
+02B4:  MOVF   1E,W
+02B5:  MOVWF  32
+02B6:  BSF    03.5
+02B7:  MOVF   1E,W
+02B8:  BCF    03.5
+02B9:  MOVWF  31
+02BA:  CLRF   28
+02BB:  BTFSC  0B.7
+02BC:  BSF    28.7
+02BD:  BCF    0B.7
+....................  
+.................... command(0x80); 
+02BE:  MOVLW  80
+02BF:  MOVWF  3E
+02C0:  CALL   0D0
+02C1:  BTFSC  28.7
+02C2:  BSF    0B.7
+.................... data("SOLAR:"); 
+02C3:  CLRF   36
+02C4:  MOVF   36,W
+02C5:  CALL   0A5
+02C6:  IORLW  00
+02C7:  BTFSC  03.2
+02C8:  GOTO   2D3
+02C9:  INCF   36,F
+02CA:  CLRF   28
+02CB:  BTFSC  0B.7
+02CC:  BSF    28.7
+02CD:  BCF    0B.7
+02CE:  MOVWF  3F
+02CF:  CALL   0DA
+02D0:  BTFSC  28.7
+02D1:  BSF    0B.7
+02D2:  GOTO   2C4
+.................... display_solar(SOLAR); 
+02D3:  MOVF   31,W
+02D4:  MOVWF  36
+02D5:  GOTO   1A6
+02D6:  CLRF   28
+02D7:  BTFSC  0B.7
+02D8:  BSF    28.7
+02D9:  BCF    0B.7
+....................  
+.................... delay_ms(100); 
+02DA:  MOVLW  64
+02DB:  MOVWF  40
+02DC:  CALL   0BD
+02DD:  BTFSC  28.7
+02DE:  BSF    0B.7
+.................... adcon0=0x89; 
+02DF:  MOVLW  89
+02E0:  MOVWF  1F
+.................... go=1; 
+02E1:  BSF    1F.2
+.................... while(go==1); 
+02E2:  BTFSC  1F.2
+02E3:  GOTO   2E2
+.................... BATTERY=make16(adresh,adresl); 
+02E4:  MOVF   1E,W
+02E5:  MOVWF  34
+02E6:  BSF    03.5
+02E7:  MOVF   1E,W
+02E8:  BCF    03.5
+02E9:  MOVWF  33
+02EA:  CLRF   28
+02EB:  BTFSC  0B.7
+02EC:  BSF    28.7
+02ED:  BCF    0B.7
+....................  
+.................... command(0xc0); 
+02EE:  MOVLW  C0
+02EF:  MOVWF  3E
+02F0:  CALL   0D0
+02F1:  BTFSC  28.7
+02F2:  BSF    0B.7
+.................... data("BATTERY:"); 
+02F3:  CLRF   36
+02F4:  MOVF   36,W
+02F5:  CALL   0B0
+02F6:  IORLW  00
+02F7:  BTFSC  03.2
+02F8:  GOTO   303
+02F9:  INCF   36,F
+02FA:  CLRF   28
+02FB:  BTFSC  0B.7
+02FC:  BSF    28.7
+02FD:  BCF    0B.7
+02FE:  MOVWF  3F
+02FF:  CALL   0DA
+0300:  BTFSC  28.7
+0301:  BSF    0B.7
+0302:  GOTO   2F4
+.................... display_battery(BATTERY); 
+0303:  MOVF   33,W
+0304:  MOVWF  36
+0305:  GOTO   1E3
+.................... delay_ms(300); 
+0306:  MOVLW  02
+0307:  MOVWF  36
+0308:  CLRF   28
+0309:  BTFSC  0B.7
+030A:  BSF    28.7
+030B:  BCF    0B.7
+030C:  MOVLW  96
+030D:  MOVWF  40
+030E:  CALL   0BD
+030F:  BTFSC  28.7
+0310:  BSF    0B.7
+0311:  DECFSZ 36,F
+0312:  GOTO   308
+....................  
+.................... if((SOLAR+50)>BATTERY) 
+0313:  MOVLW  32
+0314:  ADDWF  31,W
+0315:  MOVWF  36
+0316:  MOVF   32,W
+0317:  MOVWF  37
+0318:  BTFSC  03.0
+0319:  INCF   37,F
+031A:  MOVF   34,W
+031B:  SUBWF  37,W
+031C:  BTFSS  03.0
+031D:  GOTO   32C
+031E:  BTFSS  03.2
+031F:  GOTO   324
+0320:  MOVF   36,W
+0321:  SUBWF  33,W
+0322:  BTFSC  03.0
+0323:  GOTO   32C
+.................... { 
+.................... relay1=1;relay3=1;relay5=1;relay7=1;relay2=0;relay4=0;relay6=0;relay8=0; 
+0324:  BSF    07.0
+0325:  BSF    07.2
+0326:  BSF    07.4
+0327:  BSF    07.6
+0328:  BCF    07.1
+0329:  BCF    07.3
+032A:  BCF    07.5
+032B:  BCF    07.7
+.................... } 
+.................... if((BATTERY+50)>SOLAR) 
+032C:  MOVLW  32
+032D:  ADDWF  33,W
+032E:  MOVWF  36
+032F:  MOVF   34,W
+0330:  MOVWF  37
+0331:  BTFSC  03.0
+0332:  INCF   37,F
+0333:  MOVF   32,W
+0334:  SUBWF  37,W
+0335:  BTFSS  03.0
+0336:  GOTO   345
+0337:  BTFSS  03.2
+0338:  GOTO   33D
+0339:  MOVF   36,W
+033A:  SUBWF  31,W
+033B:  BTFSC  03.0
+033C:  GOTO   345
+.................... { 
+.................... relay2=1;relay4=1;relay6=1;relay8=1;relay1=0;relay3=0;relay5=0;relay7=0; 
+033D:  BSF    07.1
+033E:  BSF    07.3
+033F:  BSF    07.5
+0340:  BSF    07.7
+0341:  BCF    07.0
+0342:  BCF    07.2
+0343:  BCF    07.4
+0344:  BCF    07.6
+.................... } 
+.................... } 
+0345:  GOTO   2A6
+.................... } 
+.................... void display_solar(unsigned int m) 
+.................... { 
+0346:  SLEEP
+.................... int a[2],i=0; 
+*
+01A6:  CLRF   39
+.................... for(i=0;i<=1;i++) 
+01A7:  CLRF   39
+01A8:  MOVF   39,W
+01A9:  SUBLW  01
+01AA:  BTFSS  03.0
+01AB:  GOTO   1BF
+.................... { 
+.................... a[i]=m%10; 
+01AC:  MOVLW  37
+01AD:  ADDWF  39,W
+01AE:  MOVWF  04
+01AF:  MOVF   36,W
+01B0:  MOVWF  3B
+01B1:  MOVLW  0A
+01B2:  MOVWF  3C
+01B3:  CALL   191
+01B4:  MOVF   77,W
+01B5:  MOVWF  00
+.................... m=m/10; 
+01B6:  MOVF   36,W
+01B7:  MOVWF  3B
+01B8:  MOVLW  0A
+01B9:  MOVWF  3C
+01BA:  CALL   191
+01BB:  MOVF   78,W
+01BC:  MOVWF  36
+.................... } 
+01BD:  INCF   39,F
+01BE:  GOTO   1A8
+01BF:  CLRF   28
+01C0:  BTFSC  0B.7
+01C1:  BSF    28.7
+01C2:  BCF    0B.7
+....................  
+.................... command(0xc8); 
+01C3:  MOVLW  C8
+01C4:  MOVWF  3E
+01C5:  CALL   0D0
+01C6:  BTFSC  28.7
+01C7:  BSF    0B.7
+.................... data(a[1]|0x30); 
+01C8:  MOVF   38,W
+01C9:  IORLW  30
+01CA:  MOVWF  3A
+01CB:  CLRF   28
+01CC:  BTFSC  0B.7
+01CD:  BSF    28.7
+01CE:  BCF    0B.7
+01CF:  MOVF   3A,W
+01D0:  MOVWF  3F
+01D1:  CALL   0DA
+01D2:  BTFSC  28.7
+01D3:  BSF    0B.7
+.................... data(a[0]|0x30); 
+01D4:  MOVF   37,W
+01D5:  IORLW  30
+01D6:  MOVWF  3A
+01D7:  CLRF   28
+01D8:  BTFSC  0B.7
+01D9:  BSF    28.7
+01DA:  BCF    0B.7
+01DB:  MOVF   3A,W
+01DC:  MOVWF  3F
+01DD:  CALL   0DA
+01DE:  BTFSC  28.7
+01DF:  BSF    0B.7
+.................... } 
+01E0:  BCF    0A.3
+01E1:  BCF    0A.4
+01E2:  GOTO   2D6 (RETURN)
+....................  
+.................... void display_battery(unsigned int o) 
+.................... { 
+.................... int b[2],j=0; 
+01E3:  CLRF   39
+.................... for(j=0;j<=1;j++) 
+01E4:  CLRF   39
+01E5:  MOVF   39,W
+01E6:  SUBLW  01
+01E7:  BTFSS  03.0
+01E8:  GOTO   1FC
+.................... { 
+.................... b[j]=o%10; 
+01E9:  MOVLW  37
+01EA:  ADDWF  39,W
+01EB:  MOVWF  04
+01EC:  MOVF   36,W
+01ED:  MOVWF  3B
+01EE:  MOVLW  0A
+01EF:  MOVWF  3C
+01F0:  CALL   191
+01F1:  MOVF   77,W
+01F2:  MOVWF  00
+.................... o=o/10; 
+01F3:  MOVF   36,W
+01F4:  MOVWF  3B
+01F5:  MOVLW  0A
+01F6:  MOVWF  3C
+01F7:  CALL   191
+01F8:  MOVF   78,W
+01F9:  MOVWF  36
+.................... } 
+01FA:  INCF   39,F
+01FB:  GOTO   1E5
+01FC:  CLRF   28
+01FD:  BTFSC  0B.7
+01FE:  BSF    28.7
+01FF:  BCF    0B.7
+.................... command(0x88); 
+0200:  MOVLW  88
+0201:  MOVWF  3E
+0202:  CALL   0D0
+0203:  BTFSC  28.7
+0204:  BSF    0B.7
+.................... data(b[1]|0x30); 
+0205:  MOVF   38,W
+0206:  IORLW  30
+0207:  MOVWF  3A
+0208:  CLRF   28
+0209:  BTFSC  0B.7
+020A:  BSF    28.7
+020B:  BCF    0B.7
+020C:  MOVF   3A,W
+020D:  MOVWF  3F
+020E:  CALL   0DA
+020F:  BTFSC  28.7
+0210:  BSF    0B.7
+.................... data(b[0]|0x30); 
+0211:  MOVF   37,W
+0212:  IORLW  30
+0213:  MOVWF  3A
+0214:  CLRF   28
+0215:  BTFSC  0B.7
+0216:  BSF    28.7
+0217:  BCF    0B.7
+0218:  MOVF   3A,W
+0219:  MOVWF  3F
+021A:  CALL   0DA
+021B:  BTFSC  28.7
+021C:  BSF    0B.7
+.................... } 
+021D:  BCF    0A.3
+021E:  BCF    0A.4
+021F:  GOTO   306 (RETURN)

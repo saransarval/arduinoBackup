@@ -1,0 +1,40 @@
+[PROJECT]
+Target=tracking_final.HEX
+Development_Mode=2
+Processor=0x877A
+ToolSuite=CCS
+
+[Directories]
+Include=
+Library=
+LinkerScript=
+
+[Target Data]
+FileList=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.c
+BuildTool=C-COMPILER
+OptionString=+FM
+AdditionalOptionString=
+BuildRequired=1
+
+[tracking_final.c]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+
+[mru-list]
+1=C:\Users\GRTEMB~1\Desktop\FINAL_~1\TRACKI~1.C
+
+[Windows]
+0=0000 C:\Users\GRTEMB~1\Desktop\FINAL_~1\TRACKI~1.C 0 0 796 451 3 0
+
+[Opened Files]
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.c
+2=
+3=
+4=
+[Units]
+Count=1
+1=E:\Ganesh Potti\Ganesh Projects\Engineers Projects\Smart Host microcontroller_Ssiet\Final_solar tracking(22-03-14)\tracking_final.c (main)

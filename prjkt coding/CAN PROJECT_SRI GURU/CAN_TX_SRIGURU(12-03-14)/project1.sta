@@ -1,0 +1,51 @@
+
+ROM used: 3028 (9%)
+          3028 (9%) including unused fragments
+
+          2 Average locations per line
+          13 Average locations per statement
+
+RAM used: 78 (5%) at main() level
+          120 (8%) worst case
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  288   105  43  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\project1.c
+   62     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\tx_header.h
+  388     0   0  C:\Program Files\PICC\devices\18F458.h
+   93     0   0  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\pic18_f_reg.h
+  440   129  37  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\can-18xxx8_own.h
+  369     0   0  C:\Program Files\PICC\drivers\can-18xxx8.h
+   27     8   2  E:\Ganesh Potti\Ganesh Projects\Engineers Projects\CAN PROJECT_SRI GURU\CAN_TX_SRIGURU\reg.h
+----- -----
+ 3334   484 Total
+
+Page ROM  %  RAM  Functions:
+---- --- --- ---  ----------
+0     38   1   1  @delay_ms1
+0    216   4   2  can_init
+0     48   1   0  can_set_baud
+0     26   0   1  can_set_mode
+0    304   5  14  can_set_id
+0     10   0   0  timer0_isr
+0    264   4  13  ext_isr
+0     86   1  14  @MUL3232
+0     52   1   4  @DTOF
+0    244   4  11  @MULFF
+0    622  10  16  @ADDFF
+0     64   1   5  @FTOSD
+0     20   0   1  command
+0     20   0   1  data
+0    574   9   1  main
+0     42   1   0  @const10247
+0     44   1   0  @const10252
+0    122   2   9  display
+0     68   1   5  @DIV1616
+
+ Segment   Used  Free
+---------  ----  ----
+00000-00002     4  0  
+00004-00006     0  4  
+00008-000A6   160  0  
+000A8-07FFE  2864  29736  
+
